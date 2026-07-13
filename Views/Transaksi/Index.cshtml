@@ -1,0 +1,51 @@
+﻿@model POS_System.ViewModels.TransaksiIndexVm
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+	ViewData["Title"] = "Transaksi List";
+}
+<p align="right">
+	<a asp-action="Create" asp-controller="Transaksi" class="btn btn-success btn-sm">
+		<i class="fa fa-plus-square"></i>
+		Create New
+	</a>
+</p>
+<div id="BigDataWrapper">
+	<partial name="_TransaksiTable" model="Model" />
+</div>
+@section Scripts {
+	<script src="~/js/transaksiedit.js"></script>
+	<script>
+		$(document).ready(function() {
+			attachPagingListeners();
+		});
+		function loadPage(pageNumber) {
+			// Beri loading animation pada seluruh area tabel & paging
+			$('#BigDataWrapper').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-3x"></i> Loading Data...</div>');
+			$.ajax({
+				url: '@Url.Action("LoadPage", "Transaksi")',
+				type: 'GET',
+				data: { pageNumber: pageNumber },
+				success: function(htmlResponse) {
+					// 💡 Langsung masukkan response HTML bersih ke kontainer utama tanpa .find() lagi
+					$('#BigDataWrapper').html(htmlResponse);
+					attachPagingListeners();
+				},
+				error: function(xhr) {
+					alert("Error loading page: " + xhr.responseText);
+					$('#BigDataWrapper').html('<div class="alert alert-danger text-center">Gagal memuat data. Silakan coba lagi.</div>');
+				}
+			});
+		}
+		function attachPagingListeners() {
+			$(document).off("click", ".page-btn").on("click", ".page-btn", function(e) {
+				e.preventDefault();
+				if ($(this).parent().hasClass("disabled")) return;
+				var targetPage = parseInt($(this).data("page"));
+				loadPage(targetPage);
+			});
+		}
+	</script>
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

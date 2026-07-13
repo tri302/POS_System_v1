@@ -1,0 +1,1064 @@
+2026-07-09 10:36:51.083 +07:00 [WRN] Entity 'Produk' has a global query filter defined and is the required end of a relationship with the entity 'Inventori'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-07-09 10:36:51.167 +07:00 [WRN] Entity 'Produk' has a global query filter defined and is the required end of a relationship with the entity 'ProdukGambar'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-07-09 10:36:52.506 +07:00 [INF] Executed DbCommand (201ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`ConcurrencyStamp`, `a`.`Name`, `a`.`NormalizedName`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+2026-07-09 10:36:52.738 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`ConcurrencyStamp`, `a`.`Name`, `a`.`NormalizedName`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+2026-07-09 10:36:52.892 +07:00 [INF] Executed DbCommand (111ms) [Parameters=[@__defaultUser_Id_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT NOT EXISTS (
+    SELECT 1
+    FROM `AspNetUsers` AS `a`
+    WHERE `a`.`Id` = @__defaultUser_Id_0)
+2026-07-09 10:36:52.953 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`AccessFailedCount`, `a`.`ConcurrencyStamp`, `a`.`Email`, `a`.`EmailConfirmed`, `a`.`LockoutEnabled`, `a`.`LockoutEnd`, `a`.`NormalizedEmail`, `a`.`NormalizedUserName`, `a`.`PasswordHash`, `a`.`PhoneNumber`, `a`.`PhoneNumberConfirmed`, `a`.`SecurityStamp`, `a`.`Theme`, `a`.`TwoFactorEnabled`, `a`.`UserName`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 2
+2026-07-09 10:36:53.242 +07:00 [INF] Database Keep-Alive Service telah dimulai (Interval: 5 menit).
+2026-07-09 10:36:53.255 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T10:36:53.2548794+07:00"
+2026-07-09 10:36:54.185 +07:00 [INF] Ping Berhasil. Database tetap terjaga.
+2026-07-09 10:37:30.180 +07:00 [INF] Now listening on: http://localhost:5089
+2026-07-09 10:37:30.180 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-09 10:37:30.180 +07:00 [INF] Hosting environment: Development
+2026-07-09 10:37:30.180 +07:00 [INF] Content root path: C:\Users\ASUS\source\repos\POS_System
+2026-07-09 10:37:33.067 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/ - null null
+2026-07-09 10:37:33.097 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-07-09 10:37:34.293 +07:00 [INF] Executing endpoint 'POS_System.Controllers.AccountController.Login (POS_System)'
+2026-07-09 10:37:34.326 +07:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller POS_System.Controllers.AccountController (POS_System).
+2026-07-09 10:37:34.366 +07:00 [INF] Executing ViewResult, running view Login.
+2026-07-09 10:37:34.522 +07:00 [INF] Executed ViewResult - view Login executed in 160.619ms.
+2026-07-09 10:37:34.525 +07:00 [INF] Executed action POS_System.Controllers.AccountController.Login (POS_System) in 194.921ms
+2026-07-09 10:37:34.526 +07:00 [INF] Executed endpoint 'POS_System.Controllers.AccountController.Login (POS_System)'
+2026-07-09 10:37:34.539 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/ - 200 null text/html; charset=utf-8 1475.2381ms
+2026-07-09 10:37:34.987 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/images/kasir-transaksi.png - null null
+2026-07-09 10:37:34.992 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:37:35.046 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 39.309ms
+2026-07-09 10:37:35.046 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2026-07-09 10:37:35.055 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2026-07-09 10:37:35.058 +07:00 [INF] The file /lib/bootstrap/dist/js/bootstrap.bundle.min.js was not modified
+2026-07-09 10:37:35.058 +07:00 [INF] The file /lib/bootstrap/dist/css/bootstrap.min.css was not modified
+2026-07-09 10:37:35.059 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 304 null text/javascript 12.071ms
+2026-07-09 10:37:35.059 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/lib/bootstrap/dist/css/bootstrap.min.css - 304 null text/css 3.8414ms
+2026-07-09 10:37:35.189 +07:00 [INF] Sending file. Request path: '/images/kasir-transaksi.png'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\images\kasir-transaksi.png'
+2026-07-09 10:37:35.192 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/images/kasir-transaksi.png - 200 117480 image/png 204.8528ms
+2026-07-09 10:37:40.235 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/images/AvatarLoginPage.png - null null
+2026-07-09 10:37:40.252 +07:00 [INF] Sending file. Request path: '/images/AvatarLoginPage.png'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\images\AvatarLoginPage.png'
+2026-07-09 10:37:40.253 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/images/AvatarLoginPage.png - 200 144490 image/png 18.5453ms
+2026-07-09 10:37:40.407 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/lib/font-awesome/webfonts/fa-regular-400.woff2 - null null
+2026-07-09 10:37:40.409 +07:00 [INF] The file /lib/font-awesome/webfonts/fa-regular-400.woff2 was not modified
+2026-07-09 10:37:40.409 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/lib/font-awesome/webfonts/fa-regular-400.woff2 - 304 null font/woff2 2.1079ms
+2026-07-09 10:38:33.025 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5089/ - application/x-www-form-urlencoded 251
+2026-07-09 10:38:33.032 +07:00 [INF] Executing endpoint 'POS_System.Controllers.AccountController.Login (POS_System)'
+2026-07-09 10:38:33.094 +07:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(POS_System.LoginViewModel, System.String) on controller POS_System.Controllers.AccountController (POS_System).
+2026-07-09 10:38:33.348 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`AccessFailedCount`, `a`.`ConcurrencyStamp`, `a`.`Email`, `a`.`EmailConfirmed`, `a`.`LockoutEnabled`, `a`.`LockoutEnd`, `a`.`NormalizedEmail`, `a`.`NormalizedUserName`, `a`.`PasswordHash`, `a`.`PhoneNumber`, `a`.`PhoneNumberConfirmed`, `a`.`SecurityStamp`, `a`.`Theme`, `a`.`TwoFactorEnabled`, `a`.`UserName`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`NormalizedEmail` = @__normalizedEmail_0
+LIMIT 2
+2026-07-09 10:38:33.429 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`AccessFailedCount`, `a`.`ConcurrencyStamp`, `a`.`Email`, `a`.`EmailConfirmed`, `a`.`LockoutEnabled`, `a`.`LockoutEnd`, `a`.`NormalizedEmail`, `a`.`NormalizedUserName`, `a`.`PasswordHash`, `a`.`PhoneNumber`, `a`.`PhoneNumberConfirmed`, `a`.`SecurityStamp`, `a`.`Theme`, `a`.`TwoFactorEnabled`, `a`.`UserName`
+FROM `AspNetUsers` AS `a`
+WHERE `a`.`NormalizedUserName` = @__normalizedUserName_0
+LIMIT 1
+2026-07-09 10:38:33.831 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`ClaimType`, `a`.`ClaimValue`, `a`.`UserId`
+FROM `AspNetUserClaims` AS `a`
+WHERE `a`.`UserId` = @__user_Id_0
+2026-07-09 10:38:33.894 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a0`.`Name`
+FROM `AspNetUserRoles` AS `a`
+INNER JOIN `AspNetRoles` AS `a0` ON `a`.`RoleId` = `a0`.`Id`
+WHERE `a`.`UserId` = @__userId_0
+2026-07-09 10:38:33.899 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`ConcurrencyStamp`, `a`.`Name`, `a`.`NormalizedName`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`NormalizedName` = @__normalizedName_0
+LIMIT 1
+2026-07-09 10:38:33.929 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`ClaimType`, `a`.`ClaimValue`
+FROM `AspNetRoleClaims` AS `a`
+WHERE `a`.`RoleId` = @__role_Id_0
+2026-07-09 10:38:33.945 +07:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2026-07-09 10:38:33.975 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedRoleName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`Id`, `a`.`ConcurrencyStamp`, `a`.`Name`, `a`.`NormalizedName`
+FROM `AspNetRoles` AS `a`
+WHERE `a`.`NormalizedName` = @__normalizedRoleName_0
+LIMIT 2
+2026-07-09 10:38:34.032 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 255), @__p_1='?' (Size = 255)], CommandType='"Text"', CommandTimeout='30']
+SELECT `a`.`UserId`, `a`.`RoleId`
+FROM `AspNetUserRoles` AS `a`
+WHERE (`a`.`UserId` = @__p_0) AND (`a`.`RoleId` = @__p_1)
+LIMIT 1
+2026-07-09 10:38:34.079 +07:00 [INF] Executing LocalRedirectResult, redirecting to /Dashboard/Index.
+2026-07-09 10:38:34.081 +07:00 [INF] Executed action POS_System.Controllers.AccountController.Login (POS_System) in 987.626ms
+2026-07-09 10:38:34.082 +07:00 [INF] Executed endpoint 'POS_System.Controllers.AccountController.Login (POS_System)'
+2026-07-09 10:38:34.097 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5089/ - 302 null null 1072.1536ms
+2026-07-09 10:38:34.177 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Dashboard/Index - null null
+2026-07-09 10:38:34.207 +07:00 [INF] Executing endpoint 'POS_System.Controllers.DashboardController.Index (POS_System)'
+2026-07-09 10:38:34.213 +07:00 [INF] Route matched with {action = "Index", controller = "Dashboard"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller POS_System.Controllers.DashboardController (POS_System).
+2026-07-09 10:38:34.664 +07:00 [INF] Executed DbCommand (170ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`IdTransaksi`, `t`.`IdKaryawan`, `t`.`IdMetodeBayar`, `t`.`IdPelanggan`, `t`.`IdShift`, `t`.`Kembalian`, `t`.`NoTransaksi`, `t`.`NominalBayar`, `t`.`Notes`, `t`.`Status`, `t`.`TanggalTransaksi`, `t`.`TotalBelanja`
+FROM `Transaksis` AS `t`
+WHERE (`t`.`TanggalTransaksi` >= @__start_0) AND (`t`.`TanggalTransaksi` <= @__end_1)
+ORDER BY `t`.`IdTransaksi`
+2026-07-09 10:38:34.775 +07:00 [INF] Executed DbCommand (49ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM(`a`.`Amount`), 0.0)
+FROM `AlurKass` AS `a`
+INNER JOIN `CashFlows` AS `c` ON `a`.`IdCashFlow` = `c`.`IdCashFlow`
+WHERE ((`c`.`IdTipeCashFlow` = 1) AND (`a`.`Date` >= @__start_0)) AND (`a`.`Date` <= @__end_1)
+2026-07-09 10:38:34.798 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM(`a`.`Amount`), 0.0)
+FROM `AlurKass` AS `a`
+INNER JOIN `CashFlows` AS `c` ON `a`.`IdCashFlow` = `c`.`IdCashFlow`
+WHERE ((`c`.`IdTipeCashFlow` = 2) AND (`a`.`Date` >= @__start_0)) AND (`a`.`Date` <= @__end_1)
+2026-07-09 10:38:34.808 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM(`a`.`Amount`), 0.0)
+FROM `AlurKass` AS `a`
+INNER JOIN `CashFlows` AS `c` ON `a`.`IdCashFlow` = `c`.`IdCashFlow`
+WHERE ((`c`.`IdTipeCashFlow` = 1) AND (`a`.`Date` >= @__start_0)) AND (`a`.`Date` <= @__end_1)
+2026-07-09 10:38:34.858 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM((
+    SELECT COALESCE(SUM(`t0`.`HargaJual` * CAST(`t0`.`Qty` AS decimal(65,30))), 0.0)
+    FROM `TransaksiDetails` AS `t0`
+    WHERE `t`.`IdTransaksi` = `t0`.`IdTransaksi`)), 0.0)
+FROM `Transaksis` AS `t`
+WHERE (`t`.`TanggalTransaksi` >= @__start_0) AND (`t`.`TanggalTransaksi` <= @__end_1)
+2026-07-09 10:38:34.861 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM(`a`.`Amount`), 0.0)
+FROM `AlurKass` AS `a`
+INNER JOIN `CashFlows` AS `c` ON `a`.`IdCashFlow` = `c`.`IdCashFlow`
+WHERE ((`c`.`IdTipeCashFlow` = 2) AND (`a`.`Date` >= @__start_0)) AND (`a`.`Date` <= @__end_1)
+2026-07-09 10:38:35.047 +07:00 [INF] Executed DbCommand (68ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime), @__p_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`IdProduk`, `p0`.`NamaProduk`, COALESCE(`p2`.`UnitName`, 'Pcs') AS `UnitName`, COALESCE(SUM(`t`.`Qty`), 0) AS `TotalTerjual`, (
+    SELECT `p3`.`PathGambar`
+    FROM `ProdukGambars` AS `p3`
+    WHERE (
+        SELECT `p9`.`IdProduk`
+        FROM `TransaksiDetails` AS `t1`
+        INNER JOIN `Transaksis` AS `t2` ON `t1`.`IdTransaksi` = `t2`.`IdTransaksi`
+        LEFT JOIN (
+            SELECT `p5`.`IdProduk`, `p5`.`NamaProduk`
+            FROM `Produks` AS `p5`
+            WHERE (`p5`.`StatusProduk` <> 'Tidak Aktif') OR `p5`.`StatusProduk` IS NULL
+        ) AS `p4` ON `t1`.`IdProduk` = `p4`.`IdProduk`
+        LEFT JOIN (
+            SELECT `p7`.`ProductUnitId`, `p7`.`UnitName`
+            FROM `ProductUnits` AS `p7`
+            WHERE NOT (`p7`.`IsDeleted`)
+        ) AS `p6` ON `t1`.`ProductUnitId` = `p6`.`ProductUnitId`
+        LEFT JOIN (
+            SELECT `p8`.`IdProduk`
+            FROM `Produks` AS `p8`
+            WHERE (`p8`.`StatusProduk` <> 'Tidak Aktif') OR `p8`.`StatusProduk` IS NULL
+        ) AS `p9` ON `t1`.`IdProduk` = `p9`.`IdProduk`
+        WHERE ((`t2`.`TanggalTransaksi` >= @__start_0) AND (`t2`.`TanggalTransaksi` <= @__end_1)) AND (((`t`.`IdProduk` = `t1`.`IdProduk`) AND ((`p0`.`NamaProduk` = `p4`.`NamaProduk`) OR (`p0`.`NamaProduk` IS NULL AND (`p4`.`NamaProduk` IS NULL)))) AND ((`p2`.`UnitName` = `p6`.`UnitName`) OR (`p2`.`UnitName` IS NULL AND (`p6`.`UnitName` IS NULL))))
+        LIMIT 1) IS NOT NULL AND ((
+        SELECT `p15`.`IdProduk`
+        FROM `TransaksiDetails` AS `t3`
+        INNER JOIN `Transaksis` AS `t4` ON `t3`.`IdTransaksi` = `t4`.`IdTransaksi`
+        LEFT JOIN (
+            SELECT `p11`.`IdProduk`, `p11`.`NamaProduk`
+            FROM `Produks` AS `p11`
+            WHERE (`p11`.`StatusProduk` <> 'Tidak Aktif') OR `p11`.`StatusProduk` IS NULL
+        ) AS `p10` ON `t3`.`IdProduk` = `p10`.`IdProduk`
+        LEFT JOIN (
+            SELECT `p13`.`ProductUnitId`, `p13`.`UnitName`
+            FROM `ProductUnits` AS `p13`
+            WHERE NOT (`p13`.`IsDeleted`)
+        ) AS `p12` ON `t3`.`ProductUnitId` = `p12`.`ProductUnitId`
+        LEFT JOIN (
+            SELECT `p14`.`IdProduk`
+            FROM `Produks` AS `p14`
+            WHERE (`p14`.`StatusProduk` <> 'Tidak Aktif') OR `p14`.`StatusProduk` IS NULL
+        ) AS `p15` ON `t3`.`IdProduk` = `p15`.`IdProduk`
+        WHERE ((`t4`.`TanggalTransaksi` >= @__start_0) AND (`t4`.`TanggalTransaksi` <= @__end_1)) AND (((`t`.`IdProduk` = `t3`.`IdProduk`) AND ((`p0`.`NamaProduk` = `p10`.`NamaProduk`) OR (`p0`.`NamaProduk` IS NULL AND (`p10`.`NamaProduk` IS NULL)))) AND ((`p2`.`UnitName` = `p12`.`UnitName`) OR (`p2`.`UnitName` IS NULL AND (`p12`.`UnitName` IS NULL))))
+        LIMIT 1) = `p3`.`IdProduk`)
+    LIMIT 1) AS `GambarUrl`
+FROM `TransaksiDetails` AS `t`
+INNER JOIN `Transaksis` AS `t0` ON `t`.`IdTransaksi` = `t0`.`IdTransaksi`
+LEFT JOIN (
+    SELECT `p`.`IdProduk`, `p`.`NamaProduk`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+) AS `p0` ON `t`.`IdProduk` = `p0`.`IdProduk`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`UnitName`
+    FROM `ProductUnits` AS `p1`
+    WHERE NOT (`p1`.`IsDeleted`)
+) AS `p2` ON `t`.`ProductUnitId` = `p2`.`ProductUnitId`
+WHERE (`t0`.`TanggalTransaksi` >= @__start_0) AND (`t0`.`TanggalTransaksi` <= @__end_1)
+GROUP BY `t`.`IdProduk`, `p0`.`NamaProduk`, `p2`.`UnitName`
+ORDER BY COALESCE(SUM(`t`.`Qty`), 0) DESC
+LIMIT @__p_2
+2026-07-09 10:38:35.577 +07:00 [INF] Executed DbCommand (219ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`NamaProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`, CASE
+    WHEN `p`.`Stok` <= 0 THEN 'Habis'
+    WHEN `p`.`Stok` <= 5 THEN 'Hampir Habis'
+    ELSE 'Aman'
+END, (
+    SELECT `p0`.`PathGambar`
+    FROM `ProdukGambars` AS `p0`
+    WHERE `p`.`IdProduk` = `p0`.`IdProduk`
+    LIMIT 1)
+FROM `Produks` AS `p`
+WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+ORDER BY `p`.`Stok`, `p`.`IdProduk`
+LIMIT @__p_0
+2026-07-09 10:38:35.847 +07:00 [INF] Executed DbCommand (163ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p0`.`IdProdukGambar`, `p0`.`IdProduk`, `p0`.`PathGambar`, `p3`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+    ORDER BY `p`.`Stok`
+    LIMIT @__p_0
+) AS `p3`
+INNER JOIN `ProdukGambars` AS `p0` ON `p3`.`IdProduk` = `p0`.`IdProduk`
+ORDER BY `p3`.`Stok`, `p3`.`IdProduk`
+2026-07-09 10:38:36.142 +07:00 [INF] Executed DbCommand (236ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p5`.`ProductUnitId`, `p5`.`ConversionValue`, `p5`.`HargaJual`, `p5`.`HargaModal`, `p5`.`IdProduk`, `p5`.`IsDeleted`, `p5`.`Is_Default`, `p5`.`UnitName`, `p4`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+    ORDER BY `p`.`Stok`
+    LIMIT @__p_0
+) AS `p4`
+INNER JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`
+    FROM `ProductUnits` AS `p1`
+    WHERE NOT (`p1`.`IsDeleted`)
+) AS `p5` ON `p4`.`IdProduk` = `p5`.`IdProduk`
+ORDER BY `p4`.`Stok`, `p4`.`IdProduk`
+2026-07-09 10:38:36.492 +07:00 [INF] Executing ViewResult, running view Index.
+2026-07-09 10:38:37.092 +07:00 [INF] Executed ViewResult - view Index executed in 602.5304ms.
+2026-07-09 10:38:37.093 +07:00 [INF] Executed action POS_System.Controllers.DashboardController.Index (POS_System) in 2879.7261ms
+2026-07-09 10:38:37.094 +07:00 [INF] Executed endpoint 'POS_System.Controllers.DashboardController.Index (POS_System)'
+2026-07-09 10:38:37.094 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Dashboard/Index - 200 null text/html; charset=utf-8 2917.4065ms
+2026-07-09 10:38:37.506 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:38:37.536 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 31.2322ms
+2026-07-09 10:38:37.553 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/images/kasir-transaksi-Admin.png - null null
+2026-07-09 10:38:37.562 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/images/produk/672f5e5d-ee5b-4aa7-9e49-3aae5fe7cb3d_a4b5f9e3-be39-403d-a896-a573d9bdbc1a_mie goreng.png - null null
+2026-07-09 10:38:37.564 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/images/no-image.png - null null
+2026-07-09 10:38:37.609 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/images/produk/79f79828-2b7e-40c7-be47-c9ea8ae336ad_93d139db-1624-4b29-8a49-e52b15544d4b_indomi.png - null null
+2026-07-09 10:38:37.623 +07:00 [INF] Sending file. Request path: '/images/no-image.png'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\images\no-image.png'
+2026-07-09 10:38:37.624 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/images/no-image.png - 200 6137 image/png 60.132ms
+2026-07-09 10:38:37.627 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/images/produk/e718a974-ce88-4191-82d8-ad91fad3a0f8_1082ef1c-32e0-4ed0-b3ec-2fae1c654363_mie sedap.png - null null
+2026-07-09 10:38:37.645 +07:00 [INF] Sending file. Request path: '/images/produk/e718a974-ce88-4191-82d8-ad91fad3a0f8_1082ef1c-32e0-4ed0-b3ec-2fae1c654363_mie sedap.png'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\images\produk\e718a974-ce88-4191-82d8-ad91fad3a0f8_1082ef1c-32e0-4ed0-b3ec-2fae1c654363_mie sedap.png'
+2026-07-09 10:38:37.648 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/images/produk/e718a974-ce88-4191-82d8-ad91fad3a0f8_1082ef1c-32e0-4ed0-b3ec-2fae1c654363_mie sedap.png - 200 10204 image/png 18.6231ms
+2026-07-09 10:38:37.655 +07:00 [INF] Sending file. Request path: '/images/produk/79f79828-2b7e-40c7-be47-c9ea8ae336ad_93d139db-1624-4b29-8a49-e52b15544d4b_indomi.png'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\images\produk\79f79828-2b7e-40c7-be47-c9ea8ae336ad_93d139db-1624-4b29-8a49-e52b15544d4b_indomi.png'
+2026-07-09 10:38:37.656 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/images/produk/79f79828-2b7e-40c7-be47-c9ea8ae336ad_93d139db-1624-4b29-8a49-e52b15544d4b_indomi.png - 200 20185 image/png 46.6783ms
+2026-07-09 10:38:37.660 +07:00 [INF] Sending file. Request path: '/images/produk/672f5e5d-ee5b-4aa7-9e49-3aae5fe7cb3d_a4b5f9e3-be39-403d-a896-a573d9bdbc1a_mie goreng.png'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\images\produk\672f5e5d-ee5b-4aa7-9e49-3aae5fe7cb3d_a4b5f9e3-be39-403d-a896-a573d9bdbc1a_mie goreng.png'
+2026-07-09 10:38:37.661 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/images/produk/672f5e5d-ee5b-4aa7-9e49-3aae5fe7cb3d_a4b5f9e3-be39-403d-a896-a573d9bdbc1a_mie goreng.png - 200 15559 image/png 99.4232ms
+2026-07-09 10:38:37.707 +07:00 [INF] Sending file. Request path: '/images/kasir-transaksi-Admin.png'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\images\kasir-transaksi-Admin.png'
+2026-07-09 10:38:37.707 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/images/kasir-transaksi-Admin.png - 200 132526 image/png 154.591ms
+2026-07-09 10:38:38.529 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Dashboard/LoadArusKasChart - null null
+2026-07-09 10:38:38.531 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Dashboard/LoadTransaksiPerMetodeBayarChart?rentang=0&from=&to= - null null
+2026-07-09 10:38:38.532 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Dashboard/LoadDashboard?rentang=HariIni&from=&to= - null null
+2026-07-09 10:38:38.564 +07:00 [INF] Executing endpoint 'POS_System.Controllers.DashboardController.LoadArusKasChart (POS_System)'
+2026-07-09 10:38:38.564 +07:00 [INF] Executing endpoint 'POS_System.Controllers.DashboardController.LoadDashboard (POS_System)'
+2026-07-09 10:38:38.564 +07:00 [INF] Executing endpoint 'POS_System.Controllers.DashboardController.LoadTransaksiPerMetodeBayarChart (POS_System)'
+2026-07-09 10:38:38.577 +07:00 [INF] Route matched with {action = "LoadTransaksiPerMetodeBayarChart", controller = "Dashboard"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LoadTransaksiPerMetodeBayarChart(POS_System.ViewModels.RentangWaktu, System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller POS_System.Controllers.DashboardController (POS_System).
+2026-07-09 10:38:38.577 +07:00 [INF] Route matched with {action = "LoadArusKasChart", controller = "Dashboard"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LoadArusKasChart(POS_System.ViewModels.RentangWaktu, System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller POS_System.Controllers.DashboardController (POS_System).
+2026-07-09 10:38:38.577 +07:00 [INF] Route matched with {action = "LoadDashboard", controller = "Dashboard"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LoadDashboard(POS_System.ViewModels.RentangWaktu, System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller POS_System.Controllers.DashboardController (POS_System).
+2026-07-09 10:38:38.602 +07:00 [INF] Executing PartialViewResult, running view _PartialDashboard.
+2026-07-09 10:38:38.604 +07:00 [INF] Executed PartialViewResult - view _PartialDashboard executed in 3.1387ms.
+2026-07-09 10:38:38.604 +07:00 [INF] Executed action POS_System.Controllers.DashboardController.LoadDashboard (POS_System) in 26.4938ms
+2026-07-09 10:38:38.604 +07:00 [INF] Executed endpoint 'POS_System.Controllers.DashboardController.LoadDashboard (POS_System)'
+2026-07-09 10:38:38.604 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Dashboard/LoadDashboard?rentang=HariIni&from=&to= - 200 null text/html; charset=utf-8 72.4575ms
+2026-07-09 10:38:38.678 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Dashboard/LoadTransaksiPerMetodeBayarChart?rentang=HariIni&from=&to= - null null
+2026-07-09 10:38:38.679 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Dashboard/LoadArusKasChart?rentang=HariIni&from=&to= - null null
+2026-07-09 10:38:38.722 +07:00 [INF] Executing endpoint 'POS_System.Controllers.DashboardController.LoadArusKasChart (POS_System)'
+2026-07-09 10:38:38.722 +07:00 [INF] Executing endpoint 'POS_System.Controllers.DashboardController.LoadTransaksiPerMetodeBayarChart (POS_System)'
+2026-07-09 10:38:38.722 +07:00 [INF] Route matched with {action = "LoadArusKasChart", controller = "Dashboard"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LoadArusKasChart(POS_System.ViewModels.RentangWaktu, System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller POS_System.Controllers.DashboardController (POS_System).
+2026-07-09 10:38:38.722 +07:00 [INF] Route matched with {action = "LoadTransaksiPerMetodeBayarChart", controller = "Dashboard"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LoadTransaksiPerMetodeBayarChart(POS_System.ViewModels.RentangWaktu, System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller POS_System.Controllers.DashboardController (POS_System).
+2026-07-09 10:38:38.750 +07:00 [INF] Executed DbCommand (109ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`TipeCashFlowName` AS `Label`, COALESCE(SUM(`a`.`Amount`), 0.0) AS `Value`
+FROM `AlurKass` AS `a`
+INNER JOIN `CashFlows` AS `c` ON `a`.`IdCashFlow` = `c`.`IdCashFlow`
+INNER JOIN `TipeCashFlows` AS `t` ON `c`.`IdTipeCashFlow` = `t`.`IdTipeCashFlow`
+WHERE (`a`.`Date` >= @__start_0) AND (`a`.`Date` <= @__end_1)
+GROUP BY `t`.`TipeCashFlowName`
+2026-07-09 10:38:38.763 +07:00 [INF] Executed DbCommand (15ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT `m`.`NamaMetodeBayar` AS `Label`, CAST(COUNT(*) AS decimal(65,30)) AS `Value`
+FROM `Transaksis` AS `t`
+INNER JOIN `MetodeBayars` AS `m` ON `t`.`IdMetodeBayar` = `m`.`IdMetodeBayar`
+WHERE (`t`.`TanggalTransaksi` >= @__start_0) AND (`t`.`TanggalTransaksi` <= @__end_1)
+GROUP BY `m`.`NamaMetodeBayar`
+2026-07-09 10:38:38.765 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.ViewModels.ChartItemVM, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:38:38.765 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.ViewModels.ChartItemVM, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:38:38.768 +07:00 [INF] Executed DbCommand (111ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT `m`.`NamaMetodeBayar` AS `Label`, CAST(COUNT(*) AS decimal(65,30)) AS `Value`
+FROM `Transaksis` AS `t`
+INNER JOIN `MetodeBayars` AS `m` ON `t`.`IdMetodeBayar` = `m`.`IdMetodeBayar`
+WHERE (`t`.`TanggalTransaksi` >= @__start_0) AND (`t`.`TanggalTransaksi` <= @__end_1)
+GROUP BY `m`.`NamaMetodeBayar`
+2026-07-09 10:38:38.769 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.ViewModels.ChartItemVM, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:38:38.796 +07:00 [INF] Executed DbCommand (20ms) [Parameters=[@__start_0='?' (DbType = DateTime), @__end_1='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`TipeCashFlowName` AS `Label`, COALESCE(SUM(`a`.`Amount`), 0.0) AS `Value`
+FROM `AlurKass` AS `a`
+INNER JOIN `CashFlows` AS `c` ON `a`.`IdCashFlow` = `c`.`IdCashFlow`
+INNER JOIN `TipeCashFlows` AS `t` ON `c`.`IdTipeCashFlow` = `t`.`IdTipeCashFlow`
+WHERE (`a`.`Date` >= @__start_0) AND (`a`.`Date` <= @__end_1)
+GROUP BY `t`.`TipeCashFlowName`
+2026-07-09 10:38:38.801 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.ViewModels.ChartItemVM, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:38:38.882 +07:00 [INF] Executed action POS_System.Controllers.DashboardController.LoadArusKasChart (POS_System) in 304.2545ms
+2026-07-09 10:38:38.882 +07:00 [INF] Executed endpoint 'POS_System.Controllers.DashboardController.LoadArusKasChart (POS_System)'
+2026-07-09 10:38:38.883 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Dashboard/LoadArusKasChart - 200 null application/json; charset=utf-8 353.2892ms
+2026-07-09 10:38:38.883 +07:00 [INF] Executed action POS_System.Controllers.DashboardController.LoadTransaksiPerMetodeBayarChart (POS_System) in 306.5213ms
+2026-07-09 10:38:38.884 +07:00 [INF] Executed endpoint 'POS_System.Controllers.DashboardController.LoadTransaksiPerMetodeBayarChart (POS_System)'
+2026-07-09 10:38:38.884 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Dashboard/LoadTransaksiPerMetodeBayarChart?rentang=0&from=&to= - 200 null application/json; charset=utf-8 352.9028ms
+2026-07-09 10:38:38.885 +07:00 [INF] Executed action POS_System.Controllers.DashboardController.LoadArusKasChart (POS_System) in 163.0411ms
+2026-07-09 10:38:38.885 +07:00 [INF] Executed endpoint 'POS_System.Controllers.DashboardController.LoadArusKasChart (POS_System)'
+2026-07-09 10:38:38.886 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Dashboard/LoadArusKasChart?rentang=HariIni&from=&to= - 200 null application/json; charset=utf-8 207.073ms
+2026-07-09 10:38:38.886 +07:00 [INF] Executed action POS_System.Controllers.DashboardController.LoadTransaksiPerMetodeBayarChart (POS_System) in 164.4954ms
+2026-07-09 10:38:38.887 +07:00 [INF] Executed endpoint 'POS_System.Controllers.DashboardController.LoadTransaksiPerMetodeBayarChart (POS_System)'
+2026-07-09 10:38:38.887 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Dashboard/LoadTransaksiPerMetodeBayarChart?rentang=HariIni&from=&to= - 200 null application/json; charset=utf-8 208.701ms
+2026-07-09 10:38:44.019 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/Index - null null
+2026-07-09 10:38:44.026 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Index (POS_System)'
+2026-07-09 10:38:44.035 +07:00 [INF] Route matched with {action = "Index", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:38:44.086 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM `Inventoris` AS `i`
+WHERE `i`.`NoReferensi` IS NOT NULL AND (`i`.`NoReferensi` <> '')
+2026-07-09 10:38:44.175 +07:00 [INF] Executed DbCommand (28ms) [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i0`.`IdInventori`, `i0`.`HargaModal`, `i0`.`IdProduk`, `i0`.`Jumlah`, `i0`.`NoReferensi`, `i0`.`Notes`, `i0`.`ProductUnitId`, `i0`.`Sumber`, `i0`.`Tanggal`, `i0`.`TipeStok`, `i0`.`TotalModal`, `p0`.`IdProduk`, `p0`.`Deskripsi`, `p0`.`IdKategori`, `p0`.`KodeBarcode`, `p0`.`NamaProduk`, `p0`.`SKU`, `p0`.`StatusProduk`, `p0`.`Stok`
+FROM (
+    SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`
+    FROM `Inventoris` AS `i`
+    WHERE `i`.`NoReferensi` IS NOT NULL AND (`i`.`NoReferensi` <> '')
+    ORDER BY `i`.`IdInventori` DESC
+    LIMIT @__p_1 OFFSET @__p_0
+) AS `i0`
+INNER JOIN (
+    SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+) AS `p0` ON `i0`.`IdProduk` = `p0`.`IdProduk`
+ORDER BY `i0`.`IdInventori` DESC
+2026-07-09 10:38:44.212 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`Nama`
+FROM `TipeStoks` AS `t`
+2026-07-09 10:38:44.249 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+2026-07-09 10:38:44.275 +07:00 [INF] Executing ViewResult, running view Index.
+2026-07-09 10:38:44.306 +07:00 [INF] Executed ViewResult - view Index executed in 32.7294ms.
+2026-07-09 10:38:44.306 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Index (POS_System) in 271.3098ms
+2026-07-09 10:38:44.307 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Index (POS_System)'
+2026-07-09 10:38:44.307 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/Index - 200 null text/html; charset=utf-8 288.5179ms
+2026-07-09 10:38:44.494 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:38:44.495 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 0.2247ms
+2026-07-09 10:38:47.138 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/Create - null null
+2026-07-09 10:38:47.149 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Create (POS_System)'
+2026-07-09 10:38:47.152 +07:00 [INF] Route matched with {action = "Create", controller = "Inventori"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:38:47.155 +07:00 [INF] Executing ViewResult, running view Create.
+2026-07-09 10:38:47.234 +07:00 [INF] Executed ViewResult - view Create executed in 80.2588ms.
+2026-07-09 10:38:47.235 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Create (POS_System) in 82.3201ms
+2026-07-09 10:38:47.235 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Create (POS_System)'
+2026-07-09 10:38:47.235 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/Create - 200 null text/html; charset=utf-8 97.4483ms
+2026-07-09 10:38:47.443 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:38:47.444 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 0.5671ms
+2026-07-09 10:38:47.457 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/js/inventoricreate.js - null null
+2026-07-09 10:38:47.459 +07:00 [INF] The file /js/inventoricreate.js was not modified
+2026-07-09 10:38:47.459 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/js/inventoricreate.js - 304 null text/javascript 1.7698ms
+2026-07-09 10:38:47.727 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - null null
+2026-07-09 10:38:47.740 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:38:47.747 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:38:47.776 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:38:47.778 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:38:47.816 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 69.2209ms
+2026-07-09 10:38:47.817 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:38:47.817 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - 200 null application/json; charset=utf-8 89.4965ms
+2026-07-09 10:38:59.735 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/SearchProduk?term=ka - null null
+2026-07-09 10:38:59.740 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.SearchProduk (POS_System)'
+2026-07-09 10:38:59.747 +07:00 [INF] Route matched with {action = "SearchProduk", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SearchProduk(System.String) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:38:59.787 +07:00 [INF] Executed DbCommand (13ms) [Parameters=[@__term_0_contains='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk` AS `id`, `p`.`NamaProduk` AS `nama`
+FROM `Produks` AS `p`
+WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`NamaProduk` LIKE @__term_0_contains)
+2026-07-09 10:38:59.884 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[<>f__AnonymousType62`2[[System.Int64, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:38:59.912 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.SearchProduk (POS_System) in 164.6934ms
+2026-07-09 10:38:59.913 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.SearchProduk (POS_System)'
+2026-07-09 10:38:59.913 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/SearchProduk?term=ka - 200 null application/json; charset=utf-8 177.8809ms
+2026-07-09 10:39:02.975 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetProdukDetail/1 - null null
+2026-07-09 10:39:02.979 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetProdukDetail (POS_System)'
+2026-07-09 10:39:02.986 +07:00 [INF] Route matched with {action = "GetProdukDetail", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetProdukDetail(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:39:03.034 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+FROM `Produks` AS `p`
+WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__p_0)
+ORDER BY `p`.`IdProduk`
+LIMIT 1
+2026-07-09 10:39:03.042 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`, `p1`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`
+    FROM `Produks` AS `p`
+    WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__p_0)
+    LIMIT 1
+) AS `p1`
+INNER JOIN (
+    SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`
+    FROM `ProductUnits` AS `p0`
+    WHERE NOT (`p0`.`IsDeleted`)
+) AS `p2` ON `p1`.`IdProduk` = `p2`.`IdProduk`
+ORDER BY `p1`.`IdProduk`
+2026-07-09 10:39:03.046 +07:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType61`4[[System.Int64, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType2`3[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:39:03.060 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetProdukDetail (POS_System) in 74.0998ms
+2026-07-09 10:39:03.061 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetProdukDetail (POS_System)'
+2026-07-09 10:39:03.062 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetProdukDetail/1 - 200 null application/json; charset=utf-8 86.9232ms
+2026-07-09 10:39:42.576 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetProductByBarcode?barcode=089686010343 - null null
+2026-07-09 10:39:42.581 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetProductByBarcode (POS_System)'
+2026-07-09 10:39:42.588 +07:00 [INF] Route matched with {action = "GetProductByBarcode", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetProductByBarcode(System.String) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:39:42.621 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__barcode_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+FROM `Produks` AS `p`
+WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND ((`p`.`KodeBarcode` = @__barcode_0) OR (`p`.`SKU` = @__barcode_0))
+ORDER BY `p`.`IdProduk`
+LIMIT 1
+2026-07-09 10:39:42.627 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__barcode_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`, `p1`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`
+    FROM `Produks` AS `p`
+    WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND ((`p`.`KodeBarcode` = @__barcode_0) OR (`p`.`SKU` = @__barcode_0))
+    LIMIT 1
+) AS `p1`
+INNER JOIN (
+    SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`
+    FROM `ProductUnits` AS `p0`
+    WHERE NOT (`p0`.`IsDeleted`) AND `p0`.`Is_Default`
+) AS `p2` ON `p1`.`IdProduk` = `p2`.`IdProduk`
+ORDER BY `p1`.`IdProduk`
+2026-07-09 10:39:42.629 +07:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType1`4[[System.Int64, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Collections.Generic.List`1[[<>f__AnonymousType2`3[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Decimal, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-07-09 10:39:42.633 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetProductByBarcode (POS_System) in 44.8638ms
+2026-07-09 10:39:42.633 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetProductByBarcode (POS_System)'
+2026-07-09 10:39:42.641 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetProductByBarcode?barcode=089686010343 - 200 null application/json; charset=utf-8 64.6814ms
+2026-07-09 10:39:58.824 +07:00 [INF] Request starting HTTP/1.1 POST http://localhost:5089/Inventori/Create - application/json 267
+2026-07-09 10:39:58.828 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Create (POS_System)'
+2026-07-09 10:39:58.835 +07:00 [INF] Route matched with {action = "Create", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(POS_System.ViewModels.InventoriVm) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:39:58.928 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+FROM `Produks` AS `p`
+WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__p_0)
+ORDER BY `p`.`IdProduk`
+LIMIT 1
+2026-07-09 10:39:58.934 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`, `p1`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`
+    FROM `Produks` AS `p`
+    WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__p_0)
+    LIMIT 1
+) AS `p1`
+INNER JOIN (
+    SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`
+    FROM `ProductUnits` AS `p0`
+    WHERE NOT (`p0`.`IsDeleted`)
+) AS `p2` ON `p1`.`IdProduk` = `p2`.`IdProduk`
+ORDER BY `p1`.`IdProduk`
+2026-07-09 10:39:59.057 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+FROM `Produks` AS `p`
+WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__id_0)
+ORDER BY `p`.`IdProduk`
+LIMIT 1
+2026-07-09 10:39:59.065 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p3`.`ProductUnitId`, `p3`.`ConversionValue`, `p3`.`HargaJual`, `p3`.`HargaModal`, `p3`.`IdProduk`, `p3`.`IsDeleted`, `p3`.`Is_Default`, `p3`.`UnitName`, `p2`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`
+    FROM `Produks` AS `p`
+    WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__id_0)
+    LIMIT 1
+) AS `p2`
+INNER JOIN (
+    SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`
+    FROM `ProductUnits` AS `p0`
+    WHERE NOT (`p0`.`IsDeleted`)
+) AS `p3` ON `p2`.`IdProduk` = `p3`.`IdProduk`
+ORDER BY `p2`.`IdProduk`
+2026-07-09 10:39:59.069 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p1`.`IdProdukGambar`, `p1`.`IdProduk`, `p1`.`PathGambar`, `p4`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`
+    FROM `Produks` AS `p`
+    WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__id_0)
+    LIMIT 1
+) AS `p4`
+INNER JOIN `ProdukGambars` AS `p1` ON `p4`.`IdProduk` = `p1`.`IdProduk`
+ORDER BY `p4`.`IdProduk`
+2026-07-09 10:39:59.104 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+FROM `Produks` AS `p`
+WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__p_0)
+ORDER BY `p`.`IdProduk`
+LIMIT 1
+2026-07-09 10:39:59.106 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`, `p1`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`
+    FROM `Produks` AS `p`
+    WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__p_0)
+    LIMIT 1
+) AS `p1`
+INNER JOIN (
+    SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`
+    FROM `ProductUnits` AS `p0`
+    WHERE NOT (`p0`.`IsDeleted`)
+) AS `p2` ON `p1`.`IdProduk` = `p2`.`IdProduk`
+ORDER BY `p1`.`IdProduk`
+2026-07-09 10:39:59.112 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+FROM `Produks` AS `p`
+WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__id_0)
+ORDER BY `p`.`IdProduk`
+LIMIT 1
+2026-07-09 10:39:59.113 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p3`.`ProductUnitId`, `p3`.`ConversionValue`, `p3`.`HargaJual`, `p3`.`HargaModal`, `p3`.`IdProduk`, `p3`.`IsDeleted`, `p3`.`Is_Default`, `p3`.`UnitName`, `p2`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`
+    FROM `Produks` AS `p`
+    WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__id_0)
+    LIMIT 1
+) AS `p2`
+INNER JOIN (
+    SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`
+    FROM `ProductUnits` AS `p0`
+    WHERE NOT (`p0`.`IsDeleted`)
+) AS `p3` ON `p2`.`IdProduk` = `p3`.`IdProduk`
+ORDER BY `p2`.`IdProduk`
+2026-07-09 10:39:59.115 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `p1`.`IdProdukGambar`, `p1`.`IdProduk`, `p1`.`PathGambar`, `p4`.`IdProduk`
+FROM (
+    SELECT `p`.`IdProduk`
+    FROM `Produks` AS `p`
+    WHERE ((`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL) AND (`p`.`IdProduk` = @__id_0)
+    LIMIT 1
+) AS `p4`
+INNER JOIN `ProdukGambars` AS `p1` ON `p4`.`IdProduk` = `p1`.`IdProduk`
+ORDER BY `p4`.`IdProduk`
+2026-07-09 10:39:59.298 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Decimal), @p1='?' (DbType = Int64), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (DbType = Int32), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime), @p8='?' (Size = 4000), @p9='?' (DbType = Decimal), @p10='?' (DbType = Decimal), @p11='?' (DbType = Int64), @p12='?' (DbType = Int32), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (DbType = Int32), @p16='?' (Size = 4000), @p17='?' (DbType = DateTime), @p18='?' (Size = 4000), @p19='?' (DbType = Decimal), @p27='?' (DbType = Int64), @p20='?' (Size = 4000), @p21='?' (DbType = Int64), @p22='?' (Size = 4000), @p23='?' (Size = 4000), @p24='?' (Size = 4000), @p25='?' (Size = 4000), @p26='?' (DbType = Int32), @p35='?' (DbType = Int64), @p28='?' (Size = 4000), @p29='?' (DbType = Int64), @p30='?' (Size = 4000), @p31='?' (Size = 4000), @p32='?' (Size = 4000), @p33='?' (Size = 4000), @p34='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO `Inventoris` (`HargaModal`, `IdProduk`, `Jumlah`, `NoReferensi`, `Notes`, `ProductUnitId`, `Sumber`, `Tanggal`, `TipeStok`, `TotalModal`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9);
+SELECT `IdInventori`
+FROM `Inventoris`
+WHERE ROW_COUNT() = 1 AND `IdInventori` = LAST_INSERT_ID();
+
+INSERT INTO `Inventoris` (`HargaModal`, `IdProduk`, `Jumlah`, `NoReferensi`, `Notes`, `ProductUnitId`, `Sumber`, `Tanggal`, `TipeStok`, `TotalModal`)
+VALUES (@p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19);
+SELECT `IdInventori`
+FROM `Inventoris`
+WHERE ROW_COUNT() = 1 AND `IdInventori` = LAST_INSERT_ID();
+
+UPDATE `Produks` SET `Deskripsi` = @p20, `IdKategori` = @p21, `KodeBarcode` = @p22, `NamaProduk` = @p23, `SKU` = @p24, `StatusProduk` = @p25, `Stok` = @p26
+WHERE `IdProduk` = @p27;
+SELECT ROW_COUNT();
+
+UPDATE `Produks` SET `Deskripsi` = @p28, `IdKategori` = @p29, `KodeBarcode` = @p30, `NamaProduk` = @p31, `SKU` = @p32, `StatusProduk` = @p33, `Stok` = @p34
+WHERE `IdProduk` = @p35;
+SELECT ROW_COUNT();
+2026-07-09 10:39:59.360 +07:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`2[[System.Boolean, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-07-09 10:39:59.369 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Create (POS_System) in 533.909ms
+2026-07-09 10:39:59.370 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Create (POS_System)'
+2026-07-09 10:39:59.371 +07:00 [INF] Request finished HTTP/1.1 POST http://localhost:5089/Inventori/Create - 200 null application/json; charset=utf-8 546.1884ms
+2026-07-09 10:40:02.476 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/Index - null null
+2026-07-09 10:40:02.487 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Index (POS_System)'
+2026-07-09 10:40:02.488 +07:00 [INF] Route matched with {action = "Index", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:40:02.493 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM `Inventoris` AS `i`
+WHERE `i`.`NoReferensi` IS NOT NULL AND (`i`.`NoReferensi` <> '')
+2026-07-09 10:40:02.523 +07:00 [INF] Executed DbCommand (27ms) [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i0`.`IdInventori`, `i0`.`HargaModal`, `i0`.`IdProduk`, `i0`.`Jumlah`, `i0`.`NoReferensi`, `i0`.`Notes`, `i0`.`ProductUnitId`, `i0`.`Sumber`, `i0`.`Tanggal`, `i0`.`TipeStok`, `i0`.`TotalModal`, `p0`.`IdProduk`, `p0`.`Deskripsi`, `p0`.`IdKategori`, `p0`.`KodeBarcode`, `p0`.`NamaProduk`, `p0`.`SKU`, `p0`.`StatusProduk`, `p0`.`Stok`
+FROM (
+    SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`
+    FROM `Inventoris` AS `i`
+    WHERE `i`.`NoReferensi` IS NOT NULL AND (`i`.`NoReferensi` <> '')
+    ORDER BY `i`.`IdInventori` DESC
+    LIMIT @__p_1 OFFSET @__p_0
+) AS `i0`
+INNER JOIN (
+    SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+) AS `p0` ON `i0`.`IdProduk` = `p0`.`IdProduk`
+ORDER BY `i0`.`IdInventori` DESC
+2026-07-09 10:40:02.533 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`Nama`
+FROM `TipeStoks` AS `t`
+2026-07-09 10:40:02.534 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+2026-07-09 10:40:02.543 +07:00 [INF] Executing ViewResult, running view Index.
+2026-07-09 10:40:02.557 +07:00 [INF] Executed ViewResult - view Index executed in 14.717ms.
+2026-07-09 10:40:02.557 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Index (POS_System) in 69.374ms
+2026-07-09 10:40:02.557 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Index (POS_System)'
+2026-07-09 10:40:02.558 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/Index - 200 null text/html; charset=utf-8 81.2917ms
+2026-07-09 10:40:02.745 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:40:02.746 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 0.5041ms
+2026-07-09 10:40:23.179 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - null null
+2026-07-09 10:40:23.185 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:40:23.193 +07:00 [INF] Route matched with {action = "Edit", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Edit(Int64) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:40:23.214 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`
+FROM `Inventoris` AS `i`
+WHERE `i`.`IdInventori` = @__id_0
+LIMIT 1
+2026-07-09 10:40:24.573 +07:00 [INF] Executed DbCommand (1,325ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`NamaProduk`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`, `p2`.`c`
+FROM `Produks` AS `p`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`, `p1`.`c`
+    FROM (
+        SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`, 1 AS `c`, ROW_NUMBER() OVER(PARTITION BY `p0`.`IdProduk` ORDER BY `p0`.`ProductUnitId`) AS `row`
+        FROM `ProductUnits` AS `p0`
+        WHERE NOT (`p0`.`IsDeleted`)
+    ) AS `p1`
+    WHERE `p1`.`row` <= 1
+) AS `p2` ON `p`.`IdProduk` = `p2`.`IdProduk`
+WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+2026-07-09 10:40:26.612 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__GetById_NoReferensi_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`, `p0`.`IdProduk`, `p0`.`Deskripsi`, `p0`.`IdKategori`, `p0`.`KodeBarcode`, `p0`.`NamaProduk`, `p0`.`SKU`, `p0`.`StatusProduk`, `p0`.`Stok`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`
+FROM `Inventoris` AS `i`
+INNER JOIN (
+    SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+) AS `p0` ON `i`.`IdProduk` = `p0`.`IdProduk`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`
+    FROM `ProductUnits` AS `p1`
+    WHERE NOT (`p1`.`IsDeleted`)
+) AS `p2` ON `i`.`ProductUnitId` = `p2`.`ProductUnitId`
+WHERE `i`.`NoReferensi` = @__GetById_NoReferensi_0
+2026-07-09 10:40:26.839 +07:00 [INF] Executing ViewResult, running view Edit.
+2026-07-09 10:40:26.918 +07:00 [INF] Executed ViewResult - view Edit executed in 80.3542ms.
+2026-07-09 10:40:26.918 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Edit (POS_System) in 3724.9354ms
+2026-07-09 10:40:26.918 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:40:26.918 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - 200 null text/html; charset=utf-8 3738.7873ms
+2026-07-09 10:40:27.115 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:40:27.116 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 0.5727ms
+2026-07-09 10:40:27.179 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - null null
+2026-07-09 10:40:27.576 +07:00 [INF] Sending file. Request path: '/js/inventoriedit.js'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\js\inventoriedit.js'
+2026-07-09 10:40:27.576 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - 200 19664 text/javascript 399.636ms
+2026-07-09 10:41:54.198 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T10:41:54.1983453+07:00"
+2026-07-09 10:41:54.243 +07:00 [INF] Ping Berhasil. Database tetap terjaga.
+2026-07-09 10:46:54.275 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T10:46:54.2690202+07:00"
+2026-07-09 10:46:54.410 +07:00 [INF] Ping Berhasil. Database tetap terjaga.
+2026-07-09 10:51:41.575 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - null null
+2026-07-09 10:51:41.973 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:51:41.992 +07:00 [INF] Route matched with {action = "Edit", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Edit(Int64) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:51:42.204 +07:00 [INF] Executed DbCommand (46ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`
+FROM `Inventoris` AS `i`
+WHERE `i`.`IdInventori` = @__id_0
+LIMIT 1
+2026-07-09 10:51:43.881 +07:00 [INF] Executed DbCommand (1,599ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`NamaProduk`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`, `p2`.`c`
+FROM `Produks` AS `p`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`, `p1`.`c`
+    FROM (
+        SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`, 1 AS `c`, ROW_NUMBER() OVER(PARTITION BY `p0`.`IdProduk` ORDER BY `p0`.`ProductUnitId`) AS `row`
+        FROM `ProductUnits` AS `p0`
+        WHERE NOT (`p0`.`IsDeleted`)
+    ) AS `p1`
+    WHERE `p1`.`row` <= 1
+) AS `p2` ON `p`.`IdProduk` = `p2`.`IdProduk`
+WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+2026-07-09 10:51:46.989 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[@__GetById_NoReferensi_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`, `p0`.`IdProduk`, `p0`.`Deskripsi`, `p0`.`IdKategori`, `p0`.`KodeBarcode`, `p0`.`NamaProduk`, `p0`.`SKU`, `p0`.`StatusProduk`, `p0`.`Stok`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`
+FROM `Inventoris` AS `i`
+INNER JOIN (
+    SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+) AS `p0` ON `i`.`IdProduk` = `p0`.`IdProduk`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`
+    FROM `ProductUnits` AS `p1`
+    WHERE NOT (`p1`.`IsDeleted`)
+) AS `p2` ON `i`.`ProductUnitId` = `p2`.`ProductUnitId`
+WHERE `i`.`NoReferensi` = @__GetById_NoReferensi_0
+2026-07-09 10:51:47.064 +07:00 [INF] Executing ViewResult, running view Edit.
+2026-07-09 10:51:47.168 +07:00 [INF] Executed ViewResult - view Edit executed in 107.6946ms.
+2026-07-09 10:51:47.169 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Edit (POS_System) in 5175.1211ms
+2026-07-09 10:51:47.170 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:51:47.175 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - 200 null text/html; charset=utf-8 5605.1198ms
+2026-07-09 10:51:47.595 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:51:47.600 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 5.2032ms
+2026-07-09 10:51:47.601 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - null null
+2026-07-09 10:51:47.860 +07:00 [INF] Sending file. Request path: '/js/inventoriedit.js'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\js\inventoriedit.js'
+2026-07-09 10:51:47.860 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - 200 20025 text/javascript 258.5172ms
+2026-07-09 10:51:54.501 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T10:51:54.5011045+07:00"
+2026-07-09 10:51:54.537 +07:00 [INF] Ping Berhasil. Database tetap terjaga.
+2026-07-09 10:52:06.149 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/Index - null null
+2026-07-09 10:52:06.163 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Index (POS_System)'
+2026-07-09 10:52:06.164 +07:00 [INF] Route matched with {action = "Index", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:52:06.178 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM `Inventoris` AS `i`
+WHERE `i`.`NoReferensi` IS NOT NULL AND (`i`.`NoReferensi` <> '')
+2026-07-09 10:52:06.211 +07:00 [INF] Executed DbCommand (27ms) [Parameters=[@__p_1='?' (DbType = Int32), @__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i0`.`IdInventori`, `i0`.`HargaModal`, `i0`.`IdProduk`, `i0`.`Jumlah`, `i0`.`NoReferensi`, `i0`.`Notes`, `i0`.`ProductUnitId`, `i0`.`Sumber`, `i0`.`Tanggal`, `i0`.`TipeStok`, `i0`.`TotalModal`, `p0`.`IdProduk`, `p0`.`Deskripsi`, `p0`.`IdKategori`, `p0`.`KodeBarcode`, `p0`.`NamaProduk`, `p0`.`SKU`, `p0`.`StatusProduk`, `p0`.`Stok`
+FROM (
+    SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`
+    FROM `Inventoris` AS `i`
+    WHERE `i`.`NoReferensi` IS NOT NULL AND (`i`.`NoReferensi` <> '')
+    ORDER BY `i`.`IdInventori` DESC
+    LIMIT @__p_1 OFFSET @__p_0
+) AS `i0`
+INNER JOIN (
+    SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+) AS `p0` ON `i0`.`IdProduk` = `p0`.`IdProduk`
+ORDER BY `i0`.`IdInventori` DESC
+2026-07-09 10:52:06.222 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `t`.`Id`, `t`.`Nama`
+FROM `TipeStoks` AS `t`
+2026-07-09 10:52:06.228 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+2026-07-09 10:52:06.237 +07:00 [INF] Executing ViewResult, running view Index.
+2026-07-09 10:52:06.260 +07:00 [INF] Executed ViewResult - view Index executed in 22.6685ms.
+2026-07-09 10:52:06.260 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Index (POS_System) in 96.282ms
+2026-07-09 10:52:06.260 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Index (POS_System)'
+2026-07-09 10:52:06.261 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/Index - 200 null text/html; charset=utf-8 111.295ms
+2026-07-09 10:52:06.441 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:52:06.442 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 0.8614ms
+2026-07-09 10:52:09.026 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - null null
+2026-07-09 10:52:09.131 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:52:09.131 +07:00 [INF] Route matched with {action = "Edit", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Edit(Int64) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:52:09.164 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`
+FROM `Inventoris` AS `i`
+WHERE `i`.`IdInventori` = @__id_0
+LIMIT 1
+2026-07-09 10:52:10.281 +07:00 [INF] Executed DbCommand (1,115ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`NamaProduk`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`, `p2`.`c`
+FROM `Produks` AS `p`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`, `p1`.`c`
+    FROM (
+        SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`, 1 AS `c`, ROW_NUMBER() OVER(PARTITION BY `p0`.`IdProduk` ORDER BY `p0`.`ProductUnitId`) AS `row`
+        FROM `ProductUnits` AS `p0`
+        WHERE NOT (`p0`.`IsDeleted`)
+    ) AS `p1`
+    WHERE `p1`.`row` <= 1
+) AS `p2` ON `p`.`IdProduk` = `p2`.`IdProduk`
+WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+2026-07-09 10:52:12.442 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__GetById_NoReferensi_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`, `p0`.`IdProduk`, `p0`.`Deskripsi`, `p0`.`IdKategori`, `p0`.`KodeBarcode`, `p0`.`NamaProduk`, `p0`.`SKU`, `p0`.`StatusProduk`, `p0`.`Stok`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`
+FROM `Inventoris` AS `i`
+INNER JOIN (
+    SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+) AS `p0` ON `i`.`IdProduk` = `p0`.`IdProduk`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`
+    FROM `ProductUnits` AS `p1`
+    WHERE NOT (`p1`.`IsDeleted`)
+) AS `p2` ON `i`.`ProductUnitId` = `p2`.`ProductUnitId`
+WHERE `i`.`NoReferensi` = @__GetById_NoReferensi_0
+2026-07-09 10:52:12.477 +07:00 [INF] Executing ViewResult, running view Edit.
+2026-07-09 10:52:12.482 +07:00 [INF] Executed ViewResult - view Edit executed in 4.9254ms.
+2026-07-09 10:52:12.482 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Edit (POS_System) in 3349.3341ms
+2026-07-09 10:52:12.482 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:52:12.482 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - 200 null text/html; charset=utf-8 3455.168ms
+2026-07-09 10:52:12.642 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - null null
+2026-07-09 10:52:12.644 +07:00 [INF] The file /js/inventoriedit.js was not modified
+2026-07-09 10:52:12.644 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - 304 null text/javascript 1.4908ms
+2026-07-09 10:52:12.650 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:52:12.650 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 0.3649ms
+2026-07-09 10:53:12.770 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/dist/css/adminlte.css.map - null null
+2026-07-09 10:53:12.779 +07:00 [INF] The file /dist/css/adminlte.css.map was not modified
+2026-07-09 10:53:12.780 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/dist/css/adminlte.css.map - 304 null text/plain 9.7712ms
+2026-07-09 10:56:33.134 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - null null
+2026-07-09 10:56:33.183 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:56:33.186 +07:00 [INF] Route matched with {action = "Edit", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Edit(Int64) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:56:33.221 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`
+FROM `Inventoris` AS `i`
+WHERE `i`.`IdInventori` = @__id_0
+LIMIT 1
+2026-07-09 10:56:35.073 +07:00 [INF] Executed DbCommand (1,834ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`NamaProduk`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`, `p2`.`c`
+FROM `Produks` AS `p`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`, `p1`.`c`
+    FROM (
+        SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`, 1 AS `c`, ROW_NUMBER() OVER(PARTITION BY `p0`.`IdProduk` ORDER BY `p0`.`ProductUnitId`) AS `row`
+        FROM `ProductUnits` AS `p0`
+        WHERE NOT (`p0`.`IsDeleted`)
+    ) AS `p1`
+    WHERE `p1`.`row` <= 1
+) AS `p2` ON `p`.`IdProduk` = `p2`.`IdProduk`
+WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+2026-07-09 10:56:37.843 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__GetById_NoReferensi_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`, `p0`.`IdProduk`, `p0`.`Deskripsi`, `p0`.`IdKategori`, `p0`.`KodeBarcode`, `p0`.`NamaProduk`, `p0`.`SKU`, `p0`.`StatusProduk`, `p0`.`Stok`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`
+FROM `Inventoris` AS `i`
+INNER JOIN (
+    SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+) AS `p0` ON `i`.`IdProduk` = `p0`.`IdProduk`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`
+    FROM `ProductUnits` AS `p1`
+    WHERE NOT (`p1`.`IsDeleted`)
+) AS `p2` ON `i`.`ProductUnitId` = `p2`.`ProductUnitId`
+WHERE `i`.`NoReferensi` = @__GetById_NoReferensi_0
+2026-07-09 10:56:37.893 +07:00 [INF] Executing ViewResult, running view Edit.
+2026-07-09 10:56:37.911 +07:00 [INF] Executed ViewResult - view Edit executed in 18.4149ms.
+2026-07-09 10:56:37.911 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Edit (POS_System) in 4723.5356ms
+2026-07-09 10:56:37.911 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:56:37.912 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - 200 null text/html; charset=utf-8 4776.8682ms
+2026-07-09 10:56:38.186 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:56:38.188 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 1.8267ms
+2026-07-09 10:56:38.194 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - null null
+2026-07-09 10:56:38.576 +07:00 [INF] Sending file. Request path: '/js/inventoriedit.js'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\js\inventoriedit.js'
+2026-07-09 10:56:38.576 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - 200 20869 text/javascript 383.0926ms
+2026-07-09 10:56:47.540 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/dist/js/popper.min.js.map - null null
+2026-07-09 10:56:47.543 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/dist/js/bootstrap.min.js.map - null null
+2026-07-09 10:56:47.546 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/dist/js/adminlte.js.map - null null
+2026-07-09 10:56:47.547 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/lib/microsoft/signalr/dist/browser/signalr.min.js.map - null null
+2026-07-09 10:56:47.550 +07:00 [INF] The file /dist/js/adminlte.js.map was not modified
+2026-07-09 10:56:47.550 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/dist/js/adminlte.js.map - 304 null text/plain 4.2927ms
+2026-07-09 10:56:47.551 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/lib/Chart.js/chart.umd.js.map - null null
+2026-07-09 10:56:47.554 +07:00 [INF] The file /lib/microsoft/signalr/dist/browser/signalr.min.js.map was not modified
+2026-07-09 10:56:47.556 +07:00 [INF] The file /lib/Chart.js/chart.umd.js.map was not modified
+2026-07-09 10:56:47.557 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/lib/Chart.js/chart.umd.js.map - 304 null text/plain 5.546ms
+2026-07-09 10:56:47.560 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/lib/microsoft/signalr/dist/browser/signalr.min.js.map - 304 null text/plain 13.3818ms
+2026-07-09 10:56:49.681 +07:00 [INF] Executing endpoint 'POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System)'
+2026-07-09 10:56:49.683 +07:00 [INF] Executing endpoint 'POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System)'
+2026-07-09 10:56:49.725 +07:00 [INF] Route matched with {action = "HttpStatusCodeHandler", controller = "Error"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult HttpStatusCodeHandler(Int32) on controller POS_System.Controllers.ErrorController (POS_System).
+2026-07-09 10:56:49.725 +07:00 [INF] Route matched with {action = "HttpStatusCodeHandler", controller = "Error"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult HttpStatusCodeHandler(Int32) on controller POS_System.Controllers.ErrorController (POS_System).
+2026-07-09 10:56:49.753 +07:00 [INF] Executing ViewResult, running view NotFound.
+2026-07-09 10:56:49.876 +07:00 [INF] Executing ViewResult, running view NotFound.
+2026-07-09 10:56:49.891 +07:00 [INF] Executed ViewResult - view NotFound executed in 150.9251ms.
+2026-07-09 10:56:49.891 +07:00 [INF] Executed ViewResult - view NotFound executed in 150.9314ms.
+2026-07-09 10:56:49.891 +07:00 [INF] Executed action POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System) in 165.6175ms
+2026-07-09 10:56:49.891 +07:00 [INF] Executed action POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System) in 165.7467ms
+2026-07-09 10:56:49.891 +07:00 [INF] Executed endpoint 'POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System)'
+2026-07-09 10:56:49.891 +07:00 [INF] Executed endpoint 'POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System)'
+2026-07-09 10:56:49.893 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/dist/js/bootstrap.min.js.map - 404 null text/html; charset=utf-8 2348.6604ms
+2026-07-09 10:56:49.895 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/dist/js/popper.min.js.map - 404 null text/html; charset=utf-8 2355.2938ms
+2026-07-09 10:56:49.911 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5089/dist/js/bootstrap.min.js.map, Response status code: 404
+2026-07-09 10:56:49.911 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5089/dist/js/popper.min.js.map, Response status code: 404
+2026-07-09 10:56:54.626 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T10:56:54.6260000+07:00"
+2026-07-09 10:56:54.722 +07:00 [INF] Ping Berhasil. Database tetap terjaga.
+2026-07-09 10:57:28.040 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - null null
+2026-07-09 10:57:28.049 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:57:28.049 +07:00 [INF] Route matched with {action = "Edit", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Edit(Int64) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:28.055 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int64)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`
+FROM `Inventoris` AS `i`
+WHERE `i`.`IdInventori` = @__id_0
+LIMIT 1
+2026-07-09 10:57:29.557 +07:00 [INF] Executed DbCommand (1,500ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT `p`.`IdProduk`, `p`.`NamaProduk`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`, `p2`.`c`
+FROM `Produks` AS `p`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`, `p1`.`c`
+    FROM (
+        SELECT `p0`.`ProductUnitId`, `p0`.`ConversionValue`, `p0`.`HargaJual`, `p0`.`HargaModal`, `p0`.`IdProduk`, `p0`.`IsDeleted`, `p0`.`Is_Default`, `p0`.`UnitName`, 1 AS `c`, ROW_NUMBER() OVER(PARTITION BY `p0`.`IdProduk` ORDER BY `p0`.`ProductUnitId`) AS `row`
+        FROM `ProductUnits` AS `p0`
+        WHERE NOT (`p0`.`IsDeleted`)
+    ) AS `p1`
+    WHERE `p1`.`row` <= 1
+) AS `p2` ON `p`.`IdProduk` = `p2`.`IdProduk`
+WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+2026-07-09 10:57:31.949 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__GetById_NoReferensi_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT `i`.`IdInventori`, `i`.`HargaModal`, `i`.`IdProduk`, `i`.`Jumlah`, `i`.`NoReferensi`, `i`.`Notes`, `i`.`ProductUnitId`, `i`.`Sumber`, `i`.`Tanggal`, `i`.`TipeStok`, `i`.`TotalModal`, `p0`.`IdProduk`, `p0`.`Deskripsi`, `p0`.`IdKategori`, `p0`.`KodeBarcode`, `p0`.`NamaProduk`, `p0`.`SKU`, `p0`.`StatusProduk`, `p0`.`Stok`, `p2`.`ProductUnitId`, `p2`.`ConversionValue`, `p2`.`HargaJual`, `p2`.`HargaModal`, `p2`.`IdProduk`, `p2`.`IsDeleted`, `p2`.`Is_Default`, `p2`.`UnitName`
+FROM `Inventoris` AS `i`
+INNER JOIN (
+    SELECT `p`.`IdProduk`, `p`.`Deskripsi`, `p`.`IdKategori`, `p`.`KodeBarcode`, `p`.`NamaProduk`, `p`.`SKU`, `p`.`StatusProduk`, `p`.`Stok`
+    FROM `Produks` AS `p`
+    WHERE (`p`.`StatusProduk` <> 'Tidak Aktif') OR `p`.`StatusProduk` IS NULL
+) AS `p0` ON `i`.`IdProduk` = `p0`.`IdProduk`
+LEFT JOIN (
+    SELECT `p1`.`ProductUnitId`, `p1`.`ConversionValue`, `p1`.`HargaJual`, `p1`.`HargaModal`, `p1`.`IdProduk`, `p1`.`IsDeleted`, `p1`.`Is_Default`, `p1`.`UnitName`
+    FROM `ProductUnits` AS `p1`
+    WHERE NOT (`p1`.`IsDeleted`)
+) AS `p2` ON `i`.`ProductUnitId` = `p2`.`ProductUnitId`
+WHERE `i`.`NoReferensi` = @__GetById_NoReferensi_0
+2026-07-09 10:57:31.973 +07:00 [INF] Executing ViewResult, running view Edit.
+2026-07-09 10:57:31.979 +07:00 [INF] Executed ViewResult - view Edit executed in 6.2455ms.
+2026-07-09 10:57:31.980 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.Edit (POS_System) in 3929.2652ms
+2026-07-09 10:57:31.980 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.Edit (POS_System)'
+2026-07-09 10:57:31.980 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/Edit/2 - 200 null text/html; charset=utf-8 3939.543ms
+2026-07-09 10:57:32.293 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - null null
+2026-07-09 10:57:32.296 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-09 10:57:32.314 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/_framework/aspnetcore-browser-refresh.js - 200 14901 application/javascript; charset=utf-8 17.3216ms
+2026-07-09 10:57:32.471 +07:00 [INF] Sending file. Request path: '/js/inventoriedit.js'. Physical path: 'C:\Users\ASUS\source\repos\POS_System\wwwroot\js\inventoriedit.js'
+2026-07-09 10:57:32.471 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/js/inventoriedit.js - 200 20865 text/javascript 177.9761ms
+2026-07-09 10:57:32.528 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/dist/js/bootstrap.min.js.map - null null
+2026-07-09 10:57:32.528 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/dist/js/popper.min.js.map - null null
+2026-07-09 10:57:32.534 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/dist/js/adminlte.js.map - null null
+2026-07-09 10:57:32.535 +07:00 [INF] The file /dist/js/adminlte.js.map was not modified
+2026-07-09 10:57:32.535 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/dist/js/adminlte.js.map - 304 null text/plain 1.1514ms
+2026-07-09 10:57:32.536 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/lib/microsoft/signalr/dist/browser/signalr.min.js.map - null null
+2026-07-09 10:57:32.543 +07:00 [INF] The file /lib/microsoft/signalr/dist/browser/signalr.min.js.map was not modified
+2026-07-09 10:57:32.544 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/lib/microsoft/signalr/dist/browser/signalr.min.js.map - 304 null text/plain 7.8705ms
+2026-07-09 10:57:32.549 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/lib/Chart.js/chart.umd.js.map - null null
+2026-07-09 10:57:32.556 +07:00 [INF] The file /lib/Chart.js/chart.umd.js.map was not modified
+2026-07-09 10:57:32.556 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/lib/Chart.js/chart.umd.js.map - 304 null text/plain 7.1184ms
+2026-07-09 10:57:32.688 +07:00 [INF] Executing endpoint 'POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System)'
+2026-07-09 10:57:32.688 +07:00 [INF] Executing endpoint 'POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System)'
+2026-07-09 10:57:32.688 +07:00 [INF] Route matched with {action = "HttpStatusCodeHandler", controller = "Error"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult HttpStatusCodeHandler(Int32) on controller POS_System.Controllers.ErrorController (POS_System).
+2026-07-09 10:57:32.688 +07:00 [INF] Route matched with {action = "HttpStatusCodeHandler", controller = "Error"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult HttpStatusCodeHandler(Int32) on controller POS_System.Controllers.ErrorController (POS_System).
+2026-07-09 10:57:32.689 +07:00 [INF] Executing ViewResult, running view NotFound.
+2026-07-09 10:57:32.689 +07:00 [INF] Executed ViewResult - view NotFound executed in 0.4083ms.
+2026-07-09 10:57:32.689 +07:00 [INF] Executed action POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System) in 1.2084ms
+2026-07-09 10:57:32.689 +07:00 [INF] Executed endpoint 'POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System)'
+2026-07-09 10:57:32.689 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/dist/js/popper.min.js.map - 404 null text/html; charset=utf-8 161.772ms
+2026-07-09 10:57:32.690 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5089/dist/js/popper.min.js.map, Response status code: 404
+2026-07-09 10:57:32.692 +07:00 [INF] Executing ViewResult, running view NotFound.
+2026-07-09 10:57:32.692 +07:00 [INF] Executed ViewResult - view NotFound executed in 0.4255ms.
+2026-07-09 10:57:32.692 +07:00 [INF] Executed action POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System) in 4.4314ms
+2026-07-09 10:57:32.693 +07:00 [INF] Executed endpoint 'POS_System.Controllers.ErrorController.HttpStatusCodeHandler (POS_System)'
+2026-07-09 10:57:32.693 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/dist/js/bootstrap.min.js.map - 404 null text/html; charset=utf-8 164.8748ms
+2026-07-09 10:57:32.693 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5089/dist/js/bootstrap.min.js.map, Response status code: 404
+2026-07-09 10:57:32.849 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - null null
+2026-07-09 10:57:32.853 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:32.854 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:32.877 +07:00 [INF] Executed DbCommand (17ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:32.881 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:32.892 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 38.2555ms
+2026-07-09 10:57:32.892 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:32.892 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - 200 null application/json; charset=utf-8 43.3272ms
+2026-07-09 10:57:39.039 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/3 - null null
+2026-07-09 10:57:39.039 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/3 - null null
+2026-07-09 10:57:39.043 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:39.043 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:39.046 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:39.046 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:39.049 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:39.050 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:39.051 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 8.2046ms
+2026-07-09 10:57:39.051 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:39.051 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/3 - 200 null application/json; charset=utf-8 12.0426ms
+2026-07-09 10:57:39.063 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:39.065 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:39.066 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 20.1182ms
+2026-07-09 10:57:39.067 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:39.068 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/3 - 200 null application/json; charset=utf-8 28.9005ms
+2026-07-09 10:57:46.443 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/2 - null null
+2026-07-09 10:57:46.446 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/2 - null null
+2026-07-09 10:57:46.456 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:46.457 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:46.458 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:46.459 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:46.461 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:46.464 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:46.464 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:46.464 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:46.466 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 7.1453ms
+2026-07-09 10:57:46.466 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:46.468 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/2 - 200 null application/json; charset=utf-8 21.9652ms
+2026-07-09 10:57:46.471 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 14.4665ms
+2026-07-09 10:57:46.472 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:46.472 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/2 - 200 null application/json; charset=utf-8 29.7367ms
+2026-07-09 10:57:50.748 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - null null
+2026-07-09 10:57:50.755 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - null null
+2026-07-09 10:57:50.758 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:50.759 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:50.759 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:50.759 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:50.763 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:50.764 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:50.764 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 5.3752ms
+2026-07-09 10:57:50.765 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:50.765 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - 200 null application/json; charset=utf-8 16.9418ms
+2026-07-09 10:57:50.766 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:50.766 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:50.767 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 7.279ms
+2026-07-09 10:57:50.767 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:50.767 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - 200 null application/json; charset=utf-8 11.8518ms
+2026-07-09 10:57:54.368 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/2 - null null
+2026-07-09 10:57:54.373 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/2 - null null
+2026-07-09 10:57:54.377 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:54.377 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:54.380 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:54.380 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:54.383 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:54.383 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:54.384 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:54.384 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 7.3489ms
+2026-07-09 10:57:54.384 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:54.385 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/2 - 200 null application/json; charset=utf-8 16.9237ms
+2026-07-09 10:57:54.395 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:54.396 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 15.7272ms
+2026-07-09 10:57:54.396 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:54.397 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/2 - 200 null application/json; charset=utf-8 24.4431ms
+2026-07-09 10:57:58.101 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - null null
+2026-07-09 10:57:58.106 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:58.106 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:58.107 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - null null
+2026-07-09 10:57:58.112 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:58.112 +07:00 [INF] Executing endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:58.112 +07:00 [INF] Route matched with {action = "GetSumberByTipe", controller = "Inventori"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetSumberByTipe(Int32) on controller POS_System.Controllers.InventoriController (POS_System).
+2026-07-09 10:57:58.112 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:58.113 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 6.4696ms
+2026-07-09 10:57:58.113 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:58.113 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - 200 null application/json; charset=utf-8 12.3668ms
+2026-07-09 10:57:58.117 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[@__tipeStokId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT `s`.`Id`, `s`.`Nama`, `s`.`TipeStokId`
+FROM `SumberStoks` AS `s`
+WHERE `s`.`TipeStokId` = @__tipeStokId_0
+2026-07-09 10:57:58.118 +07:00 [INF] Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[POS_System.Models.SumberStok, POS_System, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-09 10:57:58.125 +07:00 [INF] Executed action POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System) in 12.6288ms
+2026-07-09 10:57:58.125 +07:00 [INF] Executed endpoint 'POS_System.Controllers.InventoriController.GetSumberByTipe (POS_System)'
+2026-07-09 10:57:58.126 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5089/Inventori/GetSumberByTipe/1 - 200 null application/json; charset=utf-8 18.2405ms
+2026-07-09 11:01:54.812 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T11:01:54.8114510+07:00"
+2026-07-09 11:01:54.851 +07:00 [INF] Ping Berhasil. Database tetap terjaga.
+2026-07-09 11:06:54.922 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T11:06:54.9226663+07:00"
+2026-07-09 11:06:54.946 +07:00 [INF] Ping Berhasil. Database tetap terjaga.
+2026-07-09 11:11:55.007 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T11:11:55.0079055+07:00"
+2026-07-09 11:11:55.036 +07:00 [INF] Ping Berhasil. Database tetap terjaga.
+2026-07-09 11:16:55.110 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T11:16:55.1107075+07:00"
+2026-07-09 11:16:55.131 +07:00 [INF] Ping Berhasil. Database tetap terjaga.
+2026-07-09 11:21:55.191 +07:00 [INF] Mengirim ping ke MySQL Aiven pada: "2026-07-09T11:21:55.1905906+07:00"
+2026-07-09 11:21:55.209 +07:00 [INF] Ping Berhasil. Database tetap terjaga.

@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IdentityRole // Kita menggunakan IdentityRole sebagai Model
+@{
+    Layout = "_AdminLayout"; // Sesuaikan dengan layout Anda
+    ViewData["Title"] = "Edit Role";
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h4 class="m-0 font-weight-bold text-primary">Edit Role: @Model.Name</h4>
+    </div>
+    <div class="card-body">
+        @* Form untuk memproses POST ke action Edit dengan ID Role *@
+        <form asp-action="Edit" method="post" asp-route-id="@Model.Id">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @* Hidden input untuk mengirimkan ID, meskipun sudah ada di route *@
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="form-group">
+                <label for="name" class="control-label">Nama Role Baru</label>
+                @* Nama input harus 'name' agar sesuai dengan parameter di POST Controller *@
+                <input name="name" id="name" value="@Model.Name" class="form-control" required />
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fa fa-save"></i> Simpan Perubahan
+                </button>
+                <a asp-action="Index" class="btn btn-sm btn-warning">
+                    <i class="fa-sharp fa-solid fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

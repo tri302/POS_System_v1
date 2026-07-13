@@ -1,0 +1,37 @@
+﻿@model POS_System.ViewModels.AlurKasIndexVm
+@if (Model.ListKas != null && Model.ListKas.Any())
+{
+	foreach (var item in Model.ListKas)
+	{
+		<tr>
+			<td>@item.Date.ToString("dd/MM/yyyy")</td>
+			<td>
+				@if (item.TypeName == "Masuk")
+				{
+					<span class="text-success">
+						<i class="fas fa-check-circle"></i> @item.TypeName
+					</span>
+				}
+				else
+				{
+					<span class="text-danger">
+						<i class="fas fa-times-circle"></i> @item.TypeName
+					</span>
+				}
+			</td>
+			<td>@item.SumberAlurKas</td>
+			<td>@item.Amount.ToString("C0", new System.Globalization.CultureInfo("id-ID"))</td>
+			<td>
+				<button class="btn btn-sm btn-primary btnEdit" data-id="@item.Id">
+					<i class="fa fa-edit"></i> Edit
+				</button>
+			</td>
+		</tr>
+	}
+}
+else
+{
+	<tr>
+		<td colspan="5" class="text-center text-bg-danger">No records found.</td>
+	</tr>
+}

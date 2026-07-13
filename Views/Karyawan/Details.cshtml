@@ -1,0 +1,152 @@
+﻿@model POS_System.ViewModels.KaryawanVm
+@{
+	Layout = "_AdminLayout";
+	ViewData["Title"] = "Details Karyawan";
+}
+<div class="card">
+	<div class="card-header">
+		<h4><b>Details Karyawan</b></h4>
+	</div>
+	<div class="card-body">
+		<form asp-action="Edit" enctype="multipart/form-data" method="post">			
+			@Html.AntiForgeryToken()
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="row">
+				<!-- Kolom 1: Preview Foto dan Upload -->
+				<div class="col-md-4">
+					<img id="previewImg" src="@Url.Content(string.IsNullOrEmpty(Model.FotoPath) ? "~/images/no-image.png" : Model.FotoPath)" class="img-thumbnail mb-3" style="max-width: 200px;" alt="Preview Foto" />
+					<div class="form-group">
+						<label asp-for="UploadFoto" class="control-label text-center"></label>
+						<input asp-for="UploadFoto" type="file" class="form-control" onchange="previewImage(this)" />
+						<span asp-validation-for="UploadFoto" class="text-danger"></span>
+					</div>
+					<input type="hidden" asp-for="FotoPath" />
+					<div class="form-group">
+						<label asp-for="Email" class="control-label"></label>
+						<input asp-for="Email" class="form-control" />
+						<span asp-validation-for="Email" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Password"></label>
+						<input asp-for="Password" class="form-control" value="" placeholder="Isi untuk mengubah Password" />
+					</div>
+					<div class="form-group">
+						<label asp-for="Role"></label>
+						<select asp-for="Role" class="form-control"
+								asp-items="@(new SelectList(ViewBag.RoleList, "Value", "Text"))">
+							<option value="">-- Select Role --</option>
+						</select>
+						<span asp-validation-for="Role" class="text-danger"></span>
+					</div>
+				</div>
+				<!-- Kolom 2: Form bagian 1 -->
+				<div class="col-md-4">
+					<div class="form-group">
+						<label asp-for="NIK" class="control-label"></label>
+						<input asp-for="NIK" class="form-control" />
+						<span asp-validation-for="NIK" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Name" class="control-label"></label>
+						<input asp-for="Name" class="form-control" />
+						<span asp-validation-for="Name" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="TempatLahir" class="control-label"></label>
+						<input asp-for="TempatLahir" class="form-control" />
+						<span asp-validation-for="TempatLahir" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="TanggalLahir" class="control-label"></label>
+						<input asp-for="TanggalLahir" type="date" class="form-control" />
+						<span asp-validation-for="TanggalLahir" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="AlamatLengkap" class="control-label"></label>
+						<textarea asp-for="AlamatLengkap" class="form-control" rows="4"></textarea>
+						<span asp-validation-for="AlamatLengkap" class="text-danger"></span>
+					</div>					
+				</div>
+				<!-- Kolom 3: Form bagian 2 -->
+				<div class="col-md-4">
+					<div class="form-group">
+						<label asp-for="NoHp" class="control-label"></label>
+						<input asp-for="NoHp" class="form-control" />
+						<span asp-validation-for="NoHp" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="StatusNikah" class="control-label"></label>
+						<select asp-for="StatusNikah" class="form-control">
+							<option value="" disabled selected>-- Select --</option>
+							<option value="Single">Single</option>
+							<option value="Lajang">Lajang</option>
+							<option value="Menikah">Menikah</option>
+							<option value="Janda">Janda</option>
+							<option value="Duda">Duda</option>
+							<option value="Cerai Hidup">Cerai Hidup</option>
+							<option value="Cerai Mati">Cerai Mati</option>
+						</select>
+						<span asp-validation-for="StatusNikah" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="StatusKaryawan" class="control-label"></label>
+						<select asp-for="StatusKaryawan" class="form-control">
+							<option value="" disabled selected>-- Select --</option>
+							<option value="Aktif">Aktif</option>
+							<option value="Risign">Risign</option>
+						</select>
+						<span asp-validation-for="StatusKaryawan" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="StatusKerja" class="control-label"></label>
+						<select asp-for="StatusKerja" class="form-control">
+							<option value="" disabled selected>-- Select --</option>
+							<option value="Karyawan Tetap">Karyawan Tetap</option>
+							<option value="Karyawan Kontrak">Karyawan Kontrak</option>
+							<option value="Magang">Magang</option>
+							<option value="Freelance">Freelance</option>
+						</select>
+						<span asp-validation-for="StatusKerja" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="DateJoin" class="control-label"></label>
+						<input asp-for="DateJoin" type="date" class="form-control" />
+						<span asp-validation-for="DateJoin" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Catatan" class="control-label"></label>
+						<textarea asp-for="Catatan" class="form-control" rows="4"></textarea>
+						<span asp-validation-for="Catatan" class="text-danger"></span>
+					</div>
+				</div>
+			</div>
+			<!-- Tombol -->
+			<div class="form-group mt-4 text-center">
+				<button type="submit" asp-controller="Karyawan" asp-route-id="@Model.IdKaryawan" asp-action="Edit" class="btn btn-primary btn-sm">
+					<i class="fa fa-plus-square"></i> Simpan Perubahan
+				</button>
+				<a asp-action="Index" class="btn btn-sm btn-warning">
+					<i class="fa-sharp fa-solid fa-arrow-left"></i> Back to List
+				</a>
+			</div>
+		</form>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<!-- Script Preview Gambar -->
+	<script>
+		function previewImage(input) {
+			var file = input.files[0];
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					document.getElementById('previewImg').src = e.target.result;
+				};
+				reader.readAsDataURL(file);
+			}
+		}
+	</script>
+}

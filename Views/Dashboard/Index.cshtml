@@ -1,0 +1,259 @@
+﻿@model POS_System.ViewModels.DashboardIndexVm
+@{
+	Layout = "_AdminLayout";
+}
+<div class="card card-primary card-outline mb-4">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-12">
+				<h5 class="card-title">Rentang Waktu</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 d-flex justify-content-start gap-3">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="rentang" value="HariIni" id="radioHariIni" checked>
+					<label class="form-check-label" for="radioHariIni">Hari ini</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="rentang" value="MingguIni" id="radioMingguIni">
+					<label class="form-check-label" for="radioMingguIni">Minggu ini</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="rentang" value="BulanIni" id="radioBulanIni">
+					<label class="form-check-label" for="radioBulanIni">Bulan ini</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="rentang" value="TahunIni" id="radioTahunIni">
+					<label class="form-check-label" for="radioTahunIni">Tahun ini</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="rentang" value="Manual" id="radioManual">
+					<label class="form-check-label" for="radioManual">Manual/Kustom</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<div id="Kustume-Tgl-Wrapper" style="display: none;">
+			<div class="row pt-1 pb-1 align-items-center">
+				<div class="col-2">
+					<label for="FromDate">From Date</label>
+				</div>
+				<div class="col-3">
+					<input type="text" class="form-control date-input" id="FromDate" placeholder="dd-mm-yyyy" autocomplete="off" />
+				</div>
+				<div class="col-1 text-center">
+					<label for="ToDate">To Date</label>
+				</div>
+				<div class="col-3">
+					<input type="text" class="form-control date-input" id="ToDate" placeholder="dd-mm-yyyy" autocomplete="off" />
+				</div>
+				<div class="col-3 text-start">
+					<button type="button" class="btn btn-warning">
+						<i class="fa-solid fa-magnifying-glass"></i> Search
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="dashboard-wrapper">
+	<partial name="_PartialDashboard" model="Model" />
+</div>
+@section Scripts {
+	<script>
+		$(document).ready(function() {
+			let delayTimer;
+			$(document).on('keyup', '#CariProdukLaris', function() {				
+				clearTimeout(delayTimer);
+				let query = $(this).val();
+				let rentangSekarang = $("input[name='rentang']:checked").val();
+				delayTimer = setTimeout(function() {
+					$.ajax({
+						url: '/Dashboard/FilterProdukTerlaris',
+						data: {
+							search: query,
+							rentang: rentangSekarang
+						},
+						success: function(data) {
+							$('#containerProdukTerlaris').html(data);
+							let input = $('#CariProdukLaris');
+							input.focus().val('').val(query);
+						}
+					});
+				}, 500);
+			});			
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			let delayTimer;
+			// Event handler untuk pencarian Status Stok
+			$(document).on('keyup', '#CariStatusStokProduk', function () {
+				clearTimeout(delayTimer);
+				let query = $(this).val();
+				// Ambil nilai rentang yang sedang terpilih saat ini
+				let rentangSekarang = $("input[name='rentang']:checked").val();
+				delayTimer = setTimeout(function () {
+					console.log("Memulai pencarian stok: " + query); // Debugging
+					$.ajax({
+						url: '/Dashboard/FilterStatusStok',
+						type: 'GET', // Pastikan menggunakan GET sesuai atribut di Controller
+						data: {
+							search: query,
+							rentang: rentangSekarang
+						},
+						success: function (data) {
+							// Update area tabel stok
+							$('#containerStatusStok').html(data);
+							// Kembalikan fokus kursor ke input agar user bisa lanjut mengetik
+							let input = $('#CariStatusStokProduk');
+							setTimeout(() => input.focus().val('').val(query), 10);
+						},
+						error: function(err) {
+							console.error("Gagal memuat data stok:", err);
+						}
+					});
+				}, 500); // Delay 500ms agar tidak terlalu membebani server
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			var datepickerOptions = {
+				dateFormat: 'dd-mm-yy',
+				changeMonth: true,
+				changeYear: true,
+				minDate: null,
+				maxDate: null,
+				beforeShowDay: function() {
+					return [true];
+				},
+				appendTo: "body"
+			};
+			$("#FromDate, #ToDate").datepicker(datepickerOptions);
+			$("#Kustume-Tgl-Wrapper").hide();
+			$("input[name='rentang']").change(function() {
+				if (this.value === 'Manual') {
+					$("#Kustume-Tgl-Wrapper").slideDown();
+				} else {
+					$("#Kustume-Tgl-Wrapper").slideUp();
+				}
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			// Panggil fungsi chart di sini
+			loadArusKasChart();
+			loadTransaksiPerMetodeChart(0, null, null);
+		});
+		let alurKasChart = null;
+		let chartTransaksiperMetodePembayaran = null;
+		function loadDashboard(rentang, from = null, to = null) {
+			$.get("/Dashboard/LoadDashboard", {
+					rentang,
+					from,
+					to
+				})
+				.done(html => {
+					$("#dashboard-wrapper").html(html);
+					// reload charts
+					loadArusKasChart(rentang, from, to);
+					loadTransaksiPerMetodeChart(rentang, from, to);
+				});
+		}
+		function loadArusKasChart(rentang, from, to) {
+			$.get("/Dashboard/LoadArusKasChart", { rentang, from, to }, res => {
+				const ctx = document.getElementById('chartAlurKas');
+				if (!ctx) return;
+				if (alurKasChart) alurKasChart.destroy();				
+				const labels = res.map(item => item.label);
+				const values = res.map(item => item.value);
+				alurKasChart = new Chart(ctx, {
+					type: 'doughnut',
+					data: {
+						// Gunakan hasil map
+						labels: labels, 
+						datasets: [{
+							label: 'Jumlah (Rp)',
+							// Gunakan hasil map
+							data: values,
+							// Warna Hijau untuk Masuk, Merah untuk Keluar
+							backgroundColor: ['#dc3545','#28a745'],
+							borderWidth: 2
+						}]
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						cutout: '65%',
+						plugins: {
+							legend: { position: 'bottom' }
+						}
+					}
+				});
+			});
+		}
+		function loadTransaksiPerMetodeChart(rentang, from, to) {
+			$.get("/Dashboard/LoadTransaksiPerMetodeBayarChart", { rentang, from, to }, res => {
+				const ctx = document.getElementById('chartTransaksiperMetodePembayaran');
+				if (!ctx) return;
+				if (chartTransaksiperMetodePembayaran) chartTransaksiperMetodePembayaran.destroy();
+				// TRANSFORMASI DATA DI SINI
+				const labels = res.map(item => item.label);
+				const values = res.map(item => item.value);
+				chartTransaksiperMetodePembayaran = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: labels,
+						datasets: [{
+							label: 'Jumlah Transaksi',
+							data: values,
+							backgroundColor: ['#0000ff','#ffff00','#00ffee'],
+							borderWidth: 1
+						}]
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						scales: {
+							y: { beginAtZero: true }
+						},
+						plugins: {
+							legend: { display: false }
+						}
+					}
+				});
+			});
+		}
+		$(document).ready(function() {
+			loadDashboard("HariIni");
+			$("input[name='rentang']").change(function() {
+				const rentang = $(this).val();
+				if (rentang === "Manual") {
+					$("#Kustume-Tgl-Wrapper").slideDown();
+				} else {
+					$("#Kustume-Tgl-Wrapper").slideUp();
+					loadDashboard(rentang);
+				}
+			});
+			$(".btn-warning").click(function(e) {
+				e.preventDefault();
+				const from = $("#FromDate").val();
+				const to = $("#ToDate").val();
+				if (!from || !to) {
+					swal.fire({
+						icon: "warning",
+						title: "Oops...",
+						text: "Tanggal wajib diisi",
+						position: "top-end"
+					});
+					return;
+				}
+				loadDashboard("Manual", from, to);
+			});
+		});
+	</script>
+}

@@ -1,0 +1,81 @@
+﻿@model POS_System.ViewModels.LaporanKeuanganVm
+<style>
+	.btn-group .btn {
+		border-radius: 0 !important;
+	}
+		.btn-group .btn:first-child {
+			border-top-left-radius: .5rem !important;
+			border-bottom-left-radius: .5rem !important;
+		}
+		.btn-group .btn:last-child {
+			border-top-right-radius: .5rem !important;
+			border-bottom-right-radius: .5rem !important;
+		}
+</style>
+<div class="modal" tabindex="-1" id="ModalEdit" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <form asp-action="Edit" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <b>Edit Periode Laporan</b>
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input type="hidden" asp-for="KodeLaporanKeuangan" />
+                                    <div class="col-md-12 mb-3">
+                                        <label class="control-label d-block mb-2">Report Type</label>
+                                        <div class="btn-group" role="group" aria-label="Report Type">
+                                            @* Uang Masuk *@
+                                            <input type="radio" class="btn-check" name="TipeLaporan" id="UangMasuk" value="Masuk"
+                                                   autocomplete="off" @(Model?.TipeLaporan == "Masuk" ? "checked" : "") />
+                                            <label class="btn btn-outline-success" for="UangMasuk">Uang Masuk</label>
+                                            @* Uang Keluar *@
+                                            <input type="radio" class="btn-check" name="TipeLaporan" id="UangKeluar" value="Keluar"
+                                                   autocomplete="off" @(Model?.TipeLaporan == "Keluar" ? "checked" : "") />
+                                            <label class="btn btn-outline-danger" for="UangKeluar">Uang Keluar</label>
+                                            @* Penjualan *@
+                                            <input type="radio" class="btn-check" name="TipeLaporan" id="Penjualan" value="Penjualan"
+                                                   autocomplete="off" @(Model?.TipeLaporan == "Penjualan" ? "checked" : "") />
+                                            <label class="btn btn-outline-primary" for="Penjualan">Penjualan</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label asp-for="TanggalMulai" class="control-label"></label>
+                                        <input type="hidden" asp-for="TanggalMulai" id="TanggalMulai_Hidden" />
+                                        <input type="text" id="TanggalMulai_Display" class="form-control datepicker"
+                                               value="@(Model?.TanggalMulai.HasValue == true
+                                                                                                  ? Model.TanggalMulai.Value.ToString("dd/MM/yyyy")
+                                                                                                  : "")" />
+                                        <span asp-validation-for="TanggalMulai" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label asp-for="TanggalSelesai" class="control-label"></label>
+                                        <input type="hidden" asp-for="TanggalSelesai" id="TanggalSelesai_Hidden" />
+                                        <input type="text" id="TanggalSelesai_Display" class="form-control datepicker"
+                                               value="@(Model?.TanggalSelesai.HasValue == true
+                                                                                                  ? Model.TanggalSelesai.Value.ToString("dd/MM/yyyy")
+                                                                                                  : "")" />
+                                        <span asp-validation-for="TanggalSelesai" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-edit"></i> Simpan Perubahan
+                    </button>
+                    <a asp-action="Index" class="btn btn-sm btn-warning">Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

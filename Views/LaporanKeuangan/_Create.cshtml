@@ -1,0 +1,70 @@
+﻿@model POS_System.ViewModels.LaporanKeuanganVm
+<style>
+	.btn-group .btn {
+		border-radius: 0 !important;
+	}
+		.btn-group .btn:first-child {
+			border-top-left-radius: .5rem !important;
+			border-bottom-left-radius: .5rem !important;
+		}
+		.btn-group .btn:last-child {
+			border-top-right-radius: .5rem !important;
+			border-bottom-right-radius: .5rem !important;
+		}
+</style>
+<div class="modal" tabindex="-1" id="ModalCreate" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog">
+		<form asp-action="Create" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">
+						<b>Create Periode Laporan</b>
+					</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									<div class="col-md-4">
+										<label asp-for="TipeLaporan" class="control-label"></label>
+										<div class="form-group mb-3">
+											<div class="btn-group" role="group">
+												<input type="radio" class="btn-check" asp-for="TipeLaporan" value="Masuk" id="UangMasuk" checked>
+												<label class="btn btn-outline-success" for="UangMasuk">Uang Masuk</label>
+												<input type="radio" class="btn-check" asp-for="TipeLaporan" value="Keluar" id="UangKeluar">
+												<label class="btn btn-outline-danger" for="UangKeluar">Uang Keluar</label>
+												<input type="radio" class="btn-check" asp-for="TipeLaporan" value="Penjualan" id="Penjualan">
+												<label class="btn btn-outline-primary" for="Penjualan">Penjualan</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label asp-for="TanggalMulai" class="control-label"></label>
+										<input type="hidden" asp-for="TanggalMulai" id="TanggalMulai_Hidden" />
+										<input type="text" id="TanggalMulai_Display" class="form-control datepicker" />
+										<span asp-validation-for="TanggalMulai" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="TanggalSelesai" class="control-label"></label>
+										<input type="hidden" asp-for="TanggalSelesai" id="TanggalSelesai_Hidden" />
+										<input type="text" id="TanggalSelesai_Display" class="form-control datepicker" />
+										<span asp-validation-for="TanggalSelesai" class="text-danger"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-center">
+					<button type="submit" class="btn btn-primary btn-sm">
+						<i class="fa fa-solid fa-save"></i> Create
+					</button>
+					<a asp-action="Index" class="btn btn-sm btn-warning">Back to List</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

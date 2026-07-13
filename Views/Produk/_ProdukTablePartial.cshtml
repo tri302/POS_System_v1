@@ -1,0 +1,187 @@
+﻿@model POS_System.ViewModels.ProdukIndexVm
+@{
+	var indoCulture = new System.Globalization.CultureInfo("id-ID");
+}
+<style>	
+	.product-name {
+		white-space: nowrap; /* Menjaga teks tetap dalam satu baris */
+		overflow: hidden; /* Menyembunyikan teks yang meluap */
+		text-overflow: ellipsis; /* Menambahkan titik-titik (...) jika teks terlalu panjang */
+		display: block; /* Memastikan elemen blok agar properti di atas bekerja */
+		font-weight: 600; /* Opsional: menebalkan nama produk */
+		margin-bottom: 0.5rem; /* Memberi jarak bawah */
+		cursor: default; /* Mengubah kursor saat dihover */
+	}
+		/* Opsional: Memberikan efek saat kursor diarahkan ke nama produk */
+		.product-name:hover {
+			cursor: help;
+		}
+	.table-product-name {
+		display: inline-block; /* Penting agar max-width bekerja di dalam td */
+		max-width: 250px; /* Sesuaikan lebar maksimal sesuai selera Anda */
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		vertical-align: middle; /* Agar sejajar dengan tombol */
+		margin-bottom: 0; /* Menghilangkan margin default tag p */
+	}
+</style>
+<table class="table table-responsive align-middle text-center">
+	<thead class="table-header-custom">
+		<tr>
+			<th><input type="checkbox" id="checkAllProduk"></th>
+			<th>Nama Produk</th>
+			<th>Gambar</th>
+			<th>Stok</th>
+			<th>Harga Modal</th>
+			<th>Harga Jual</th>
+			<th>No Barkode</th>
+			<th>SKU</th>
+			<th>Status</th>
+			<th class="text-center">#</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model != null && Model.ProdukList != null && Model.ProdukList.Any())
+		{
+			foreach (var item in Model.ProdukList)
+			{
+				<tr class="master-row" data-id="@item.IdProduk">
+					<td>
+						<input type="checkbox" class="produk-checkbox" value="@item.IdProduk">
+					</td>
+					<td class="text-start">
+						<div class="d-flex align-items-center">
+							@* Tombol Toggle *@
+							<a href="#" class="btn btn-sm btn-outline-secondary toggle-unit-row me-2">
+								<i class="fa fa-plus-square toggle-icon"></i>
+							</a>
+							@* Nama Produk dengan class baru *@
+							<p class="table-product-name" title="@item.NamaProduk">
+								@item.NamaProduk
+							</p>
+						</div>
+					</td>
+					<td>
+						@if (!string.IsNullOrEmpty(item.FotoPath))
+						{
+							<img src="@item.FotoPath" alt="@item.NamaProduk" width="120" height="120" class="img-thumbnail" />
+						}
+						else
+						{
+							<img src="@Url.Content("~/images/no-image.png")" alt="@item.NamaProduk" width="120" height="120" class="img-thumbnail" />
+						}
+					</td>
+					<td>@item.Stok @item.UnitName</td>
+					<td>Rp @item.HargaModal.ToString("N0", indoCulture)</td>
+					<td>Rp @item.HargaJual.ToString("N0", indoCulture)</td>
+					<td>@item.KodeBarcode</td>
+					<td>@item.SKU</td>
+					<td>@item.StatusProduk</td>
+					<td class="align-middle text-center">
+						<a asp-action="Edit" asp-route-id="@item.IdProduk" class="btn btn-sm btn-primary me-1">
+							<i class="fa fa-edit"></i> Edit
+						</a>
+						<button class="btn btn-sm btn-danger btn-delete" data-id="@item.IdProduk">
+							<i class="fa fa-trash"></i> Delete
+						</button>
+					</td>
+				</tr>
+				//body produk unit
+				<tr class="detail-row unit-detail-@item.IdProduk" style="display: none;">
+					<td colspan="10" class="p-0 border-0">
+						<div class="p-3 bg-light text-start">
+							<p class="mb-2">Detail Produk Unit untuk Nama Produk <b>@item.NamaProduk</b></p>
+							<table class="table table-sm table-bordered mb-0">
+								<thead>
+									<tr class="bg-secondary text-white">
+										<th class="bg-secondary text-white" style="width: 20%;">Satuan Unit Produk</th>
+										@* <th class="bg-secondary text-white" style="width: 10%;">Stok</th> *@
+										<th class="bg-secondary text-white" style="width: 20%;">Harga Modal</th>
+										<th class="bg-secondary text-white" style="width: 20%;">Harga Jual</th>
+									</tr>
+								</thead>
+								<tbody>
+									@if (item.ProductUnits != null && item.ProductUnits.Any())
+									{
+										for (int i = 0; i < item.ProductUnits.Count; i++)
+										{
+											var unit = item.ProductUnits[i];
+											<tr>
+												<td>@unit.UnitName</td>
+												@* <td>@unit.Stok</td> *@
+												<td>Rp @unit.HargaModal.ToString("N0", indoCulture)</td>
+												<td>Rp @unit.HargaJual.ToString("N0", indoCulture)</td>
+											</tr>
+										}
+									}
+								</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="10" class="text-bg-danger text-center">No records found.</td>
+			</tr>
+		}
+	</tbody>
+</table>
+@{
+	int maxButtons = 10;
+	int pageNumber = Model.PageIndex;
+	int totalPages = Model.TotalPages;
+	// Hitung halaman awal dan akhir yang akan ditampilkan
+	int startPage;
+	int endPage;
+	if (totalPages <= maxButtons)
+	{
+		startPage = 1;
+		endPage = totalPages;
+	}
+	else
+	{
+		int maxPagesToShow = maxButtons - 1;
+		int sidePages = maxPagesToShow / 2;
+		if (pageNumber <= sidePages + 1)
+		{
+			startPage = 1;
+			endPage = maxButtons;
+		}
+		else if (pageNumber + sidePages >= totalPages)
+		{
+			startPage = totalPages - maxPagesToShow;
+			endPage = totalPages;
+		}
+		else
+		{
+			startPage = pageNumber - sidePages;
+			endPage = pageNumber + (maxPagesToShow - sidePages);
+		}
+	}
+}
+@if (Model != null && Model.TotalPages > 1)
+{
+	<nav class="d-flex justify-content-center">
+		<ul class="pagination">
+			@* Tombol Previous *@
+			<li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+				<button class="page-btn page-link" data-page="@(pageNumber - 1)">Previous</button>
+			</li>
+			@* Tombol Angka (Dibatasi) *@
+			@for (var i = startPage; i <= endPage; i++)
+			{
+				<li class="page-item @(i == pageNumber ? "active" : "")">
+					<button class="page-btn page-link" data-page="@i">@i</button>
+				</li>
+			}
+			@* Tombol Next *@
+			<li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+				<button class="page-btn page-link" data-page="@(pageNumber + 1)">Next</button>
+			</li>
+		</ul>
+	</nav>
+}

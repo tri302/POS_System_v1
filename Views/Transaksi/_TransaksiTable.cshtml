@@ -1,0 +1,117 @@
+﻿@model POS_System.ViewModels.TransaksiIndexVm
+<div id="LoadDataContainer">
+    <table class="table table-responsive table-striped">
+        <thead class="table-header-custom">
+            <tr>
+                <th>No Transaksi</th>
+                <th>Nama Custumer</th>
+                <th>Total Belanja</th>
+                <th>Pembayaran</th>
+                <th>Status Transaksi</th>
+                <th class="text-center">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.TransaksiList != null && Model.TransaksiList.Any())
+            {
+                @foreach (var item in Model.TransaksiList)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.NoTransaksi)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NamaPemesan)</td>
+                        <td>@string.Format(new System.Globalization.CultureInfo("id-ID"), "{0:C0}", item.TotalBelanja).Replace("Rp", "Rp ")</td>
+                        <td>
+                            @if (item.MetodeBayar != null)
+                            {
+                                <span class="badge @(item.MetodeBayar.NamaMetodeBayar?.ToLower() == "tunai" ? "bg-success" : "bg-warning text-dark")">
+                                    @item.MetodeBayar.NamaMetodeBayar
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Tidak Diketahui</span>
+                            }
+                        </td>
+                        <td>
+                            <span class="badge @(item.Status?.ToLower() == "berhasil" ? "bg-success" : item.Status?.ToLower() == "dibatalkan" ? "bg-danger" : "bg-warning text-dark")">
+                                @item.Status
+                            </span>
+                        </td>
+                        <td class="text-nowrap text-center">
+                            <a href="@Url.Action("Print", "Transaksi", new { id = item.IdTransaksi })" class="btn btn-success btn-sm" target="_blank">
+                                <i class="fas fa-print"></i> Cetak
+                            </a>
+                            <!-- Dropdown Aksi -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.IdTransaksi">
+                                            <i class="fa fa-edit text-primary"></i> Ubah
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-action="Detail" asp-route-id="@item.IdTransaksi">
+                                            <i class="fa fa-eye text-warning"></i> Detail
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <form id="form-batal-@item.IdTransaksi"
+                                              asp-action="BatalkanTransaksi"
+                                              asp-route-id="@item.IdTransaksi"
+                                              method="post">
+                                            @Html.AntiForgeryToken()
+                                            <button type="button"
+                                                    class="dropdown-item text-danger"
+                                                    onclick="konfirmasiPembatalan(@item.IdTransaksi, '@item.NoTransaksi')"
+                                                    style="width: 100%; text-align: left; border: none; background: transparent;">
+                                                <i class="fa fa-ban"></i> Batalkan Transaksi
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-bg-danger text-center">No records found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@{
+    int maxButtons = 10;
+    int pageNumber = Model.PageIndex;
+    int totalPages = Model.TotalPages;
+    int startPage = Math.Max(1, pageNumber - (maxButtons / 2));
+    int endPage = Math.Min(totalPages, startPage + maxButtons - 1);
+    if (endPage - startPage + 1 < maxButtons) { startPage = Math.Max(1, endPage - maxButtons + 1); }
+}
+<div id="PagingContainer">
+    @if (Model != null && Model.TotalPages > 1)
+    {
+        <nav class="d-flex justify-content-center">
+            <ul class="pagination">
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <button class="page-btn page-link" data-page="@(pageNumber - 1)">Previous</button>
+                </li>
+                @for (var i = startPage; i <= endPage; i++)
+                {
+                    <li class="page-item @(i == pageNumber ? "active" : "")">
+                        <button class="page-btn page-link" data-page="@i">@i</button>
+                    </li>
+                }
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <button class="page-btn page-link" data-page="@(pageNumber + 1)">Next</button>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

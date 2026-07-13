@@ -1,0 +1,84 @@
+﻿@model POS_System.ViewModels.AlurKasVm
+@{	
+	ViewData["Title"] = "Edit Cash Flow";
+}
+<div class="modal modal-lg" tabindex="-1" id="ModalEdit" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog">
+		<form asp-action="Edit" method="post">		
+			<input type="hidden" asp-for="Id" />
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">
+						<b>Edit Cash Flow</b>
+					</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="card-body">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label asp-for="TipeAlurKas" class="control-label form-group"></label>
+									<br />
+									<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+										<input type="radio" asp-for="TipeAlurKas" class="btn-check" id="radioMasuk" value="1" checked>
+										<label class="btn btn-outline-success cashflow-type-label" for="radioMasuk">Masuk</label>
+										<input type="radio" asp-for="TipeAlurKas" class="btn-check" id="radioKeluar" value="2">
+										<label class="btn btn-outline-danger cashflow-type-label" for="radioKeluar">Keluar</label>
+									</div>
+									<span asp-validation-for="TipeAlurKas" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Amount" class="control-label"></label>
+									<input type="text" id="AmountDisplay" class="form-control" autocomplete="off" />
+									<input type="hidden" id="Amount" name="Amount" value="@Model.Amount.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
+									<span asp-validation-for="Amount" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label asp-for="IdCashFlow" class="control-label"></label>
+									<select asp-for="IdCashFlow"											
+											class="form-control"
+											id="sumberAlurKasDropdown"
+											data-saved-idcashflow="@Model.IdCashFlow">
+										<option value="" disabled selected>-- Select Source --</option>
+									</select>
+									<input type="hidden" asp-for="SumberAlurKas" id="SumberAlurKas" />
+									<span asp-validation-for="IdCashFlow" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label asp-for="Date" class="control-label"></label>
+									<input asp-for="Date" type="text" id="Date" class="form-control date-picker" />
+									<span asp-validation-for="Date" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label asp-for="Notes" class="control-label"></label>
+								<textarea asp-for="Notes" rows="4" class="form-control"></textarea>
+								<span asp-validation-for="Notes" class="text-danger"></span>
+							</div>
+							<!-- Tombol -->
+							<div class="form-group mt-3" align="center">
+								<button type="submit" asp-controller="AlurKas" class="btn btn-primary btn-sm">
+									<i class="fa fa-plus-square"></i> Simpan Perubahan
+								</button>
+								<a asp-action="Index" class="btn btn-sm btn-warning">
+									<i class="fa-sharp fa-solid fa-arrow-left"></i>
+									Back to List
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+@section Scripts {
+	<script src="~/js/AlurKasCreate.js"></script>
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

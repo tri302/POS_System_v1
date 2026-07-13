@@ -1,0 +1,546 @@
+﻿/* ===========================================================
+   CSS TEMA UTAMA (Menggunakan Variabel CSS)
+   =========================================================== */
+
+/* --- Variabel Warna Dasar (Ditetapkan sebagai Default/Fallback) --- */
+:root {
+    --primary-blue: #0A3C6B; /* Navbar background/Text */
+    --secondary-purple: #6A0DAD; /* Sidebar base color */
+    --accent-green: #3D9970; /* Active menu item / Accent */
+    --bg-light: #F4F6F9; /* Light body background */
+    --text-dark: #1F2D3D; /* Dark body text */
+    --text-light: #F8F9FA; /* Light text (on dark backgrounds) */
+}
+
+/* --- Variabel SIDEBAR PREMIUM (COMMON STYLES) --- */
+:root {
+    /* Variabel yang akan diganti oleh setiap tema */
+    --sidebar-gradient: linear-gradient(180deg, #8E2DE2, #4A00E0); /* Default Purple/Light */
+    --sidebar-shadow: rgba(0, 0, 0, 0.45);
+    --sidebar-text: var(--text-light);
+    --sidebar-hover: rgba(255,255,255,0.12);
+    --sidebar-active: rgba(255,255,255,0.25);
+    --sidebar-active-gradient: linear-gradient(to right, var(--accent-green), #56B887);
+    --sidebar-active-border-color: #fff;
+    --sidebar-active-text: #fff;
+}
+
+/* Base sidebar structure (Glass + Glow) */
+.app-sidebar {
+    background: var(--sidebar-gradient) !important;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 4px 0 18px var(--sidebar-shadow);
+    height: 100vh !important;
+    overflow: hidden;
+    flex-direction: column;
+}
+/* Paksa scroll pada seluruh sidebar */
+.app-sidebar {
+    overflow-y: auto !important;
+    height: 100vh !important;
+}
+
+.sidebar-wrapper {
+    flex: 1;
+    overflow-y: auto !important; 
+    overflow-x: hidden;    
+}
+    /* Membuat tampilan scrollbar lebih cantik (Chrome/Edge/Safari) */
+    .sidebar-wrapper::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sidebar-wrapper::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+    }
+/* INNER transparan */
+.app-sidebar .sidebar-wrapper,
+.app-sidebar .nav-sidebar,
+.app-sidebar .nav-item,
+.app-sidebar .nav-link,
+.app-sidebar .nav-treeview {
+    background: transparent !important;
+}
+
+/* Sidebar Brand */
+.sidebar-brand .brand-text {
+    font-weight: bold;
+    color: var(--sidebar-text) !important;
+}
+
+.sidebar-brand .brand-link {
+    color: var(--sidebar-text) !important;
+}
+
+/* Text */
+.app-sidebar .nav-link {
+    color: var(--sidebar-text) !important;
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin: 4px 8px;
+    transition: 0.25s ease;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+    /* Hover */
+    .app-sidebar .nav-link:hover {
+        background: var(--sidebar-hover) !important;
+        transform: translateX(4px);
+        box-shadow: 0 0 10px rgba(255,255,255,0.18);
+    }
+
+    /* Active Menu Item (Menu Utama) */
+    .app-sidebar .nav-link.active,
+    .nav-item.menu-open > .nav-link { /* Menu Induk yang terbuka */
+        background: var(--sidebar-active-gradient) !important;
+        color: var(--sidebar-active-text) !important;
+        box-shadow: 0 0 12px rgba(255,255,255,0.25);
+        font-weight: bold;
+        border-left: 5px solid var(--sidebar-active-border-color); /* Glow border */
+        border-radius: 0 5px 5px 0;
+        transform: none; /* Hilangkan translateX agar terlihat konsisten dengan border */
+    }
+
+/* Icon size premium */
+.app-sidebar .nav-icon {
+    font-size: 1.25rem !important;
+    font-weight: bold;
+    width: 28px;
+    text-align: center;
+    opacity: 0.9;
+    color: var(--sidebar-text) !important; /* Agar ikon ikut berubah warna */
+}
+
+.app-sidebar .nav-link.active .nav-icon,
+.nav-item.menu-open > .nav-link .nav-icon {
+    color: var(--sidebar-active-text) !important; /* Warna ikon menu aktif */
+}
+
+/* Sidebar header */
+.app-sidebar .nav-header {
+    color: var(--sidebar-text) !important;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+    padding: 10px 18px 5px;
+}
+
+/* Submenu */
+.nav-treeview {
+    background-color: rgba(0, 0, 0, 0.2); /* Latar belakang submenu sedikit lebih gelap */
+    padding-left: 5px;
+}
+
+.app-sidebar .nav-treeview .nav-link {
+    padding-left: 20px !important;
+    opacity: 0.85;
+    color: var(--sidebar-text) !important;
+}
+
+    .app-sidebar .nav-treeview .nav-link:hover {
+        opacity: 1;
+    }
+
+/* Active Submenu Item */
+.nav-treeview .nav-link.active {
+    background: #FFFFFF !important; /* Latar Putih */
+    color: var(--text-dark) !important; /* Teks Gelap (Kontras) */
+    font-weight: bold;
+    border-left: 5px solid var(--primary-blue) !important; /* Garis Biru */
+    border-radius: 0 5px 5px 0 !important;
+}
+
+    .nav-treeview .nav-link.active i {
+        color: var(--primary-blue) !important;
+    }
+
+/* Glow border on left (Menu Utama) */
+.app-sidebar .nav-link.active::before,
+.nav-item.menu-open > .nav-link::before {
+    content: none; /* Dihapus karena menggunakan border-left di active */
+}
+
+/* Panah Navigasi Treeview */
+.nav-link .right {
+    transition: transform 0.3s ease;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    margin-top: -0.5rem;
+}
+
+.nav-item.menu-open > .nav-link > p > .right,
+.nav-item.menu-open > .nav-link > .right {
+    transform: rotate(90deg); /* Diubah ke 90deg agar terlihat menghadap ke bawah/kanan */
+}
+
+/* ===========================================================
+   DEFINISI TEMA UNTUK SIDEBAR & GLOBAL (5 TEMA)
+   =========================================================== */
+
+/* --- 1. LIGHT THEME (DEFAULT) --- */
+.theme-light {
+    --primary-blue: #0A3C6B;
+    --accent-green: #3D9970;
+    --bg-light: #FFFFFF;
+    --text-dark: #1F2D3D;
+    /* SIDEBAR: GANTI KE BIRU SOLID */
+    --sidebar-gradient: rgb(28, 100, 242); /* MENGGUNAKAN WARNA BIRU SOLID */
+    --sidebar-shadow: rgba(0, 0, 0, 0.5); /* Bisa jadi perlu disesuaikan agar bayangan terlihat */
+    --sidebar-hover: rgba(255,255,255,0.15); /* Disesuaikan sedikit agar kontras di latar biru */
+    --sidebar-active-gradient: linear-gradient(to right, #00C4FF, #008DFF); /* Ganti gradien aktif agar lebih cocok dengan biru terang */
+    --sidebar-text: var(--text-light); /* Tetap putih */
+    --sidebar-active-border-color: #fff;
+    --sidebar-active-text: #fff;
+}
+
+/* --- 2. DARK THEME --- */
+.theme-dark {
+    --primary-blue: #1E90FF;
+    --accent-green: #4CAF50;
+    --bg-light: #1A1A1A;
+    --text-dark: #EAEAEA;
+    /* SIDEBAR: DARK GREY GRADIENT */
+    --sidebar-gradient: linear-gradient(180deg, #2c3e50, #000000);
+    --sidebar-shadow: rgba(255, 255, 255, 0.15); /* Shadow terang untuk latar gelap */
+    --sidebar-hover: rgba(255,255,255,0.08);
+    --sidebar-active: rgba(255,255,255,0.2);
+    --sidebar-active-gradient: linear-gradient(to right, #4CAF50, #2E8B57);
+    --sidebar-text: var(--text-dark);
+    --sidebar-active-border-color: #4CAF50;
+    --sidebar-active-text: #fff;
+}
+
+/* --- 3. GREEN THEME --- */
+.theme-green {
+    --primary-blue: #0B6623;
+    --accent-green: #32CD32;
+    --bg-light: #F1FFF1;
+    --text-dark: #1A3D1A;
+    /* SIDEBAR: EMERALD GRADIENT */
+    --sidebar-gradient: linear-gradient(180deg, #11998e, #38ef7d);
+    --sidebar-active-gradient: linear-gradient(to right, #007bff, #00aaff);
+    --sidebar-text: var(--text-light);
+    --sidebar-active-border-color: #fff;
+    --sidebar-active-text: #fff;
+}
+
+/* --- 4. RED THEME (Baru) --- */
+.theme-red {
+    --primary-blue: #DC143C;
+    --accent-green: #FF6347;
+    --bg-light: #FFF0F0;
+    --text-dark: #800000;
+    /* SIDEBAR: MAROON-RED GRADIENT */
+    --sidebar-gradient: linear-gradient(180deg, #B70000, #800000);
+    --sidebar-active-gradient: linear-gradient(to right, #FF6347, #FF4500);
+    --sidebar-text: var(--text-light);
+    --sidebar-active-border-color: #fff;
+    --sidebar-active-text: #fff;
+}
+
+/* --- 5. ORANGE THEME (Baru) --- */
+.theme-orange {
+    --primary-blue: #FF8C00;
+    --accent-green: #FFA500;
+    --bg-light: #FFF8F0;
+    --text-dark: #694000;
+    /* SIDEBAR: SUNRISE GRADIENT */
+    --sidebar-gradient: linear-gradient(180deg, #FF6600, #FFBB00);
+    --sidebar-active-gradient: linear-gradient(to right, #4CAF50, #66BB6A);
+    --sidebar-text: var(--text-dark); /* Teks gelap karena gradiennya terang */
+    --sidebar-active-border-color: #694000;
+    --sidebar-active-text: #fff;
+    --sidebar-shadow: rgba(0, 0, 0, 0.25);
+}
+
+/* ===========================================================
+   GLOBAL STYLES (Menerapkan Variabel Tema)
+   =========================================================== */
+
+body {
+    background: var(--bg-light);
+    color: var(--text-dark);
+}
+
+.app-main {
+    background-color: var(--bg-light);
+}
+
+.app-content-header h3 {
+    color: var(--text-dark);
+}
+
+/* --- Header (Navbar) --- */
+.app-header.navbar {
+    background: #FFFFFF !important;
+}
+
+/* --- Footer --- */
+.app-footer {
+    background: #FFFFFF !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* --- Tabel Header (Contoh Penggunaan) --- */
+table.table thead.table-header-custom th {
+    /* background: linear-gradient(90deg, var(--primary-blue), var(--accent-green)) !important;*/
+    /* background: #6c6c60 !important;  Warna netral untuk header tabel */
+    /*color: var(--text-light) !important;*/
+    background-color: #333;
+    color: white !important;
+}
+
+/* --- Kotak Ringkasan (Card) --- */
+.card-penjualan {
+    background: linear-gradient(45deg, var(--primary-blue), #1E6B9E);
+    color: var(--text-light);
+    border-top: #0d6efd 3px solid;
+}
+
+.card-uang-masuk {
+    background: linear-gradient(45deg, var(--accent-green), #56B887);
+    color: var(--text-light);
+    border-top: #0d6efd 3px solid;
+}
+
+.card-uang-keluar {
+    /* Menggunakan warna aksen sekunder, misal dari tema dark */
+    background: linear-gradient(45deg, #FF6347, #DC143C);
+    color: var(--text-light);
+    border-top: #0d6efd 3px solid;
+}
+
+    .card-penjualan h5, .card-penjualan p,
+    .card-uang-masuk h5, .card-uang-masuk p,
+    .card-uang-keluar h5, .card-uang-keluar p {
+        color: var(--text-light) !important;
+    }
+
+/* --- Lain-lain (Pertahankan kode small-box, dll.) --- */
+
+.small-box .icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4.5em;
+    opacity: 0.5;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.small-box .inner {
+    position: relative;
+    z-index: 20;
+    padding: 10px;
+}
+
+.small-box .small-box-footer {
+    position: relative;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 3px 0;
+}
+
+/* --- 🌟 Header (Navbar) --- */
+.app-header.navbar {
+    background: #FFFFFF !important; /* Latar Belakang Putih */
+}
+
+.app-header .navbar-nav .nav-link {
+    font-size: 1rem !important; /* default bootstrap */
+    font-weight: 400;
+    color: var(--text-dark) !important;
+}
+
+    /* Icon saja yang dibesarkan */
+    .app-header .navbar-nav .nav-link i {
+        font-size: 1.25rem;
+        color: var(--primary-blue) !important;
+    }
+
+    /* Jika Anda ingin ikon Header selalu Biru Primer */
+    .app-header .navbar-nav .nav-link,
+    .app-header .navbar-nav .nav-link i {
+        color: var(--primary-blue) !important; /* Contoh: Ikon selalu Biru Gelap */
+    }
+
+/* Perbaiki juga ikon Tema agar warnanya konsisten dengan yang lain */
+.app-header .navbar-nav .dropdown-toggle i.fa.fa-palette {
+    color: var(--primary-blue) !important; /* Warna yang sama */
+    margin-right: 5px;
+}
+/* ============================= */
+/* GLOBAL PAGINATION STYLE       */
+/* ============================= */
+
+/* Previous button */
+.pagination .page-item:first-child .page-link {
+    background-color: #ffc107; /* btn-warning */
+    border-color: #ffc107;
+    color: #000;
+}
+
+/* Next button */
+.pagination .page-item:last-child .page-link {
+    background-color: #198754; /* btn-success */
+    border-color: #198754;
+    color: #fff;
+}
+
+/* Hover effect */
+.pagination .page-item:first-child .page-link:hover {
+    background-color: #e0a800;
+}
+
+.pagination .page-item:last-child .page-link:hover {
+    background-color: #157347;
+}
+
+/* Disabled state */
+.pagination .page-item.disabled .page-link {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Active page number */
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+/* Untuk posisi datePicker berada di front element lain */
+.ui-datepicker {
+    z-index: 9999 !important;
+}
+
+.content,
+.card,
+.row {
+    overflow: visible !important;
+}
+/* ===========================================================
+   FIX: PAGINATION ICON PERMANENT (FORCE AFTER RENDER)
+   =========================================================== */
+
+/* Menargetkan tombol Previous */
+.pagination .page-item:first-child .page-link::before {
+    content: "\21D0\00a0" !important; /* Simbol ⇐ */
+    font-family: Arial, sans-serif !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+}
+
+/* Menargetkan tombol Next */
+.pagination .page-item:last-child .page-link::after {
+    content: "\00a0\21D2" !important; /* Simbol ⇒ */
+    font-family: Arial, sans-serif !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+}
+
+/* Pastikan container link tidak memotong ikon */
+.pagination .page-link {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+/* ===========================================================
+   SIDEBAR ADMINLTE STYLES (Menerapkan Variabel Tema)
+   =========================================================== */
+/* Menerapkan variabel ke Sidebar AdminLTE */
+.app-sidebar {
+    background: var(--sidebar-gradient) !important;
+    color: var(--sidebar-text) !important;
+    box-shadow: var(--sidebar-shadow) !important;
+}
+
+    /* Warna teks menu */
+    .app-sidebar .nav-link {
+        color: var(--sidebar-text) !important;
+    }
+
+        /* State Hover */
+        .app-sidebar .nav-link:hover {
+            background-color: var(--sidebar-hover) !important;
+        }
+
+        /* Menu Aktif (Highlight) */
+        .app-sidebar .nav-link.active {
+            background: var(--sidebar-active-gradient) !important;
+            color: var(--sidebar-active-text) !important;
+            border-left: 3px solid var(--sidebar-active-border-color);
+        }
+
+/* Brand Logo Area */
+.sidebar-brand {
+    background: rgba(0,0,0,0.1); /* sedikit gelap agar logo menonjol */
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ===========================================================
+   FIX: MODAL BACKDROP TRANSPARENCY ISSUE
+   =========================================================== */
+/* Pastikan backdrop modal memiliki transparansi */
+.modal-backdrop.show {
+    opacity: 0.5 !important;
+}
+
+/* Pastikan modal tidak memiliki background hitam sendiri */
+.modal {
+    background: transparent !important;
+}
+
+/* Kotak putih modalnya tetap harus putih/sesuai tema */
+.modal-content {
+    z-index: 1100 !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+}
+
+/* Menargetkan semua elemen yang punya atribut data-modal */
+[data-modal] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px); /* Efek blur premium */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    /* State awal (Tersembunyi) */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+    /* Supaya show/hide menjadi smooth */
+    /* Menargetkan isi konten di dalam modal */
+    [data-modal] .modal-content {
+        background: white;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        /* Animasi: Muncul dari bawah (translateY) & membesar (scale) */
+        transform: translateY(20px) scale(0.95);
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* State Aktif (Saat modal dibuka) */
+    [data-modal].open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+        [data-modal].open .modal-content {
+            transform: translateY(0) scale(1);
+        }

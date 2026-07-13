@@ -1,0 +1,219 @@
+﻿@model POS_System.ViewModels.KaryawanIndexVm
+@{
+	Layout = "_AdminLayout";
+}
+<p align="right">
+	<a asp-action="Create" class="btn btn-sm btn-success">
+		<i class="fa fa-plus-square"></i>
+		Create New
+	</a>
+</p>
+<div id="karyawanContainer">
+	<table class="table table-responsive table-striped table-valign-middle">
+		<thead class="table-header-custom">
+			<tr>
+				<th>
+					Foto
+				</th>
+				<th>
+					NIK
+				</th>
+				<th>
+					Nama
+				</th>
+				<th>
+					Alamat
+				</th>
+				<th>
+					Email
+				</th>
+				<th>
+					No HP
+				</th>
+				<th>
+					Status
+				</th>
+				<th class="text-center">#</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model != null && Model.KaryawanList != null && Model.KaryawanList.Any())
+			{
+				@foreach (var item in Model.KaryawanList)
+				{
+					<tr>
+						<td>
+							@if (!string.IsNullOrEmpty(item.FotoPath))
+							{
+								<img src="@item.FotoPath" width="120" height="120" class="img-thumbnail" />
+							}
+							else
+							{
+								<img src="@Url.Content("~/images/no-image.png")" width="120" height="120" class="img-thumbnail" />
+							}
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.NIK)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Name)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.AlamatLengkap)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Email)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.NoHp)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.StatusKaryawan)
+						</td>
+						<td>
+							<a asp-action="Details" asp-route-id="@item.IdKaryawan" class="btn btn-sm btn-primary me-1">
+								<i class="fa fa-edit"></i> Details
+							</a>
+						</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="8" class="text-bg-danger text-center">No records found.</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	@{
+	// Definisikan jumlah tombol yang ingin ditampilkan di kedua sisi (misal: 4 di kiri, 5 di kanan, total 10 tombol)
+    int maxButtons = 10;
+    int pageNumber = Model.PageIndex; // Gunakan PageIndex yang benar
+    int totalPages = Model.TotalPages;
+    // Hitung halaman awal dan akhir yang akan ditampilkan
+    int startPage;
+    int endPage;
+    if (totalPages <= maxButtons)
+    {
+        // Jika total halaman kurang dari batas, tampilkan semua
+        startPage = 1;
+        endPage = totalPages;
+    }
+    else
+    {
+        // Jika total halaman lebih dari batas
+        int maxPagesToShow = maxButtons - 1; // 9 tombol lain + 1 tombol current = 10
+        int sidePages = maxPagesToShow / 2; // Misalnya 4 atau 5
+        if (pageNumber <= sidePages + 1)
+        {
+            // Jika di awal (tampilkan halaman 1 sampai batas)
+            startPage = 1;
+            endPage = maxButtons;
+        }
+        else if (pageNumber + sidePages >= totalPages)
+        {
+            // Jika di akhir (tampilkan batas terakhir)
+            startPage = totalPages - maxPagesToShow;
+            endPage = totalPages;
+        }
+        else
+        {
+            // Jika di tengah (tampilkan 4 ke kiri dan 5 ke kanan)
+            startPage = pageNumber - sidePages;
+            endPage = pageNumber + (maxPagesToShow - sidePages);
+        }
+    }
+}
+	@* --- Paging Navigation --- *@
+	@if (Model != null && Model.TotalPages > 1)
+	{
+		<nav class="d-flex justify-content-center">
+			<ul class="pagination">
+				@* Tombol Previous *@
+				<li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+					<button class="page-btn page-link" data-page="@(pageNumber - 1)">Previous</button>
+				</li>
+				@* Tombol Angka (Dibatasi) *@
+				@for (var i = startPage; i <= endPage; i++)
+				{
+					<li class="page-item @(i == pageNumber ? "active" : "")">
+						<button class="page-btn page-link" data-page="@i">@i</button>
+					</li>
+				}
+				@* Tombol Next *@
+				<li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+					<button class="page-btn page-link" data-page="@(pageNumber + 1)">Next</button>
+				</li>
+			</ul>
+		</nav>
+	}
+</div>
+@section Scripts {
+	<script>
+			$(document).ready(function () {
+				// Panggil fungsi untuk melampirkan listener saat dokumen dimuat
+				attachPagingListeners();
+			});
+			// 💡 Fungsi utama untuk memuat halaman via AJAX
+			function loadKaryawanPage(pageNumber) {
+				// Tampilkan loading spinner (opsional)
+				$('#karyawanContainer').html('<div class="text-center"><i class="fa fa-spinner fa-spin fa-3x"></i> Loading...</div>');
+				$.ajax({
+					// Panggil action LoadPage di KaryawanController
+					url: '@Url.Action("LoadPage", "Karyawan")',
+					type: 'GET',
+					data: { pageNumber: pageNumber }, // Kirim nomor halaman
+					success: function (html) {				
+						var newContent = $(html).find('#karyawanContainer').html();
+						$('#karyawanContainer').html(newContent);
+						// Setelah konten diperbarui, lampirkan ulang listener ke tombol baru
+						attachPagingListeners();
+					},
+					error: function(xhr, status, error) {
+					// Tampilkan pesan error jika gagal
+					alert("Error loading page: " + xhr.responseText);
+					// Hapus spinner/tampilkan pesan error di container
+					$('#LoadDataContainer').html('<div class="alert alert-danger text-center">Gagal memuat data. Silakan coba lagi.</div>');
+				}
+				});
+			}
+			// Fungsi untuk melampirkan/melampirkan ulang event listener ke tombol pagination
+			function attachPagingListeners() {
+				// Hapus listener sebelumnya sebelum melampirkan yang baru
+				$(document).off("click", ".page-btn").on("click", ".page-btn", function (e) {
+					e.preventDefault();
+					var targetPage = parseInt($(this).data("page"));
+					// Cek apakah tombol disable
+					if ($(this).parent().hasClass("disabled")) {
+						return; // Jangan lakukan apa-apa jika disabled
+					}
+					loadKaryawanPage(targetPage);
+				});
+			}
+		@if (TempData["SweetAlertSuccess"] != null)
+		{
+				<text>
+					Swal.fire({
+					icon: 'success',
+					title: 'Berhasil',
+					text: '@TempData["SweetAlertSuccess"]',
+					position: "top-end",
+					toast:true
+					});
+				</text>
+		}
+		@if (TempData["SweetAlertWarning"] != null)
+		{
+				<text>
+					Swal.fire({
+					icon: 'success',
+					title: 'Berhasil',
+					text: '@TempData["SweetAlertWarning"]',
+					toast: true,
+					position: "top-end"
+					});
+				</text>
+			}
+	</script>
+}

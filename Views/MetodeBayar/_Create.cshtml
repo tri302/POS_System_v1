@@ -1,0 +1,55 @@
+﻿@model POS_System.ViewModels.MetodeBayarVmCreate
+@{
+    ViewData["Title"] = "Create";
+    //Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="modal" tabindex="-1" id="ModalCreate" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        @* Pastikan Anda mengaktifkan multipart/form-data untuk upload file *@
+        <form asp-action="_Create" method="post" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <b>Create Metode Bayar</b>
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @* Hanya perlu satu validation-summary *@
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="NamaMetodeBayar" class="control-label"></label>
+                                        <input asp-for="NamaMetodeBayar" class="form-control" placeholder="Cash, Transfer Bank, Qris" />
+                                        <span asp-validation-for="NamaMetodeBayar" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        @* Gunakan asp-for="UploadGambar" untuk mengikat ke IFormFile di ViewModel *@
+                                        <label asp-for="UploadGambar"></label>
+                                        <input asp-for="UploadGambar" type="file" class="form-control" />
+                                        @* Gunakan asp-validation-for="UploadGambar" untuk menampilkan pesan error *@
+                                        <span asp-validation-for="UploadGambar" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-solid fa-save"></i> Create
+                    </button>
+                    <a asp-action="Index" class="btn btn-sm btn-warning">Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {    
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

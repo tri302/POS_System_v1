@@ -1,0 +1,152 @@
+﻿@using System.Globalization
+@model POS_System.Models.Transaksi
+@{
+	Layout = null;
+	var total = Model.TotalBelanja;
+	var rupiahCulture = new CultureInfo("id-ID");
+	var toko = ViewBag.TokoSettings as POS_System.Models.PengaturanToko;
+	var logoPath = toko?.LogoToko;
+	var namaToko = toko?.NamaToko ?? "TOKO DEFAULT";
+	var alamatToko = toko?.AlamatToko ?? "Alamat Toko Tidak Ada";
+	var telpToko = toko?.NomorTelepon ?? "Nomor Telepon Tidak Ada";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Print Struk - @Model.NoTransaksi</title>
+    <style>
+        /* CSS untuk Tampilan di Layar (Preview) */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            background-color: #f0f0f0; /* Warna latar belakang agar struk terlihat kontras */
+            display: flex;
+            justify-content: center; /* Mengetengahkan secara horizontal */
+            min-height: 100vh;
+        }
+        .receipt-container {
+            width: 80mm;
+            background-color: white;
+            padding: 5mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Memberi efek bayangan di layar */
+            box-sizing: border-box;
+        }
+        /* CSS Khusus untuk Cetak (Printer) */
+        @@media print {
+            @@page {
+                size: 80mm auto;
+                margin: 0;
+            }
+            body {
+                background-color: white;
+                display: block; /* Kembalikan ke default saat cetak */
+            }
+            .receipt-container {
+                width: 80mm;
+                padding: 2mm 5mm;
+                box-shadow: none; /* Hilangkan bayangan saat cetak */
+            }
+            .no-print {
+                display: none;
+            }
+        }
+        /* Style Elemen di dalam Struk */
+        .items {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+            .items td {
+                padding: 2px 0;
+                vertical-align: top;
+            }
+        .total {
+            border-top: 1px dashed #000;
+            margin-top: 5px;
+            padding-top: 5px;
+        }
+        hr {
+            border: 0;
+            border-top: 1px dashed #000;
+            margin: 5px 0;
+        }
+        .header img {
+            max-width: 20mm;
+            max-height: 20mm;
+            display: block;
+            margin: 0 auto 5px auto;
+        }
+        .header, .footer {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-container">
+        <div class="header">
+            @if (!string.IsNullOrEmpty(logoPath))
+            {
+                <img src="@logoPath" alt="@namaToko Logo" />
+            }
+            <strong>@namaToko</strong><br />
+            @alamatToko<br />
+            @telpToko
+            <hr />
+        </div>
+        <div>
+            <table style="width:100%">
+                <tr>
+                    <td>No : @Model.NoTransaksi</td>
+                </tr>
+            </table>
+            Kasir : @(Model.Karyawans?.Name ?? "-")<br />
+            Tgl : @Model.TanggalTransaksi.ToString("dd/MM/yyyy HH:mm")<br />
+            Customer : @(Model.Pelanggan?.Nama ?? "-")<br />
+            Metode Bayar : @Model.MetodeBayar?.NamaMetodeBayar
+            <hr />
+        </div>
+        <table class="items">
+            @foreach (var item in Model.TransaksiDetails)
+            {
+                <tr>
+                    <td>@item.Produk?.NamaProduk</td>
+                    <td style="text-align:center">@item.Qty</td>
+                    @* <td style="text-align:left">@item.ProductUnit?.UnitName</td> *@
+                    <td style="text-align:left">x</td>
+                    <td style="text-align:right">@item.HargaJual.ToString("C0", rupiahCulture)</td>
+                    <td style="text-align:right">@((item.Qty * item.HargaJual).ToString("C0", rupiahCulture))</td>
+                </tr>
+            }
+        </table>
+        <div class="total">
+            <table style="width:100%">
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td style="text-align:right"><strong>@total.ToString("C0", rupiahCulture)</strong></td>
+                </tr>
+                <tr>
+                    <td>Bayar</td>
+                    <td style="text-align:right">@Model.NominalBayar.ToString("C0", rupiahCulture)</td>
+                </tr>
+                <tr>
+                    <td>Kembalian</td>
+                    <td style="text-align:right">@Model.Kembalian.ToString("C0", rupiahCulture)</td>
+                </tr>
+            </table>
+        </div>
+        <hr />
+        <div class="footer">
+            Terima kasih atas kunjungannya!<br />
+            Barang yang sudah dibeli tidak dapat dikembalikan.
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+﻿@using System.Globalization
+@model POS_System.ViewModels.KasirIndexVm
+<style>
+    .product-name {
+        white-space: nowrap;      /* Menjaga teks tetap dalam satu baris */
+        overflow: hidden;         /* Menyembunyikan teks yang meluap */
+        text-overflow: ellipsis;  /* Menambahkan titik-titik (...) jika teks terlalu panjang */
+        display: block;           /* Memastikan elemen blok agar properti di atas bekerja */
+        font-weight: 600;         /* Opsional: menebalkan nama produk */
+        margin-bottom: 0.5rem;    /* Memberi jarak bawah */
+        cursor: default;          /* Mengubah kursor saat dihover */
+    }
+    /* Opsional: Memberikan efek saat kursor diarahkan ke nama produk */
+    .product-name:hover {
+        cursor: help;
+    }
+</style>
+@if (Model != null && Model.ProdukItems != null && Model.ProdukItems.Any())
+{
+	<div class="row g-3 mb-2">
+		@foreach (var itemVm in Model.ProdukItems)
+		{
+			var imageUrl = Url.Content(itemVm.Gambar ?? "/images/no-image.png");
+			<div class="col-md-3">
+				<div class="card h-100 shadow-sm border-0">
+					<div class="image-container">
+						<img src="@imageUrl"
+							 class="card-img-top" alt="@itemVm.NamaProduk">
+					</div>
+					<div class="card-body text-center d-flex flex-column">						
+						<p class="product-name" title="@itemVm.NamaProduk">@itemVm.NamaProduk</p>
+						<h6 class="text-success mb-0">
+							@(itemVm.HargaJual > 0 ? itemVm.HargaJual.ToString("C0", new CultureInfo("id-ID")) : "Rp -")
+						</h6>
+						<small class="text-muted">(@itemVm.Stok)</small>
+						<button class="btn btn-sm btn-primary add-to-cart"
+								data-id="@itemVm.ProductUnitId"
+								data-idproduk="@itemVm.IdProduk"
+								data-stok="@itemVm.Stok"
+								data-konversi="@itemVm.Conversion"
+								data-name="@itemVm.NamaProduk"
+								data-price="@itemVm.HargaJual.ToString("F0")"
+								data-image="@imageUrl"
+								data-units='@Html.Raw(System.Text.Json.JsonSerializer.Serialize(itemVm.AvailableUnits))'>
+							<i class="bi bi-cart-plus"></i> Add
+						</button>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+}
+else
+{
+	<div class="col-12 text-center text-muted mt-5">
+		<i class="bi bi-box-seam" style="font-size: 3rem;"></i>
+		<p class="mt-2">Tidak ada produk ditemukan.</p>
+	</div>
+}
+@* --- Paging Navigation --- *@
+@*Definisikan jumlah tombol yang ingin ditampilkan di kedua sisi (misal: 4 di kiri, 5 di kanan, total 10 tombol)*@
+@{
+	int maxButtons = 10;
+	int pageNumber = Model.PageIndex; // Gunakan PageIndex yang benar
+	int totalPages = Model.TotalPages;
+	// Hitung halaman awal dan akhir yang akan ditampilkan
+	int startPage;
+	int endPage;
+	if (totalPages <= maxButtons)
+	{
+		// Jika total halaman kurang dari batas, tampilkan semua
+		startPage = 1;
+		endPage = totalPages;
+	}
+	else
+	{
+		// Jika total halaman lebih dari batas
+		int maxPagesToShow = maxButtons - 1; // 9 tombol lain + 1 tombol current = 10
+		int sidePages = maxPagesToShow / 2; // Misalnya 4 atau 5
+		if (pageNumber <= sidePages + 1)
+		{
+			// Jika di awal (tampilkan halaman 1 sampai batas)
+			startPage = 1;
+			endPage = maxButtons;
+		}
+		else if (pageNumber + sidePages >= totalPages)
+		{
+			// Jika di akhir (tampilkan batas terakhir)
+			startPage = totalPages - maxPagesToShow;
+			endPage = totalPages;
+		}
+		else
+		{
+			// Jika di tengah (tampilkan 4 ke kiri dan 5 ke kanan)
+			startPage = pageNumber - sidePages;
+			endPage = pageNumber + (maxPagesToShow - sidePages);
+		}
+	}
+}
+@* --- Paging Navigation --- *@
+@if (Model != null && Model.TotalPages > 1)
+{
+	<nav class="d-flex justify-content-center">
+		<ul class="pagination">
+			@* Tombol Previous *@
+			<li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+				<button class="page-btn page-link" data-page="@(pageNumber - 1)">
+					⏪ Previous
+				</button>
+			</li>
+			@* Tombol Angka (Dibatasi) *@
+			@for (var i = startPage; i <= endPage; i++)
+			{
+				<li class="page-item @(i == pageNumber ? "active" : "")">
+					<button class="page-btn page-link" data-page="@i">@i</button>
+				</li>
+			}
+			@* Tombol Next *@
+			<li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+				<button class="page-btn page-link" data-page="@(pageNumber + 1)">
+					Next ⏩
+				</button>
+			</li>
+		</ul>
+	</nav>
+}

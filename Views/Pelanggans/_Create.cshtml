@@ -1,0 +1,67 @@
+﻿@model POS_System.ViewModels.PelangganVm
+@{
+	ViewData["Title"] = "Create";
+	//Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="modal" tabindex="-1" id="ModalCreate" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog">
+		<form asp-action="Create" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">
+						<b>Create Custumer</b>
+					</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									<div class="form-group">
+										<label asp-for="Nama" class="control-label"></label>
+										<input asp-for="Nama" class="form-control" />
+										<span asp-validation-for="Nama" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="Alamat" class="control-label"></label>
+										<input asp-for="Alamat" class="form-control" />
+										<span asp-validation-for="Alamat" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="Email" class="control-label"></label>
+										<input asp-for="Email" class="form-control" />
+										<span asp-validation-for="Email" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label asp-for="Phone" class="control-label"></label>
+										<input asp-for="Phone" class="form-control" />
+										<span asp-validation-for="Phone" class="text-danger"></span>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Jenis Custumer</label>
+										@* <select asp-for="JenisPelangganId" class ="form-control" asp-items="ViewBag.JenisPelangganId"></select> *@
+										<select asp-for="JenisPelangganId" class="form-control" asp-items="ViewBag.JenisPelangganId as IEnumerable<SelectListItem> ?? new List<SelectListItem>()"></select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer justify-content-center">
+						@* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@				
+					<button type="submit" class="btn btn-primary btn-sm">
+							<i class="fa fa-solid fa-save"></i> Create
+						</button>
+						<a asp-action="Index" class="btn btn-sm btn-warning">Back to List</a>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

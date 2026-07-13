@@ -1,0 +1,37 @@
+﻿@model IEnumerable<PengaturanToko>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (!string.IsNullOrEmpty(item.LogoToko))
+                {
+                    <img src="@item.LogoToko" alt="Logo" width="120" height="120" class="img-thumbnail"/>
+                }
+                else
+                {                    
+                    <img src="@Url.Content("~/images/no-image.png")" alt="@item.LogoToko" width="120" height="120" class="img-thumbnail" />
+                }    
+            </td>
+            <td class="align-middle">@item.NamaToko</td>
+            <td class="align-middle">@item.AlamatToko</td>
+            <td class="align-middle">@item.NomorTelepon</td>
+            @* <td class="text-center align-middle">
+                @if (item.PrintViaBluetooth)
+                {
+                    <span class="badge bg-success">Yes</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">No</span>
+                }
+            </td> *@
+            <td class="text-center align-middle">
+                <button type="button" class="btn btn-primary btn-sm btn-edit" data-id="@item.Id">
+                    <i class="fa fa-edit"></i> Edit
+                    </button>
+                @* <button class="btn btn-danger btn-sm btn-delete" data-id="@item.Id" data-name="@item.NamaToko"><i class="fa fa-trash"></i> Delete</button> *@
+            </td>
+        </tr>
+    }
+</tbody>

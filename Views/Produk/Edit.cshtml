@@ -1,0 +1,365 @@
+﻿@model POS_System.ViewModels.ProdukVm
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+	ViewData["Title"] = "Edit Produk";
+	// Tentukan path gambar, jika ada gunakan Model.FotoPath, jika tidak gunakan placeholder
+	var imagePath = string.IsNullOrEmpty(Model.FotoPath) ? Url.Content("~/images/no-image.png") : Url.Content(Model.FotoPath);
+}
+<div class="card">
+	<div class="card-header">
+		<h4>
+			<b>Edit Produk</b>
+		</h4>
+	</div>
+	<div class="card-body">
+		<form asp-action="Edit" enctype="multipart/form-data" method="post">
+			@Html.AntiForgeryToken()
+			<div class="row">
+				<div class="col-md-6">
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-group mb-3">
+						<label>Barcode</label>
+						<input asp-for="KodeBarcode" class="form-control" />
+						<span asp-validation-for="KodeBarcode" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label asp-for="NamaProduk" class="control-label"></label>
+						<input asp-for="NamaProduk" class="form-control" />
+						<span asp-validation-for="NamaProduk" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label>Stok</label>
+						<input asp-for="Stok" class="form-control" />
+						<span asp-validation-for="Stok" class="text-danger"></span>
+						<small class="form-text text-muted d-block mt-1">
+							* Masukkan jumlah stok dalam <strong>satuan terkecil/dasar</strong> (misal: Pcs, Botol, Gram).
+						</small>
+						<small class="form-text text-muted d-block">
+							* <strong>Contoh:</strong> Jika Anda punya 2 Dus Mie (1 Dus = 40 Pcs), maka isi dengan angka <strong>80</strong>.
+						</small>
+					</div>
+					<div class="form-group mb-3">
+						<label asp-for="NamaKategori" class="control-label"></label>
+						<select asp-for="IdKategori" class="form-control" asp-items="@Model.KategoriList">
+							<option value="">Pilih Kategori</option>
+						</select>
+						<span asp-validation-for="IdKategori" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label asp-for="SKU" class="control-label"></label>
+						<input asp-for="SKU" class="form-control" placeholder="" />
+						<span asp-validation-for="SKU" class="text-danger"></span>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" asp-for="StatusProduk" id="statusAktif" value="Aktif">
+						<label class="form-check-label" for="statusAktif">Aktif</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" asp-for="StatusProduk" id="statusTidakAktif" value="Tidak Aktif">
+						<label class="form-check-label" for="statusTidakAktif">Tidak Aktif</label>
+						<br />
+						<span asp-validation-for="StatusProduk" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group mb-3 text-center">
+						<label class="control-label">Preview Gambar </label>
+						<div id="PriviewGambar" align="center">
+							<img id="imgPreview"
+								 src="@imagePath"
+								 alt="Preview Gambar"
+								 class="img-thumbnail"
+								 height="200"
+								 width="200"
+								 onerror="this.src='@Url.Content("~/images/no-image.png")'" />
+						</div>
+					</div>
+					<div class="form-group mb-3">
+						<label asp-for="UploadGambar" class="control-label"></label>
+						<input asp-for="UploadGambar" id="UploadImg" class="form-control" type="file" onchange="previewImage(event)" />
+						<input type="hidden" asp-for="FotoPath" />
+						<span asp-validation-for="UploadGambar" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label asp-for="Deskripsi" class="control-label"></label>
+						<textarea asp-for="Deskripsi" class="form-control" rows="4"></textarea>
+						<span asp-validation-for="Deskripsi" class="text-danger"></span>
+					</div>
+				</div>
+				<!-- Kolom product unit -->
+				<div class="col-md-12 mt-2">
+					<div class="card">
+						<div class="card-body">
+							<div class="form-group">
+								<h4 class="me-1 px-1">
+									<b>
+										<label>Unit Produk</label>
+										<hr />
+									</b>
+								</h4>
+								<br />
+								<small class="text-muted">
+									Satu Produk bisa memiliki satuan unit dan harga yang berbeda-beda.
+								</small>
+								<br />
+								<small class="text-muted">
+									Tambahkan unit produk beserta stok, harga modal, conversion value dan harga jualnya.
+								</small>
+								<br />
+								<small class="text-muted">
+									Is Default wajib di check untuk menentukan satuan dasar unit produk.
+								</small>
+								<div class="row">
+									<div class="col-md-12">
+										<table class="table table-bordered table-sm" id="tableUnits">
+											<thead>
+												<tr>
+													<th style="width:50px">
+														Is Default
+													</th>
+													<th style="width: 150px">Unit</th>
+													<th style="width: 20px">Conversion Value</th>
+													<th style="width: 100px">Harga Modal</th>
+													<th style="width: 100px">Harga Jual</th>
+													<th style="width: 50px">#</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+										<div align="center" class="mt-2">
+											<button type="button" id="addUnit" class="btn btn-primary btn-sm">
+												<i class="fa fa-plus"></i>
+												Add Unit Produk
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group mt-3" align="center">
+				<button type="submit" class="btn btn-primary btn-sm">
+					<i class="fa fa-edit"></i> Simpan Perubahan
+				</button>
+				<a asp-action="Index" class="btn btn-sm btn-warning">
+					<i class="fa-sharp fa-solid fa-arrow-left"></i>
+					Back to List
+				</a>
+			</div>
+		</form>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		// Fungsi untuk format mata uang
+		function setupCurrencyFormat(displayElement, hiddenElement) {
+			displayElement.on("input", function (e) {
+				let raw = String(e.target.value).replace(/\D/g, "");
+				if (raw) {
+					let formatted = new Intl.NumberFormat("id-ID").format(raw);
+					displayElement.val(formatted);
+					hiddenElement.val(raw);
+				} else {
+					displayElement.val("");
+					hiddenElement.val("");
+				}
+			});
+		}
+		let unitIndex = 0;
+		// Fungsi untuk memuat unit dari DB
+		function loadExistingUnits() {			
+			const unitsData = @Html.Raw(Json.Serialize(Model.ProductUnits));
+			// Periksa jika unitsData adalah array, jika tidak (misalnya null), gunakan array kosong []
+			const existingUnits = Array.isArray(unitsData) ? unitsData : [];
+			const tbody = $("#tableUnits tbody");
+			tbody.empty(); // Kosongkan dulu sebelum memuat
+			if (existingUnits.length > 0) {
+						existingUnits.forEach((unit, index) => {
+			let currentUnitIndex = index;
+			// PENGAMANAN: Gunakan properti dengan operator OR (||) untuk menangani null atau camelCase/PascalCase
+			const unitName = unit.UnitName || unit.unitName || '';
+			const modalValue = unit.HargaModal || unit.hargaModal || 0;
+			const jualValue = unit.HargaJual || unit.hargaJual || 0;
+			const unitId = unit.ProductUnitId || unit.productUnitId || 0;
+			const ConversionValue = unit.ConversionValue || unit.conversionValue || 0;
+			// 💡 1. AMBIL NILAI IS_DEFAULT DARI DATABASE
+			const isDefaultValue = unit.Is_Default || unit.is_Default || false;
+			// Tentukan string checked jika bernilai true
+			const isChecked = isDefaultValue ? 'checked' : '';
+			const actualModal = parseFloat(modalValue) || 0;
+			const actualJual = parseFloat(jualValue) || 0;
+			const formattedModal = new Intl.NumberFormat("id-ID").format(actualModal);
+			const formattedJual = new Intl.NumberFormat("id-ID").format(actualJual);
+			// Append baris ke tabel
+			tbody.append(`
+				<tr>
+					<td>
+						<div class="input-group mb-3 justify-content-center">
+							<input class="form-check-input default-unit-radio" type="radio" name="DefaultUnitIndex" value="${currentUnitIndex}" ${isChecked}>
+							<input type="hidden" name="ProductUnits[${currentUnitIndex}].Is_Default" id="hiddenIsDefault_${currentUnitIndex}" value="${isDefaultValue}">
+						</div>
+					</td>
+					<td>
+						<input type="text" name="ProductUnits[${currentUnitIndex}].UnitName" class="form-control" value="${unitName}" placeholder="Unit Produk (Pcs,Dus)"/>
+						<input type="hidden" name="ProductUnits[${currentUnitIndex}].ProductUnitId" value="${unitId}" />
+					</td>
+					<td>
+						<input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="ProductUnits[${currentUnitIndex}].ConversionValue" value="${ConversionValue}" class="form-control" placeholder="harus di isi angka"/>
+					</td>
+					<td>
+						<input type="text" class="form-control currency-display-modal" id="HargaModalDisplay_${currentUnitIndex}" value="${formattedModal}" placeholder="Harga Modal Produk"/>
+						<input type="hidden" name="ProductUnits[${currentUnitIndex}].HargaModal" class="currency-hidden-modal" id="HargaModal_${currentUnitIndex}" value="${actualModal}" />
+					</td>
+					<td>
+						<input type="text" class="form-control currency-display-jual" id="HargaJualDisplay_${currentUnitIndex}" value="${formattedJual}" placeholder="Harga Jual Produk"/>
+						<input type="hidden" name="ProductUnits[${currentUnitIndex}].HargaJual" class="currency-hidden-jual" id="HargaJual_${currentUnitIndex}" value="${actualJual}" />
+					</td>
+					<td>
+						<button type="button" class="btn btn-danger btn-sm remove">X</button>
+					</td>
+				</tr>
+			`);
+			// Inisialisasi format mata uang
+			setupCurrencyFormat($(`#HargaModalDisplay_${currentUnitIndex}`), $(`#HargaModal_${currentUnitIndex}`));
+			setupCurrencyFormat($(`#HargaJualDisplay_${currentUnitIndex}`), $(`#HargaJual_${currentUnitIndex}`));
+		});
+				// Set unitIndex baru
+				unitIndex = existingUnits.length;
+			} else {
+				// Jika tidak ada data dari DB, buatkan 1 baris kosong untuk memulai
+				 $("#addUnit").click();
+			}
+		}
+		$(document).ready(function() {
+			loadExistingUnits();
+		});
+		// Event handler Add Unit Produk
+		$("#addUnit").click(function(){
+			$("#tableUnits tbody").append(`
+				<tr>
+				<td>
+						<div class="input-group mb-3 justify-content-center">
+							<input class="form-check-input" type="radio" name="DefaultUnitIndex" value="` + unitIndex + `">
+							<input type="hidden" name="ProductUnits[` + unitIndex + `].Is_Default" id="hiddenIsDefault_` + unitIndex + `" value="false">
+						</div>
+					</td>
+					<td>
+						<input type="text" name="ProductUnits[${unitIndex}].UnitName" class="form-control" placeholder="Unit Produk (Pcs,Dus)"/>
+						<input type="hidden" name="ProductUnits[${unitIndex}].ProductUnitId" value="0" />
+					</td>
+					<td>
+						<input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" name="ProductUnits[` + unitIndex + `].ConversionValue" class="form-control" placeholder="harus di isi angka"/>
+					</td>
+					<td>
+						<input type="text" class="form-control currency-display-modal" id="HargaModalDisplay_${unitIndex}" placeholder="Harga Modal Produk"/>
+						<input type="hidden" name="ProductUnits[${unitIndex}].HargaModal" class="currency-hidden-modal" id="HargaModal_${unitIndex}" />
+					</td>
+					<td>
+						<input type="text" class="form-control currency-display-jual" id="HargaJualDisplay_${unitIndex}" placeholder="Harga Jual Produk"/>
+						<input type="hidden" name="ProductUnits[${unitIndex}].HargaJual" class="currency-hidden-jual" id="HargaJual_${unitIndex}" />
+					</td>
+					<td><button type="button" class="btn btn-danger btn-sm remove">X</button></td>
+				</tr>
+			`);
+			setupCurrencyFormat($(`#HargaModalDisplay_${unitIndex}`), $(`#HargaModal_${unitIndex}`));
+			setupCurrencyFormat($(`#HargaJualDisplay_${unitIndex}`), $(`#HargaJual_${unitIndex}`));
+			unitIndex++;
+		});
+		$(document).on("click", ".remove", function () {
+			const row = $(this).closest("tr");
+			const unitId = row.find('input[name*="ProductUnitId"]').val();
+			// Jika baris baru (belum simpan ke DB), langsung hapus dari UI
+			if (unitId == "0" || !unitId) {
+				row.remove();
+				return;
+			}
+			// Jika baris lama, lakukan Soft Delete via AJAX
+			Swal.fire({
+				title: 'Hapus Unit?',
+				text: "Unit tidak akan benar-benar hilang dari database, tapi tidak akan muncul di kasir.",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				confirmButtonText: 'Ya, Hapus'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: '/Produk/SoftDeleteUnit/' + unitId,
+						type: 'POST',
+						success: function (response) {
+							if (response.success) {
+								row.fadeOut(300, function() { $(this).remove(); });
+								Swal.fire('Berhasil', response.message, 'success');
+							} else {
+								Swal.fire('Gagal', response.message, 'error');
+							}
+						}
+					});
+				}
+			});
+		});
+		// Event handler ketika radio button default diubah
+        $(document).on("change", "input[name='DefaultUnitIndex']", function() {
+            // 1. Set semua hidden input IsDefault menjadi false terlebih dahulu
+            $("input[id^='hiddenIsDefault_']").val("false");
+            // 2. Ambil index dari radio button yang sedang dipilih
+            let selectedIndex = $(this).val();
+            // 3. Ubah nilai hidden input pada baris yang dipilih menjadi true
+            $("#hiddenIsDefault_" + selectedIndex).val("true");
+        });
+        // Perbaikan juga pada bagian remove agar index ID hidden input tetap sinkron saat dihapus
+        $(document).on("click", ".remove", function(){
+            $(this).closest("tr").remove();
+            // Re-index ulang semua name dan id input setelah ada yang dihapus
+            $("#tableUnits tbody tr").each(function(index) {
+                // Update radio button value dan hidden input ID/name
+                $(this).find("input[type='radio']").val(index);
+                $(this).find("input").each(function() {
+                    var name = $(this).attr("name");
+                    var id = $(this).attr("id");
+                    if (name) {
+                        var newName = name.replace(/\[\d+\]/, "[" + index + "]");
+                        $(this).attr("name", newName);
+                    }
+                    if (id && id.startsWith("hiddenIsDefault_")) {
+                        $(this).attr("id", "hiddenIsDefault_" + index);
+                    }
+                });
+            });
+        });
+	</script>
+	<script>
+		function previewImage(event) {
+			var input = event.target;
+			var reader = new FileReader();
+			reader.onload = function () {
+				document.getElementById("imgPreview").src = reader.result;
+			};
+			if (input.files && input.files[0]) {
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+	<script>
+		$(document).ready(function () {
+			// Gunakan variabel yang di-serialize dengan benar agar tidak bentrok dengan karakter khusus
+			var message = '@(TempData["SweetAlertMessage"] ?? "")';
+			var type = '@(TempData["SweetAlertType"] ?? "success")';
+			if (message !== "") {
+				Swal.fire({
+					title: type === 'warning' ? 'Peringatan!' : 'Berhasil!',
+					text: message,
+					icon: type,
+					confirmButtonText: 'OK',
+					position:'top-end'
+				});
+			}
+		});
+	</script>
+}

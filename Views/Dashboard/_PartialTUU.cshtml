@@ -1,0 +1,49 @@
+﻿@model POS_System.ViewModels.DashboardIndexVm
+@{
+	var indoCulture = new System.Globalization.CultureInfo("id-ID");
+}
+<div class="col-md-4">
+	<div class="card card-total card-outline mb-4">
+		<div class="card-header">
+			<div class="card-title">
+				<i class="fas fa-wallet text-success me-2"></i>
+				Total Uang Masuk
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<h5 class="text-success">Rp @Model.TotalUangMasuk.ToString("N0", indoCulture)</h5>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="card card-total card-outline mb-4">
+		<div class="card-header">
+			<div class="card-title">
+				<i class="fas fa-file-invoice-dollar text-danger me-2"></i>
+				Total Uang Keluar
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<h5 class="text-danger">Rp @Model.TotalUangKeluar.ToString("N0", indoCulture)</h5>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="card card-total card-outline mb-4">
+		<div class="card-header">
+			<div class="card-title">
+				<i class="fas fa-balance-scale text-primary me-2"></i>
+				Total Uang Toko
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<h5 class="text-primary">Rp @Model.TotalUangToko.ToString("N0", indoCulture)</h5>
+			</div>
+		</div>
+	</div>
+</div>

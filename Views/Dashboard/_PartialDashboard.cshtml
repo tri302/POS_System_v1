@@ -1,0 +1,32 @@
+﻿@using POS_System.ViewModels
+@model DashboardIndexVm
+<div class="row">
+	@* PartialView untuk Penjualan,Uang Masuk, Uang Keluar *@
+	<partial name="_PartialPUU.cshtml" />
+</div>
+<h4 class="mt-4"><b>Total Keseluruhan</b></h4>
+	Total dari semua perhitungan
+<div class="row">
+	@* PartialView untuk Total Uang Masuk, Total Uang Keluar, Total Uang Toko *@
+	<partial name="_PartialTUU.cshtml" />
+</div>
+<div class="row">
+	<div class="col-md-6" id="containerProdukTerlaris">
+		@* PartialView untuk Produk Terlaris *@
+		<partial name="_PartialProdukTerlaris.cshtml" />
+	</div>
+	<div class="col-md-6" id="containerStatusStok">
+		@* PartialView untuk Status Stok Produk *@
+		<partial name="_PartialStatusStokProduk.cshtml" />
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		@* PartialView untuk chart Transaksi per Metode Pembayaran  *@
+		<partial name="_PartialTransaksiPerMetodeBayarChart.cshtml" />
+	</div>
+	<div class="col-md-6">
+		@* PartialView untuk chart Arus Kas *@
+		<partial name="_PartialAlurKasChart.cshtml" />		
+	</div>
+</div>

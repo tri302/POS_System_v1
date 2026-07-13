@@ -1,0 +1,133 @@
+﻿/* Styling untuk apps title */
+.app-title {
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+/* Styling untuk List Produk */
+/* Pastikan semua kartu produk memiliki tinggi yang sama dengan h-100 */
+.card.h-100 {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container untuk menjaga rasio aspek gambar tetap seragam */
+.image-container {
+    width: 100%;
+    /* Atur rasio aspek, misalnya 1:1 (persegi) */
+    padding-top: 100%; /* Membuat tinggi sama dengan lebar */
+    position: relative;
+    overflow: hidden;
+    background-color: #f8f9fa; /* Warna latar belakang untuk gambar transparan */
+    border-bottom: 1px solid #dee2e6; /* Batas bawah seperti kartu */
+}
+
+    /* Gaya untuk gambar di dalam container */
+    .image-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Penting: Memastikan gambar tidak terdistorsi, tetap di dalam kotak */
+        padding: 10px; /* Sedikit padding agar gambar tidak menempel tepi */
+    }
+
+/* Card body yang menggunakan flexbox untuk mensejajarkan tombol di bawah */
+.card-body.d-flex.flex-column {
+    flex-grow: 1; /* Memastikan body mengisi sisa ruang yang ada */
+}
+/* End Styling untuk List Produk */
+
+/* Styling untuk Footer */
+#kasir-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 5px 0; /* ⚡ diperkecil dari 15–20px → 5px */
+    font-size: 0.8rem; /* ⚡ teks sedikit kecil */
+    background: #ffffff;
+    text-align: center; /* ⚡ pastikan teks center */
+    display: flex; /* ⚡ agar bisa align center secara vertikal */
+    justify-content: center; /* ⚡ horizontal center */
+    align-items: center; /* ⚡ vertical center */
+    border-top: 1px solid #ddd;
+}
+    #kasir-footer div {
+        margin: 0 !important; /* Set semua margin ke 0 */
+        padding: 0 !important; /* Set semua padding ke 0 */
+        /* !important digunakan untuk menimpa gaya Bootstrap atau bawaan browser */
+    }
+body {
+    /* Menimpa margin-bottom default dari site.css dan menggantinya dengan padding */
+    margin-bottom: 0 !important;
+    padding-bottom: 15px !important; /* Nilai ini wajib untuk fixed footer */
+}
+
+/* ===========================================================
+   PAGINATION ICON PERMANENT (FORCE AFTER RENDER)
+   =========================================================== */
+
+/* Menargetkan tombol Previous */
+.pagination .page-item:first-child .page-link::before {
+    /*content: "\21D0\00a0" !important;*/ /* Simbol ⇐ */
+    font-family: Arial, sans-serif !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+}
+
+/* Menargetkan tombol Next */
+.pagination .page-item:last-child .page-link::after {
+    /*content: "\00a0\21D2" !important;*/ /* Simbol ⇒ */
+    font-family: Arial, sans-serif !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+}
+
+/* Pastikan container link tidak memotong ikon */
+.pagination .page-link {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+/* ============================= */
+/* GLOBAL PAGINATION STYLE       */
+/* ============================= */
+
+/* Previous button */
+.pagination .page-item:first-child .page-link {
+    background-color: #ffc107; /* btn-warning */
+    border-color: #ffc107;
+    color: #000;
+}
+
+/* Next button */
+.pagination .page-item:last-child .page-link {
+    background-color: #198754; /* btn-success */
+    border-color: #198754;
+    color: #fff;
+}
+
+/* Hover effect */
+.pagination .page-item:first-child .page-link:hover {
+    background-color: #e0a800;
+}
+
+.pagination .page-item:last-child .page-link:hover {
+    background-color: #157347;
+}
+
+/* Disabled state */
+.pagination .page-item.disabled .page-link {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Active page number */
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<PengaturanToko>
+@{
+	ViewData["Title"] = "Pengaturan Toko";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@* <h4 class="m-0 font-weight-bold text-primary">Pengaturan Toko</h4> *@
+<div class="mb-3 text-end">
+	<button id="btnCreate" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Create New</button>
+</div>
+<table class="table table-bordered table-sm">
+	<thead class="table-header-custom">
+		<tr>
+			<th>Logo Toko</th>
+			<th>Nama Toko</th>
+			<th>Alamat Toko</th>
+			<th>Nomor Telepon</th>
+			@* <th class="text-center">Print Via Bluetooth</th> *@
+			<th class="text-center">#</th>
+		</tr>
+	</thead>
+	@* Table body is a partial so we can reload via AJAX *@
+	<partial name="_TablePartial" model="Model" />
+</table>
+<!-- Modal -->
+<div class="modal data-modal" id="modalForm" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="modalLabel">
+					<b>
+						Pengaturan Toko
+					</b>
+				</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="modalBody">
+				<!-- form content loaded by AJAX -->
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	<script>
+		$(function () {
+			// open create modal
+		$("#btnCreate").on("click", function () {
+			// Pastikan modal benar-benar bersih sebelum dimuat
+			var modalElement = document.getElementById('modalForm');
+			var modalInstance = bootstrap.Modal.getInstance(modalElement);
+			if (modalInstance) { modalInstance.dispose(); }
+			$.get('@Url.Action("Create", "Pengaturan")', function (html) {
+				$("#modalBody").html(html);
+				// Inisialisasi ulang dan tampilkan
+				var myModal = new bootstrap.Modal(modalElement);
+				myModal.show();
+			});
+		});
+			// delegate edit buttons (table rows dynamic)
+			$("table").on("click", ".btn-edit", function () {
+				var id = $(this).data("id");
+				$.get('@Url.Action("Edit", "Pengaturan")' + '?id=' + id, function (html) {
+					$("#modalBody").html(html);
+					$("#modalForm").modal("show");
+				});
+			});			
+			// handle submit for both create & edit using event delegation because form is dynamic
+			$("#modalForm").on("submit", "#formPengaturanToko", function (e) {
+				e.preventDefault();
+				var form = $(this)[0];
+				var data = new FormData(form);
+				// decide whether create or edit based on Id presence
+				var id = $("#Id").val();
+				var url = id && id != "0" ? '@Url.Action("Edit", "Pengaturan")?id=' + id : '@Url.Action("Create", "Pengaturan")';
+				// include anti-forgery token if present
+				var token = $(this).find('input[name="__RequestVerificationToken"]').val();
+				if (token) data.set("__RequestVerificationToken", token);
+				$.ajax({
+					url: url,
+					type: 'POST',
+					data: data,
+					contentType: false,
+					processData: false,
+					success: function (res) {
+						if (res.success) {
+							// replace table body
+							var newTable = $(res.html).filter("table").length ? $(res.html).filter("table") : $(res.html);
+							// safer: parse tbody from returned partial
+							var tbody = $(res.html).find("tbody");
+							if (tbody.length) {
+								$("table tbody").replaceWith(tbody);
+							} else {
+								// fallback: reload whole table (quick)
+								location.reload();
+							}
+							$("#modalForm").modal("hide");
+							alert(res.message);
+						} else {
+							if (res.errors) {
+								alert(res.message + "\n" + res.errors.join("\n"));
+							} else {
+								alert(res.message || "Gagal menyimpan");
+							}
+						}
+					},
+					error: function () {
+						alert("Terjadi kesalahan saat menyimpan.");
+					}
+				});
+			});
+			// ensure modal cleanup
+			$('#modalForm').on('hidden.bs.modal', function () {
+				$("#modalBody").html('');
+			});
+		});
+	</script>
+}

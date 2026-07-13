@@ -1,0 +1,251 @@
+﻿@using static POS_System.ViewModels.KasirReportViewModel
+@model KasirReportResult
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Laporan Kasir";
+    // Set format mata uang Rupiah Indonesia
+    var cultureIndo = new System.Globalization.CultureInfo("id-ID");
+    // SINKRONISASI DINAMIS DARI TABEL SHIFT
+    decimal modalAwal = Model?.Summary?.SaldoAwal ?? 0;
+    decimal totalUangMasuk = Model?.Summary?.TotalUangMasuk ?? 0;
+    decimal totalKembalian = Model?.Summary?.TotalKembalian ?? 0;
+    // Ekspektasi laci = Modal Kas Awal + Pendapatan Bersih (Uang Masuk - Kembalian)
+    decimal ekspektasiLaci = modalAwal + totalUangMasuk - totalKembalian;
+}
+<div class="container-fluid mt-4">
+    <h2 class="mb-4">Laporan Arus Kas & Pendapatan Kasir</h2>
+    <div class="card mb-4 shadow-sm no-print">
+        <div class="card-body">
+            <form method="get" asp-action="KasirReport" asp-controller="Report" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Pilih Karyawan / Kasir</label>
+                    <select name="idKaryawan" class="form-select" asp-items="ViewBag.KaryawanList">
+                        <option value="">-- Pilih Kasir --</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Tanggal Transaksi</label>
+                    <input type="date" name="tanggal" class="form-control" value="@ViewBag.TanggalSelected" />
+                </div>
+                <div class="col-md-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1"><i class="bi bi-search"></i> Filter Laporan</button>
+                    <button type="button" class="btn btn-success" onclick="printReport()">
+                        <i class="bi bi-printer"></i> Cetak
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @if (ViewBag.IdKaryawanSelected != null)
+    {
+        @* BARIS UTAMA: INDIKATOR KEUANGAN LACI *@
+        <div class="row mb-4 row-cols-1 row-cols-md-5 g-3">
+            <div class="col">
+                <div class="card h-100 border-start border-info border-4 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-1 text-muted text-uppercase small">Modal Awal Laci</h6>
+                        <span class="fs-5 fw-bold text-info">@modalAwal.ToString("C0", cultureIndo)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-start border-success border-4 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-1 text-muted text-uppercase small">Total Uang Masuk</h6>
+                        <span class="fs-5 fw-bold text-success">+ @totalUangMasuk.ToString("C0", cultureIndo)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-start border-danger border-4 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-1 text-muted text-uppercase small">Total Uang Keluar</h6>
+                        <span class="fs-5 fw-bold text-danger">- @totalKembalian.ToString("C0", cultureIndo)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 bg-primary text-white shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-1 text-white-50 text-uppercase small">Ekspektasi Uang</h6>
+                        <span class="fs-5 fw-bold">@ekspektasiLaci.ToString("C0", cultureIndo)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                @{
+                    decimal nilaiSelisih = Model?.Summary?.Selisih ?? 0;
+                    string bgClass = nilaiSelisih == 0 ? "bg-secondary" : (nilaiSelisih < 0 ? "bg-danger" : "bg-warning");
+                    string statusText = nilaiSelisih == 0 ? "Cocok" : (nilaiSelisih < 0 ? "Minus" : "Lebih");
+                }
+                <div class="card h-100 @bgClass text-white shadow-sm position-relative">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h6 class="card-subtitle mb-1 text-white-50 text-uppercase small">Selisih Laci (@statusText)</h6>
+                            <span class="fs-5 fw-bold">@nilaiSelisih.ToString("C0", cultureIndo)</span>
+                        </div>
+                        @* Tombol revisi ditaruh di pojok bawah kartu selisih secara elegan *@
+                        <div class="text-end mt-2 no-print">
+                            <button type="button" class="btn btn-xs btn-light text-dark fw-bold py-0 px-2" style="font-size: 0.75rem;" data-bs-toggle="modal" data-bs-target="#modalRevisiLaporan">
+                                <i class="bi bi-pencil-square"></i> Revisi
+                            </button>
+                        </div>
+                        @* Badge indikator jika data laci ini sebenarnya hasil revisi *@
+                        @if (Model?.Summary?.SaldoAkhirFisik != 0 && Model?.Summary?.SaldoAkhirFisik != ekspektasiLaci)
+                        {
+                            <div class="position-absolute top-0 end-0 m-1">
+                                <span class="badge bg-info text-dark" style="font-size: 0.6rem;">Edited</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0 text-secondary">Rincian Transaksi Tunai: <span class="text-primary">@Model?.Summary?.NamaKaryawan</span></h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped mb-0 align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>No. Transaksi</th>
+                                <th>Waktu</th>
+                                <th class="text-end">Total Belanja</th>
+                                <th class="text-end">Nominal Bayar</th>
+                                <th class="text-end">Kembalian</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Details.Any())
+                            {
+                                @foreach (var item in Model.Details)
+                                {
+                                    <tr>
+                                        <td><span class="fw-bold text-primary">@item.NoTransaksi</span></td>
+                                        <td>@item.TanggalTransaksi.ToString("HH:mm:ss")</td>
+                                        <td class="text-end fw-semibold">@item.TotalBelanja.ToString("C0", cultureIndo)</td>
+                                        <td class="text-end text-success">@item.NominalBayar.ToString("C0", cultureIndo)</td>
+                                        <td class="text-end text-danger">@item.Kembalian.ToString("C0", cultureIndo)</td>
+                                        <td class="text-center">
+                                            <span class="badge bg-success">@item.Status</span>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">Tidak ada riwayat transaksi tunai pada tanggal ini.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @* MODAL POPUP REVISI (Menggunakan Model.Summary karena di halaman laporan bukan perulangan) *@
+        <div class="modal fade no-print" id="modalRevisiLaporan" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Revisi Validasi Uang Fisik</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form asp-action="RevisiShift" asp-controller="Report" method="post">
+                        <input type="hidden" name="idShift" value="@Model?.Summary?.IdShift" />
+                        <input type="hidden" name="idKaryawan" value="@Model?.Summary?.IdKaryawan" />
+                        <input type="hidden" name="tanggal" value="@ViewBag.TanggalSelected" />
+                        <div class="modal-body text-start text-dark">
+                            <div class="mb-3">
+                                <label class="form-label text-muted small">Kasir / Karyawan</label>
+                                <input type="text" class="form-control bg-light" value="@Model?.Summary?.NamaKaryawan" readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted small">Ekspektasi Komputer (Sistem)</label>
+                                <input type="text" class="form-control bg-light" value="@Model?.Summary?.SaldoAkhirSistem.ToString("C0", cultureIndo)" readonly />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-muted small">Input Fisik Awal Kasir</label>
+                                <input type="text" class="form-control bg-light" value="@Model?.Summary?.SaldoAkhirFisik.ToString("C0", cultureIndo)" readonly />
+                            </div>                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-danger">Jumlah Uang Cash Riil Lapangan</label>
+                                <input type="text" name="saldoFisikBenar" class="form-control format-rupiah" required placeholder="Masukkan nominal cash fisik asli..." step="0.01" autocomplete="off" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Alasan Perubahan Catatan</label>
+                                <textarea name="keterangan" class="form-control" rows="3" required placeholder="Tuliskan alasan koreksi kas..."></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                                <i class="fa-sharp fa-solid fa-arrow-left"></i> Batal</button>
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <i class="fa fa-solid fa-save"></i> Simpan Koreksi
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info shadow-sm" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i> Silakan pilih Kasir dan Tanggal terlebih dahulu untuk memuat data laporan.
+        </div>
+    }
+</div>
+<style>
+    @@media print {
+        .sidebar, nav, .navbar, .btn, footer, .no-print, form, .card:has(form), .modal
+    {
+        display: none !important;
+    }
+    body, .main-content, .container-fluid {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #fff !important;
+        box-shadow: none !important;
+    }
+    h2 {
+        margin-top: 10px !important;
+        margin-bottom: 20px !important;
+        font-size: 22px !important;
+    }
+    }</style>
+<script>
+    function printReport() {
+        window.print();
+    }
+    document.querySelectorAll('.format-rupiah').forEach(function (input) {
+            // Event 1: Format otomatis saat user mengetik
+            input.addEventListener('keyup', function (e) {
+                this.value = formatRupiah(this.value);
+            });
+            // Event 2: Bersihkan titik sebelum form dikirim ke Controller (.NET)
+            const form = input.closest('form');
+            if (form) {
+                form.addEventListener('submit', function () {
+                    // Menghapus semua titik agar dibaca sebagai angka integer di Backend
+                    input.value = input.value.replace(/\./g, '');
+                });
+            }
+        });
+    // Fungsi pembantu untuk memformat angka menjadi pemisah ribuan titik
+        function formatRupiah(angka) {
+            let number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa  = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            if (ribuan) {
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            return split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        }
+</script>

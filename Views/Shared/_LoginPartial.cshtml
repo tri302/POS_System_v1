@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using POS_System.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<style>
+    /* Memaksa warna btn-danger tetap merah di tema apapun */
+.btn-danger {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+.btn-danger:hover {
+    background-color: #bb2d3b !important;
+    border-color: #b02a37 !important;
+}
+</style>
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <span class="nav-link text-dark">Hello @UserManager.GetUserName(User) 😀</span>
+        </li>
+        <li class="nav-item">
+            <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                <button id="logout" type="submit" class="btn btn-danger">
+                    <i class="fa fa-arrow-right"></i> Logout
+                </button>
+            </form>
+        </li>
+    }
+</ul>

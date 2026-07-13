@@ -1,0 +1,329 @@
+﻿@model POS_System.ViewModels.InventoriIndexVm
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+	ViewData["Title"] = "Inventori List";
+}
+<div class="card mb-3 shadow-sm">
+	<div class="card-body">
+		<div class="row align-items-center">
+			<div class="col-md-8">
+				<h5 class="card-title">Filter Laporan 📊</h5>
+				<form class="row g-3 align-items-end">
+					<div class="col-md-3">
+						<label for="StartDate" class="form-label">Start Date:</label>
+						<input type="date" class="form-control" name="StartDate" id="StartDate" required />
+					</div>
+					<div class="col-md-3">
+						<label for="EndDate" class="form-label">End Date:</label>
+						<input type="date" class="form-control" name="EndDate" id="EndDate" required />
+					</div>
+					<div class="col-md-6">
+						<label class="form-label d-block">Tipe Laporan:</label>
+						<div class="btn-group" role="group" aria-label="Tipe Laporan Stok">
+							<input type="radio" class="btn-check tipe-stok" name="TipeStok" value="1" id="stokMasuk" checked>
+							<label class="btn btn-outline-success" for="stokMasuk">Masuk</label>
+							<input type="radio" class="btn-check tipe-stok" name="TipeStok" value="2" id="stokKeluar">
+							<label class="btn btn-outline-danger" for="stokKeluar">Keluar</label>
+							<input type="radio" class="btn-check tipe-stok" name="TipeStok" value="3" id="stokPenyesuaian">
+							<label class="btn btn-outline-primary" for="stokPenyesuaian">Penyesuaian</label>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-4 d-flex flex-column align-items-end mt-3 mt-md-0">
+				<button type="button" class="btn btn-sm mb-2" style="background-color: #ffc107 !important;border-color: #ffc107 !important;" id="generateExcelButton">
+					Generate Laporan To Excel <i class="fa-solid fa-file-excel"></i>
+				</button>
+				<a asp-action="Create" asp-controller="Inventori" class="btn btn-success btn-sm">
+					<i class="fa fa-plus-square"></i>
+					Create New
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="LoadDataContainer">
+	<table class="table table-responsive table-striped">
+		<thead class="table-header-custom">
+			<tr>
+				<th>
+					No Invoice/No Faktur
+				</th>
+				<th>
+					Tipe
+				</th>
+				<th>
+					Sumber
+				</th>
+				<th>
+					Total
+				</th>
+				<th>
+					Notes
+				</th>
+				<th class="text-center">#</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model != null && Model.InventoriList != null && Model.InventoriList.Any())
+			{
+				@foreach (var item in Model.InventoriList)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.NoReferensi)
+						</td>
+						<td>
+							@if (item.TipeStok == "Masuk")
+							{
+								<span class="text-success">
+									<i class="fas fa-check-circle"></i> @item.TipeStok
+								</span>
+							}
+							else if (item.TipeStok == "Keluar")
+							{
+								<span class="text-danger">
+									<i class="fas fa-times-circle"></i> @item.TipeStok
+								</span>
+							}
+							else if (item.TipeStok == "Penyesuaian")
+							{
+								<span class="text-primary">
+									<i class="fas fa-sync-alt"></i> @item.TipeStok
+								</span>
+							}
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Sumber)
+						</td>
+						<td>
+							@string.Format(new System.Globalization.CultureInfo("id-ID"), "{0:C0}", item.TotalModal).Replace("Rp", "Rp ")
+						<td>
+							@Html.DisplayFor(modelItem => item.Notes)
+						</td>
+						<td class="text-center">
+							<a asp-action="Edit" asp-route-id="@item.IdInventori" class="btn btn-sm btn-primary me-2">
+								<i class="fa fa-pencil"></i>
+								Edit
+							</a>
+							<a asp-action="Details" asp-route-id="@item.IdInventori" class="btn btn-sm btn-info me-2">
+								Details
+							</a>
+						</td>						
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="6" class="text-bg-danger text-center">No records found.</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+@{
+	// Definisikan jumlah tombol yang ingin ditampilkan di kedua sisi (misal: 4 di kiri, 5 di kanan, total 10 tombol)
+	int maxButtons = 10;
+	int pageNumber = Model.PageIndex; // Gunakan PageIndex yang benar
+	int totalPages = Model.TotalPages;
+	// Hitung halaman awal dan akhir yang akan ditampilkan
+	int startPage;
+	int endPage;
+	if (totalPages <= maxButtons)
+	{
+		// Jika total halaman kurang dari batas, tampilkan semua
+		startPage = 1;
+		endPage = totalPages;
+	}
+	else
+	{
+		// Jika total halaman lebih dari batas
+		int maxPagesToShow = maxButtons - 1; // 9 tombol lain + 1 tombol current = 10
+		int sidePages = maxPagesToShow / 2; // Misalnya 4 atau 5
+		if (pageNumber <= sidePages + 1)
+		{
+			// Jika di awal (tampilkan halaman 1 sampai batas)
+			startPage = 1;
+			endPage = maxButtons;
+		}
+		else if (pageNumber + sidePages >= totalPages)
+		{
+			// Jika di akhir (tampilkan batas terakhir)
+			startPage = totalPages - maxPagesToShow;
+			endPage = totalPages;
+		}
+		else
+		{
+			// Jika di tengah (tampilkan 4 ke kiri dan 5 ke kanan)
+			startPage = pageNumber - sidePages;
+			endPage = pageNumber + (maxPagesToShow - sidePages);
+		}
+	}
+}
+<div id="PagingContainer">
+	@* --- Paging Navigation --- *@
+	@if (Model != null && Model.TotalPages > 1)
+	{
+		<nav class="d-flex justify-content-center">
+			<ul class="pagination">
+				@* Tombol Previous *@
+				<li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+					<button class="page-btn page-link" data-page="@(pageNumber - 1)">
+						⬅ Previous
+					</button>
+				</li>
+				@* Tombol Angka (Dibatasi) *@
+				@for (var i = startPage; i <= endPage; i++)
+				{
+					<li class="page-item @(i == pageNumber ? "active" : "")">
+						<button class="page-btn page-link" data-page="@i">@i</button>
+					</li>
+				}
+				@* Tombol Next *@
+				<li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+					<button class="page-btn page-link" data-page="@(pageNumber + 1)">
+						Next ➡
+					</button>
+				</li>
+			</ul>
+		</nav>
+	}
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+			$(document).ready(function() {
+				attachPagingListeners();
+			});
+		// 💡 Fungsi utama untuk memuat halaman via AJAX
+		function loadPage(pageNumber) {
+			// Tampilkan loading spinner (opsional)
+			$('#LoadDataContainer').html('<div class="text-center"><i class="fa fa-spinner fa-spin fa-3x"></i> Loading...</div>');
+			$('.pagination').hide();
+			$.ajax({
+				url: '@Url.Action("LoadPage", "Inventori")',
+				type: 'GET',
+				data: {
+					pageNumber: pageNumber
+				}, // Kirim nomor halaman
+				success: function(html) {
+						var newTableContent = $(html).find('#LoadDataContainer').html();
+						$('#LoadDataContainer').html(newTableContent);
+						var newPagingContent = $(html).find('#PagingContainer').html();
+						$('#PagingContainer').html(newPagingContent).show();
+						attachPagingListeners();
+						// Opsional: Tampilkan kembali pagination jika disembunyikan
+						$('.pagination').show();
+				},
+				error: function(xhr, status, error) {
+					// Tampilkan pesan error jika gagal
+					alert("Error loading page: " + xhr.responseText);
+					// Hapus spinner/tampilkan pesan error di container
+					$('#LoadDataContainer').html('<div class="alert alert-danger text-center">Gagal memuat data. Silakan coba lagi.</div>');
+				}
+			});
+		}
+		// Fungsi untuk melampirkan/melampirkan ulang event listener ke tombol pagination
+		function attachPagingListeners() {
+			// Hapus listener sebelumnya sebelum melampirkan yang baru
+			$(document).off("click", ".page-btn").on("click", ".page-btn", function(e) {
+				e.preventDefault();
+				var targetPage = parseInt($(this).data("page"));
+				// Cek apakah tombol disable
+				if ($(this).parent().hasClass("disabled")) {
+					return; // Jangan lakukan apa-apa jika disabled
+				}
+				loadPage(targetPage);
+			});
+		}
+	</script>
+	<script>
+		$(document).ready(function () {
+		   $('#generateExcelButton').click(function () {
+			  var startDate = $('#StartDate').val();
+			  var endDate = $('#EndDate').val();
+			  var tipeStok = $('input[name="TipeStok"]:checked').val();
+			  if (!startDate || !endDate) {
+				 Swal.fire({
+					icon: 'warning',
+					title: 'Tanggal Kosong',
+					text: 'Start Date dan End Date tidak boleh kosong.',
+					timer: 3000,
+					showConfirmButton: false
+				 });
+				 return;
+			  }
+			  var url = '@Url.Action("GenerateInventoriExcel", "Inventori")' +
+				 '?startDate=' + startDate +
+				 '&endDate=' + endDate +
+				 '&tipeStok=' + tipeStok;
+			  // Tampilkan loading SweetAlert selama proses fetch data
+			  Swal.fire({
+				 title: 'Memproses Data...',
+				 text: 'Harap tunggu sebentar.',
+				 allowOutsideClick: false,
+				 didOpen: () => {
+					Swal.showLoading();
+				 }
+			  });
+			  fetch(url)
+				 .then(async response => {
+					const contentType = response.headers.get("content-type");
+					// 1. JIKA RESPONSE ERROR (Status 400, 500, dll)
+					if (!response.ok) {						
+					   // Cek apakah error berupa JSON
+					   if (contentType && contentType.indexOf("application/json") !== -1) {
+						  const data = await response.json();
+						  throw new Error(data.message || 'Terjadi kesalahan pada server.');
+					   } else {
+						  // Jika error berupa teks biasa (HTML Error page dari hosting)
+						  const textError = await response.text();
+						  console.error(textError); // Intip log lengkapnya di Inspect Element Console
+						  throw new Error('Server mengalami masalah saat generate Excel. Hubungi Admin.');
+					   }
+					}
+					// 2. JIKA DATA KOSONG (Balikan JSON sukses false dari controller)
+					if (contentType && contentType.indexOf("application/json") !== -1) {
+					   const data = await response.json();
+					   Swal.fire({
+						  icon: 'error',
+						  title: 'Data Tidak Ditemukan',
+						  text: data.message || 'Tidak ada data pada kriteria tersebut.',
+					   });
+					   return;
+					}
+					// 3. JIKA RESPONSE ADALAH FILE EXCEL ASLI
+					const blob = await response.blob();
+					const downloadUrl = window.URL.createObjectURL(blob);
+					const a = document.createElement('a');
+					a.href = downloadUrl;
+					const disposition = response.headers.get('content-disposition');
+					let fileName = `Laporan_Inventori_${new Date().toISOString().slice(0,10)}.xlsx`;
+					if (disposition && disposition.indexOf('attachment') !== -1) {
+					   const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+					   const matches = filenameRegex.exec(disposition);
+					   if (matches != null && matches[1]) {
+						  fileName = matches[1].replace(/['"]/g, '');
+					   }
+					}
+					a.download = fileName;
+					document.body.appendChild(a);
+					a.click();
+					a.remove();
+					window.URL.revokeObjectURL(downloadUrl);
+					Swal.close();
+				 })						 		
+				 .catch(error => {
+					Swal.fire({
+					   icon: 'error',
+					   title: 'Gagal Mengunduh',
+					   text: error.message || 'Terjadi kesalahan tidak terduga.',
+					});
+				 });
+		   });			
+		});
+	</script>
+}

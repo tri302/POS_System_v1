@@ -1,0 +1,46 @@
+﻿@model POS_System.ViewModels.DashboardIndexVm
+@{
+	var indoCulture = new System.Globalization.CultureInfo("id-ID");
+}
+<div class="col-md-4">
+	<div class="small-box bg-info card-penjualan">
+		<div class="inner">
+			<h3>Rp. @Model.Penjualan.ToString("N0", indoCulture)</h3>
+			<p>Penjualan</p>
+		</div>
+		<div class="icon">
+			<i class="fas fa-shopping-cart"></i>
+		</div>
+		<a asp-action="Index" asp-controller="Transaksi" class="small-box-footer">
+			Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+		</a>
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="small-box bg-success card-uang-masuk">
+		<div class="inner">
+			<h3>Rp. @Model.UangMasuk.ToString("N0", indoCulture)</h3>
+			<p>Uang Masuk</p>
+		</div>
+		<div class="icon">
+			<i class="fas fa-arrow-up"></i>
+		</div>
+		<a asp-action="Index" asp-controller="AlurKas" class="small-box-footer">
+			Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+		</a>
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="small-box bg-danger card-uang-keluar">
+		<div class="inner">
+			<h3>Rp. @Model.UangKeluar.ToString("N0", indoCulture)</h3>
+			<p>Uang Keluar</p>
+		</div>
+		<div class="icon">
+			<i class="fas fa-arrow-down"></i>
+		</div>
+		<a asp-action="Index" asp-controller="AlurKas" class="small-box-footer">
+			Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+		</a>
+	</div>
+</div>

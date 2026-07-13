@@ -1,0 +1,229 @@
+﻿@model POS_System.ViewModels.TransaksiVm
+@{
+    Layout = "_AdminLayout";
+}
+<form id="formTransaksi">
+    <div class="card">
+        <div class="card-header">
+            <h4>
+                <b>Create Transaksi</b>
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @Html.AntiForgeryToken()
+                <div class="col-md-4">
+                    <label>Nama Custumer</label>
+                    <div class="form-group">
+                        <select asp-for="IdPelanggan" asp-items="ViewBag.PelangganList" id="IdPelanggan" class="form-control">
+                            <option value="">-- Pilih --</option>
+                        </select>
+                    </div>
+                    <span asp-validation-for="IdPelanggan" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" value="@Model.Email" readonly />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" value="@Model.Phone" readonly />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="col text-start">
+                <h4>
+                    <b>Produk dipesan</b>
+                </h4>
+            </div>
+            Pastikan dulu cek ketersediaan stok produk.
+        </div>
+        <div class="card-body">
+            <div id="ContainerAdditemsProduk">
+                <div class="card mb-3 transaksi-item">
+                    <div class="card-header">
+                        <div class="row w-100">
+                            <div class="col text-start">
+                                <strong>Item Produk</strong>
+                            </div>
+                            <div class="col text-end">
+                                <i class="fa fa-trash text-danger BtnTrash" style="cursor:pointer;"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Barcode/Scan Produk</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-upc-scan"></i></span>
+                                    <input type="text" autocomplete="off" name="ScanBarcode" class="form-control" placeholder="Scan barcode..." />
+                                    <button type="button" class="btn btn-success btn-scan-barcode" title="Scan">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                                <small class="text-muted d-block mt-1">
+                                    Untuk pencarian Produk gunakan <b>barcode</b> untuk produk pabrikan atau <b>nama produk</b> untuk produk non-pabrik.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-end">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Nama Produk</label>
+                                <div class="input-group">
+                                    <select class="form-select form-control produk-dropdown" style="width: 100%;">
+                                        <option value="">Pilih Produk</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="IdProduk" class="produk-id-hidden" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Satuan Produk</label>
+                                <div class="form-group">
+                                    <select class="form-control SatuanProduk-dropdown">
+                                        <option value="">-- pilih satuan --</option>
+                                    </select>
+                                    <input type="hidden" name="ProductUnitId" class="SatuanProduk-id-hidden" />
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Harga Modal</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text">Rp</div>
+                                        <input name="HargaModal" class="form-control hargaModal" readonly />
+                                    </div>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex align-items-end mt-3">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Harga Jual</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text">Rp</div>
+                                        <input name="HargaJual" class="form-control hargaJual" readonly />
+                                    </div>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Stok</label>
+                                    <input name="Stok" class="form-control text-center" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Profit</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text">Rp</div>
+                                        <input name="Profit" class="form-control profit" readonly="true" />
+                                    </div>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Qty</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-danger btn-minus" type="button">-</button>
+                                        <input type="number" name="Jumlah" class="form-control text-center jumlah" value="1" min="1" id="inputJumlah" style="max-width: 80px;" />
+                                        <button class="btn btn-outline-success btn-plus" type="button">+</button>
+                                    </div>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div align="center" class="mt-2 mb-2">
+                <button type="button" class="btn btn-sm btn-info" id="BtnAddItemTransaksi">
+                    <i class="fa fa-plus-square"></i> Tambahkan Items Transaksi
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="TotalBelanja" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-text">Rp</div>
+                            <input asp-for="TotalBelanja" class="form-control" id="TotalBelanja" readonly="readonly" />
+                        </div>
+                        <span asp-validation-for="TotalBelanja" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Notes" class="control-label"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="2"></textarea>
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>
+                        <b>Pembayaran</b>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="IdMetodeBayar" class="control-label"></label>
+                        <select asp-for="IdMetodeBayar" id="IdMetodeBayar" class="form-control" asp-items="ViewBag.MetodeBayarList">
+                            <option value="" disabled selected>Pilih</option>
+                        </select>
+                        <span asp-validation-for="IdMetodeBayar" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NominalBayar" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-text">Rp</div>
+                            <input asp-for="NominalBayar" id="NominalBayar" class="form-control" />
+                        </div>
+                        <span asp-validation-for="NominalBayar" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Kembalian" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-text">Rp</div>
+                            <input asp-for="Kembalian" id="Kembalian" class="form-control" readonly="readonly" />
+                        </div>
+                        <span asp-validation-for="Kembalian" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group mt-2 mb-2" align="center">
+        <button type="submit" id="BtnSubmit" class="btn btn-primary btn-sm">
+            <i class="fa fa-plus-square"></i> Simpan Transaksi
+        </button>
+        <a asp-action="Index" class="btn btn-sm btn-warning">
+            <i class="fa fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+</form>
+@section Scripts {
+    <script src="~/js/transaksicreate.js"></script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

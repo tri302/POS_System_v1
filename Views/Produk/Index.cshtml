@@ -1,0 +1,142 @@
+﻿@model POS_System.ViewModels.ProdukIndexVm
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+	ViewData["Title"] = "Produk List";
+}
+<style>
+	.btn-warning-kustum {
+		background-color: #ffc107 !important; /* Kuning default Bootstrap */
+		border-color: #ffc107 !important;
+	}
+	#searchProduk:focus {
+		box-shadow: none;
+		border-color: #dee2e6; /* Sesuaikan dengan warna tema */
+	}
+	.input-group:focus-within {
+		box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+		border-radius: 0.375rem;
+	}
+	.product-name {
+		white-space: nowrap; /* Menjaga teks tetap dalam satu baris */
+		overflow: hidden; /* Menyembunyikan teks yang meluap */
+		text-overflow: ellipsis; /* Menambahkan titik-titik (...) jika teks terlalu panjang */
+		display: block; /* Memastikan elemen blok agar properti di atas bekerja */
+		font-weight: 600; /* Opsional: menebalkan nama produk */
+		margin-bottom: 0.5rem; /* Memberi jarak bawah */
+		cursor: default; /* Mengubah kursor saat dihover */
+	}
+	/* Opsional: Memberikan efek saat kursor diarahkan ke nama produk */
+	.product-name:hover {
+		cursor: help;
+	}
+</style>
+<p align="right">
+	<a asp-action="Create" asp-controller="Produk" class="btn btn-success btn-sm">
+		<i class="fa fa-plus-square"></i>
+		Create New
+	</a>
+</p>
+<div class="card">
+	<div class="card-header">		
+		<h4 class="mb-0"><b>Daftar Produk</b></h4>
+		<div class="d-flex flex-wrap align-items-center justify-content-end gap-2">
+			<div class="input-group" style="max-width: 300px;">
+				<span class="input-group-text bg-white border-end-0">
+					<i class="fa fa-search text-muted"></i>
+				</span>
+				<input type="text" id="searchProduk" class="form-control border-start-0 ps-0" placeholder="Cari nama produk..." aria-label="Cari produk">
+				<button class="btn btn-primary" type="button" id="btnSearch">Cari</button>
+			</div>
+			<button id="btn-export-excel" class="btn btn-warning d-flex align-items-center gap-2 shadow-sm text-dark fw-bold" style="background-color: #ffc107; border: none;">
+				<span>Export Excel</span>
+				<i class="fa-solid fa-file-excel"></i>
+			</button>
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary d-flex align-items-center gap-2 shadow-sm fw-bold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					<span>Cetak Barcode</span>
+					<i class="fa fa-print"></i>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-end shadow">
+					<li>
+						<a class="dropdown-item" href="javascript:void(0)" id="btn-cetak-terpilih">
+							<i class="fa fa-check-square me-2 text-primary"></i> Produk Terpilih (Checkbox)
+						</a>
+					</li>					
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="card-body text-center">
+		<button class="btn btn-outline-secondary me-2 filter-btn active-filter" data-filter="all">
+			All
+		</button>
+		<button class="btn btn-outline-success me-2 filter-btn" data-filter="banyak">
+			Stock Banyak <span class="badge bg-success ms-1">50</span>
+		</button>
+		<button class="btn btn-outline-warning me-2 filter-btn" data-filter="sedikit">
+			Stock Sedikit <span class="badge bg-warning text-dark ms-1">5</span>
+		</button>
+		<button class="btn btn-outline-danger filter-btn" data-filter="habis">
+			Stock Habis <span class="badge bg-danger ms-1">0</span>
+		</button>
+	</div>
+</div>
+<div id="ContainerLoadData">
+	@await Html.PartialAsync("_ProdukTablePartial", Model)
+</div>
+@section Scripts {
+	<script src="~/js/produk.js"></script>
+	<script>
+		// Kirim TempData["SuccessMessage"] ke produk.js via atribut HTML
+		$("#ContainerLoadData").attr("data-success", '@TempData["SuccessMessage"]');
+		// Kirim URL ke dalam variabel global atau atribut
+		var FilterProdukUrl = '@Url.Action("FilterProduk", "Produk")';
+		// Simpan URL Export Excel
+		var ExportExcelUrl = '@Url.Action("ExportToExcel", "Produk")';
+		// Simpan URL Cetak Barcode	
+		var CetakBarcodeUrl = '@Url.Action("GenerateBarcode", "Produk")';
+	</script>
+	<script>
+		$(document).ready(function () {
+			// Listener untuk Input Pencarian (saat mengetik & tekan Enter)
+			$("#searchProduk").on("keypress", function(e) {
+				if(e.which == 13) { // 13 adalah tombol Enter
+					executeSearch();
+				}
+			});
+			// Listener untuk Tombol Kaca Pembesar
+			$("#btnSearch").on("click", function() {
+				executeSearch();
+			});
+			function executeSearch() {
+				const filter = $(".filter-btn.active-filter").data("filter") || "all";
+				const keyword = $("#searchProduk").val();
+				loadPage(1, filter, keyword);
+			}
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			// ⭐ PENTING: Panggil listener di sini saat halaman pertama kali dimuat
+			// Ini akan membuat tombol pagination di Partial View pertama berfungsi
+			attachPagingListeners();
+			loadPage(1, 'all');
+			// Listener untuk Tombol Filter
+			$(".filter-btn").on("click", function() {
+				const filter = $(this).data("filter");
+				// Hapus class aktif dari semua tombol filter
+				$(".filter-btn").removeClass("active-filter");
+				// Tambahkan class aktif ke tombol yang diklik
+				$(this).addClass("active-filter");
+				loadPage(1, filter);
+			});
+			// Listener untuk Tombol Export Excel
+			$("#btn-export-excel").on("click", function() {
+				// Ambil nilai filter yang sedang aktif
+				const activeFilter = $(".filter-btn.active-filter").data("filter") || "all";
+				// Arahkan ke URL ExportToExcel dengan parameter filter
+				window.location.href = ExportExcelUrl + "?filter=" + activeFilter;
+			});
+		});
+	</script>
+}

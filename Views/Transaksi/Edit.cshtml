@@ -1,0 +1,130 @@
+﻿@model POS_System.ViewModels.TransaksiVm
+@{
+	Layout = "_AdminLayout";
+}
+<form id="formTransaksi">
+	<div class="card">
+		<div class="card-header">
+			<h4>
+				<b>Edit Transaksi</b>
+			</h4>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				@Html.AntiForgeryToken()
+				<input type="hidden" asp-for="IdTransaksi" id="IdTransaksi" />
+				<input type="hidden" asp-for="TanggalTransaksi"/>
+				<div class="col-md-4">
+					<label>Nama Custumer</label>
+					<div class="form-group">
+						<select asp-for="IdPelanggan" asp-items="ViewBag.PelangganList" id="IdPelanggan" class="form-control">
+							<option value="">-- Pilih --</option>
+						</select>
+					</div>
+					<span asp-validation-for="IdPelanggan" class="text-danger"></span>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label asp-for="Email" class="control-label"></label>
+						<input asp-for="Email" class="form-control" value="@Model.Email" readonly />
+						<span asp-validation-for="Email" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label asp-for="Phone" class="control-label"></label>
+						<input asp-for="Phone" class="form-control" value="@Model.Phone" readonly />
+						<span asp-validation-for="Phone" class="text-danger"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header">
+			<div class="col text-start">
+				<h4>
+					<b>Produk dipesan</b>
+				</h4>
+			</div>
+			Pastikan dulu cek ketersediaan stok produk.
+		</div>
+		<div class="card-body">
+			<div id="ContainerAdditemsProduk">				
+			</div>
+			<div align="center" class="mt-2 mb-2">
+				<button type="button" class="btn btn-sm btn-info" id="BtnAddItemTransaksi">
+					<i class="fa fa-plus-square"></i> Tambahkan Items Transaksi
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<div class="form-group">
+						<label asp-for="TotalBelanja" class="control-label"></label>
+						<div class="input-group">
+							<div class="input-group-text">Rp</div>
+							<input asp-for="TotalBelanja" class="form-control" id="TotalBelanja" readonly="readonly" />
+						</div>
+						<span asp-validation-for="TotalBelanja" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Notes" class="control-label"></label>
+						<textarea asp-for="Notes" class="form-control" rows="2"></textarea>
+						<span asp-validation-for="Notes" class="text-danger"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h4>
+						<b>Pembayaran</b>
+					</h4>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label asp-for="IdMetodeBayar" class="control-label"></label>
+						<select asp-for="IdMetodeBayar" class="form-control" asp-items="ViewBag.MetodeBayarList">
+							<option value="" disabled selected>Pilih</option>							
+						</select>
+						<span asp-validation-for="IdMetodeBayar" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="NominalBayar" class="control-label"></label>
+						<div class="input-group">
+							<div class="input-group-text">Rp</div>
+							<input asp-for="NominalBayar" id="NominalBayar" class="form-control" />
+						</div>
+						<span asp-validation-for="NominalBayar" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Kembalian" class="control-label"></label>
+						<div class="input-group">
+							<div class="input-group-text">Rp</div>
+							<input asp-for="Kembalian" id="Kembalian" class="form-control" readonly="readonly" />
+						</div>
+						<span asp-validation-for="Kembalian" class="text-danger"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group mt-2 mb-2" align="center">
+		<button type="submit" id="BtnSubmit" class="btn btn-primary btn-sm">
+			<i class="fa fa-plus-square"></i> Simpan Perubahan
+		</button>
+		<a asp-action="Index" class="btn btn-sm btn-warning">
+			<i class="fa fa-arrow-left"></i> Back to List</a>
+	</div>
+</form>
+@section Scripts {
+	<script src="~/js/transaksiedit.js"></script>
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

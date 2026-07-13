@@ -1,0 +1,315 @@
+﻿@model POS_System.ViewModels.PelangganIndexVm
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@Html.AntiForgeryToken()
+<p align="right">
+	<button type="button" id="btnCreate" class="btn btn-sm btn-success">
+		<i class="fa fa-plus-square"></i>
+		Create New
+	</button>
+</p>
+<div id="LoadDataContainer">
+	<table class="table table-responsive table-striped">
+		<thead class="table-header-custom">
+			<tr>
+				<th>
+					Nama Custumer
+				</th>
+				<th>
+					Alamat
+				</th>
+				<th>
+					Email
+				</th>
+				<th>
+					Phone
+				</th>
+				<th>
+					Jenis Custumer
+				</th>
+				<th class="text-center">#</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model != null && Model.PelangganList != null && Model.PelangganList.Any())
+			{
+				@foreach (var item in Model.PelangganList)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.Nama)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Alamat)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Email)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Phone)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.NamaJenis)
+						</td>
+						<td>
+							<button class="btn btn-sm btn-primary btnEdit" data-id="@item.Id">
+								<i class="fa fa-edit"></i>
+								Edit
+							</button>
+							<button type="button" onclick="deleteData(@item.Id)"
+									class="btn btn-danger btn-sm">
+								<i class="fa fa-trash"></i> Delete
+							</button>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+</div>
+@{
+	// Definisikan jumlah tombol yang ingin ditampilkan di kedua sisi (misal: 4 di kiri, 5 di kanan, total 10 tombol)
+	int maxButtons = 10;
+	int pageNumber = Model.PageIndex; // Gunakan PageIndex yang benar
+	int totalPages = Model.TotalPages;
+	// Hitung halaman awal dan akhir yang akan ditampilkan
+	int startPage;
+	int endPage;
+	if (totalPages <= maxButtons)
+	{
+		// Jika total halaman kurang dari batas, tampilkan semua
+		startPage = 1;
+		endPage = totalPages;
+	}
+	else
+	{
+		// Jika total halaman lebih dari batas
+		int maxPagesToShow = maxButtons - 1; // 9 tombol lain + 1 tombol current = 10
+		int sidePages = maxPagesToShow / 2; // Misalnya 4 atau 5
+		if (pageNumber <= sidePages + 1)
+		{
+			// Jika di awal (tampilkan halaman 1 sampai batas)
+			startPage = 1;
+			endPage = maxButtons;
+		}
+		else if (pageNumber + sidePages >= totalPages)
+		{
+			// Jika di akhir (tampilkan batas terakhir)
+			startPage = totalPages - maxPagesToShow;
+			endPage = totalPages;
+		}
+		else
+		{
+			// Jika di tengah (tampilkan 4 ke kiri dan 5 ke kanan)
+			startPage = pageNumber - sidePages;
+			endPage = pageNumber + (maxPagesToShow - sidePages);
+		}
+	}
+}
+<div id="PagingContainer">
+	@* --- Paging Navigation --- *@
+	@if (Model != null && Model.TotalPages > 1)
+	{
+		<nav class="d-flex justify-content-center">
+			<ul class="pagination">
+				@* Tombol Previous *@
+				<li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+					<button class="page-btn page-link" data-page="@(pageNumber - 1)">Previous</button>
+				</li>
+				@* Tombol Angka (Dibatasi) *@
+				@for (var i = startPage; i <= endPage; i++)
+				{
+					<li class="page-item @(i == pageNumber ? "active" : "")">
+						<button class="page-btn page-link" data-page="@i">@i</button>
+					</li>
+				}
+				@* Tombol Next *@
+				<li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+					<button class="page-btn page-link" data-page="@(pageNumber + 1)">Next</button>
+				</li>
+			</ul>
+		</nav>
+	}
+</div>
+<div id="ContainerModalCreate">
+</div>
+<div id="ContainerModalEdit">
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		function deleteData(id) {
+			// Konfirmasi menggunakan modal tengah agar tombol dan teks terlihat jelas
+			Swal.fire({
+				title: 'Apakah anda yakin?',
+				text: "Data yang dihapus tidak dapat dikembalikan!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Ya, hapus!',
+				position: 'top-end',
+				toast: true,
+				cancelButtonText: 'Batal'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: '@Url.Action("Delete", "Pelanggans")',
+						data: { id: id }, // Kirim ID sebagai data
+						type: 'POST',
+						headers: {
+							"RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+						},
+						success: function (response) {
+							if (response.success) {
+								// Menggunakan toast untuk notifikasi sukses
+								Swal.fire({
+									title: 'Deleted',
+									text: response.message,
+									icon: 'success',
+									toast: true,
+									position: 'top-end',
+									showConfirmButton: false,
+									timer: 1500
+								}).then(() => {
+									location.reload(); // Reload halaman untuk melihat perubahan
+								});
+							} else {
+								// Menggunakan toast untuk notifikasi gagal dari server
+								Swal.fire({
+									title: 'Error',
+									text: response.message,
+									icon: 'error',
+									toast: true,
+									position: 'top-end',
+									showConfirmButton: false,
+									timer: 3000
+								});
+							}
+						},
+						error: function () {
+							// Menggunakan toast untuk kesalahan sistem (misal: 500 atau 404)
+							Swal.fire({
+								title: 'Error',
+								text: 'Terjadi kesalahan sistem.',
+								icon: 'error',
+								toast: true,
+								position: 'top-end',
+								showConfirmButton: false,
+								timer: 3000
+							});
+						}
+					});
+				}
+			});
+		}
+	</script>
+	<script>
+			// Create
+			$("#btnCreate").click(function () {
+				$.get("/Pelanggans/Create", function (html) {
+					$("#ContainerModalCreate").html(html);
+					$("#ModalCreate").modal('show');
+					// Setelah Partial View dimuat, kita harus me-re-parse unobtrusive validation.
+					var form = $("#ModalCreate").find("form"); // Cari form di dalam modal
+					// Hapus data validasi yang lama (jika ada)
+					form.removeData("validator");
+					form.removeData("unobtrusiveValidation");
+					// Parse ulang validasi untuk form yang baru dimuat
+					$.validator.unobtrusive.parse(form);
+				});
+			});
+			// Edit
+			$(document).on("click", ".btnEdit", function (e) {
+				e.preventDefault();
+				var id = $(this).data("id");
+				$.get("/Pelanggans/Edit/" + id)
+					.done(function (html) {
+						$("#ContainerModalEdit").html(html);
+						$("#ModalEdit").modal('show');
+						var form = $("#ModalEdit").find("form");
+						if (form.length > 0) {
+							form.removeData("validator");
+							form.removeData("unobtrusiveValidation");
+							$.validator.unobtrusive.parse(form);
+						}
+				})
+					.fail(function() {
+						alert("Gagal mengambil data edit.");
+			});
+		});
+			// Saat submit form modal
+			$(document).on("submit", "form", function (e) {
+				e.preventDefault();
+				var form = $(this);
+				$.ajax({
+					url: form.attr("action"),
+					method: form.attr("method"),
+					data: form.serialize(),
+					success: function (res) {
+						if (res.success) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Berhasil',
+							text: res.message,
+							showConfirmButton: true,
+							timer: 5000,
+							toast: true,
+							position: 'top-end'
+						}).then(() => {
+							//location.reload(true);
+							window.location.href = "/Pelanggans/Index";
+						});
+						} else {
+							// replace form with updated partial (validation errors)
+							form.parent().html(res);
+						}
+					}
+				});
+			});
+	</script>
+	<script>
+		$(document).ready(function () {
+			attachPagingListeners();
+		});
+		// 💡 Fungsi utama untuk memuat halaman via AJAX
+		function loadPage(pageNumber) {
+			// Tampilkan loading spinner (opsional)
+			$('#LoadDataContainer').html('<div class="text-center"><i class="fa fa-spinner fa-spin fa-3x"></i> Loading...</div>');
+			$('.pagination').hide();
+			$.ajax({
+				url: '@Url.Action("LoadPage", "Pelanggans")',
+				type: 'GET',
+				data: { pageNumber: pageNumber }, // Kirim nomor halaman
+				success: function (html) {
+			var newTableContent = $(html).find('#LoadDataContainer').html();
+			$('#LoadDataContainer').html(newTableContent);
+			var newPagingContent = $(html).find('#PagingContainer').html();
+			$('#PagingContainer').html(newPagingContent).show();
+			attachPagingListeners();
+				},
+				error: function (xhr, status, error) {
+					// Tampilkan pesan error jika gagal
+					alert("Error loading page: " + xhr.error);
+					// Hapus spinner jika ada
+				}
+			});
+		}
+		// Fungsi untuk melampirkan/melampirkan ulang event listener ke tombol pagination
+		function attachPagingListeners() {
+			// Hapus listener sebelumnya sebelum melampirkan yang baru
+			$(document).off("click", ".page-btn").on("click", ".page-btn", function (e) {
+				e.preventDefault();
+				var targetPage = parseInt($(this).data("page"));
+				// Cek apakah tombol disable
+				if ($(this).parent().hasClass("disabled")) {
+					return; // Jangan lakukan apa-apa jika disabled
+				}
+				loadPage(targetPage);
+			});
+		}
+	</script>
+}

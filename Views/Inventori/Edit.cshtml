@@ -1,0 +1,126 @@
+﻿@model POS_System.ViewModels.InventoriEditVm
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edit Inventori";
+}
+<style>
+    .select2-container .select2-selection--single {
+        height: 38px !important; /* Menyamakan tinggi dengan form-control Bootstrap 5 */
+        display: flex;
+        align-items: center;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 36px !important;
+    }
+</style>
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @Html.AntiForgeryToken()
+    <input asp-for="IdInventori" type="hidden" class="IdInventoriHidden" />
+    <div class="card">
+        <div class="card-header">
+            <h4>
+                <b>
+                    Details
+                </b>
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row align-items-end">
+                <!-- Kolom 1 -->
+                <div class="col-md-3">
+                    <label asp-for="NoReferensi" class="control-label"></label>
+                    <div class="form-group mb-3">
+                        <input asp-for="NoReferensi" class="form-control" id="NoReferensi" readonly="readonly" />
+                        <span asp-validation-for="NoReferensi" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- Kolom 2 -->
+                <div class="col-md-3">
+                    <label asp-for="TipeStok" class="control-label"></label>
+                    <div class="form-group mb-3">
+                        <div class="btn-group" role="group">
+                            <input type="radio" class="btn-check tipe-stok" asp-for="TipeStok" value="1" id="stokMasuk" checked>
+                            <label class="btn btn-outline-success" for="stokMasuk">Masuk</label>
+                            <input type="radio" class="btn-check tipe-stok" asp-for="TipeStok" value="2" id="stokKeluar">
+                            <label class="btn btn-outline-danger" for="stokKeluar">Keluar</label>
+                            <input type="radio" class="btn-check tipe-stok" asp-for="TipeStok" value="3" id="stokPenyesuaian">
+                            <label class="btn btn-outline-primary" for="stokPenyesuaian">Penyesuaian</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Kolom 3 -->
+                <div class="col-md-3">
+                    <div class="form-group mb-3">
+                        <label asp-for="Sumber" class="control-label"></label>
+                        <select asp-for="Sumber" id="sumberDropdown" class="form-control" data-selected="@Model.Sumber">
+                        </select>
+                        <span asp-validation-for="Sumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <!-- Kolom 4 -->
+                <div class="col-md-3">
+                    <div class="form-group mb-3">
+                        <label asp-for="TotalModal" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-text">Rp</div>
+                            <input type="text" class="form-control" id="TotalModal" readonly="readonly" />
+                            <!-- Input yang dikirim ke Server (Hidden) -->
+                            <input asp-for="TotalModal" type="hidden" id="TotalModalHidden" />
+                            <span asp-validation-for="TotalModal" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h4>
+                <b>
+                    Pemilihan Produk
+                </b>
+            </h4>
+        </div>
+        <div id="InventoryItemsContainer" class="card-body">
+            @* Menampung Item Inventori sebanyak n data *@
+            <partial name="_PartialEditList" model="Model.Items" />
+        </div>
+        <div align="center">
+            <button type="button" class="btn btn-info btn-sm mt-2 mb-2" id="BtnAddInventoriItems">
+                <i class="fa fa-plus-square"></i>
+                Tambahkan Inventori Items
+            </button>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>
+                    <b>
+                        Catatan
+                    </b>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <textarea asp-for="Notes" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group mt-2 mb-2" align="center">
+                <button type="button" id="BtnSubmitEdit" class="btn btn-primary btn-sm">
+                    <i class="fa fa-solid fa-save"></i> Simpan Perubahan
+                </button>
+                <a asp-action="Index" class="btn btn-sm btn-warning">
+                    <i class="fa fa-solid fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        <script src="~/js/inventoriedit.js"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

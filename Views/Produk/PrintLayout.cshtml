@@ -1,0 +1,113 @@
+﻿@model IEnumerable<BarcodeDisplayVm>
+@{ Layout = null; }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cetak Barcode A4 Landscape</title>
+    <style>
+        /* Pengaturan Kertas A4 Landscape */
+        @@page {
+            size: A4 landscape;
+            margin: 10mm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        /* Container Utama Grid */
+        .grid-container {
+            display: grid;
+            /* Membuat 5 kolom otomatis yang ukurannya pas di A4 Landscape */
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 10px;
+            padding: 10px;
+            background-color: white;
+            width: 277mm; /* Lebar standar A4 landscape dikurangi margin */
+            margin: auto;
+        }
+        /* Kotak Barcode Individu */
+        .barcode-card {
+            padding: 10px; /* Dikurangi sedikit agar lebih rapat */
+            border: 1px solid #ddd;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            /* UBAH INI: Gunakan center, bukan space-between */
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 4px;
+            /* Tinggi minimal dijaga agar kotak seragam di grid */
+            min-height: 35mm;
+        }
+        .product-name {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-bottom: 5px; /* Kurangi margin bawah nama */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            display: block;
+        }
+        .barcode-img {
+            width: 100%;
+            height: auto;
+            /* UBAH INI: Gunakan padding kecil saja */
+            padding-bottom: 2px;
+            max-height: 18mm;
+            display: block;
+            /* UBAH INI: Margin 0 agar tidak mendorong harga terlalu jauh */
+            margin: 0 auto;
+        }
+        .price-tag {
+            font-size: 11pt;
+            font-weight: bold;
+            /* Tambahkan sedikit margin atas agar tidak menempel angka barcode */
+            margin-top: 5px;
+        }
+        /* Kontrol Print */
+        .no-print {
+            padding: 20px;
+            text-align: center;
+            background: #fff;
+            border-bottom: 2px solid #007bff;
+        }
+        .btn-print {
+            padding: 10px 25px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        @@media print {
+            .no-print { display: none; }
+            body { background: none; }
+            .grid-container { width: 100%; border: none; }
+            .barcode-card { border: 1px solid #000; } /* Pertegas garis saat diprint */
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <button class="btn-print" onclick="window.print()">🖨️ Cetak ke A4 Landscape</button>
+        <p style="font-size: 12px; color: #666; margin-top: 10px;">
+            *Pastikan "Layout" di pengaturan kertas print browser dipilih **Landscape**.
+        </p>
+    </div>
+    <div class="grid-container">
+        @foreach (var item in Model)
+        {
+            <div class="barcode-card">
+                <div class="product-name">@item.NamaProduk</div>
+                <img src="data:image/png;base64,@item.BarcodeBase64" class="barcode-img" />
+                <div class="price-tag">Rp @item.HargaJual.ToString("N0")</div>
+            </div>
+        }
+    </div>
+</body>
+</html>

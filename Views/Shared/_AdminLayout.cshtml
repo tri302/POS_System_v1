@@ -1,0 +1,423 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using POS_System.Services
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager 
+@inject IUserThemeService UserThemeService
+@inject UserManager<ApplicationUser> UserManager
+@{
+	var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+	var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>@ViewData["Title"]</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+	<meta name="supported-color-schemes" content="light dark" />
+	<link rel="preload" href="~/dist/css/adminlte.css" as="style" />
+	<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+	<link href="~/css/site.css" rel="stylesheet" />
+	<link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />	
+	<link href="~/dist/css/overlayscrollbars.min.css" rel="stylesheet" />
+	<link href="~/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="~/dist/css/adminlte.css" />
+	<link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+	<link href="~/lib/jqueryui/themes/base/jquery-ui.min.css" rel="stylesheet" />
+	<link href="~/css/adminlayout.css" rel="stylesheet" />
+</head>
+<!--begin::Body-->
+<body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
+	<!--begin::App Wrapper-->
+	<div class="app-wrapper">
+		<!--begin::Header-->
+		<nav class="app-header navbar navbar-expand bg-body">
+			<!--begin::Container-->
+			<div class="container-fluid">
+				<!--begin::Start Navbar Links-->
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+							<i class="bi bi-list"></i>
+						</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+							<i class="fa fa-palette"></i> Tema
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end p-2">
+							<li><a class="dropdown-item theme-option" data-theme="light">Default</a></li>
+							<li><a class="dropdown-item theme-option" data-theme="dark">Dark</a></li>
+							<li><a class="dropdown-item theme-option" data-theme="green">Green</a></li>
+							<li><a class="dropdown-item theme-option" data-theme="red">Red</a></li>
+							<li><a class="dropdown-item theme-option" data-theme="orange">Orange</a></li>
+						</ul>
+					</li>
+				</ul>
+				<!--end::Start Navbar Links-->
+				<!--begin::End Navbar Links-->
+				<ul class="navbar-nav ms-auto">
+					<partial name="_LoginPartial" />
+				</ul>
+				<!--end::End Navbar Links-->
+			</div>
+			<!--end::Container-->
+		</nav>
+		<!--end::Header-->
+		<!--begin::Sidebar-->
+		@* <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark"> *@
+		<aside class="app-sidebar shadow">
+			<!--begin::Sidebar Brand-->
+			<div class="sidebar-brand">
+				<!--begin::Brand Link-->
+				<a asp-action="Index" asp-controller="Dashboard" class="brand-link">
+					<!--begin::Brand Image-->
+					<img src="~/images/kasir-transaksi-Admin.png"
+						 alt="AdminLTE Logo"
+						 class="brand-image opacity-75 shadow" />
+					<!--end::Brand Image-->
+					<!--begin::Brand Text-->
+					<span class="brand-text fw-light">POS System</span>
+					<!--end::Brand Text-->
+				</a>
+				<!--end::Brand Link-->
+			</div>
+			<!--end::Sidebar Brand-->
+			<!--begin::Sidebar Wrapper-->
+			<div class="sidebar-wrapper">
+				<nav class="mt-2">
+					<!--begin::Sidebar Menu-->
+					<ul class="nav sidebar-menu flex-column"
+						data-lte-toggle="treeview"
+						role="navigation"
+						aria-label="Main navigation"
+						data-accordion="false"
+						id="navigation">
+						@{
+							var isDashboardActive = currentController == "Dashboard";
+						}
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="Dashboard" class="nav-link @(isDashboardActive ? "active" : "")">
+								<i class="nav-icon fa-solid fa-gauge-high"></i>
+								<p>
+									Dashboard
+								</p>
+							</a>
+						</li>						
+						@{
+							var isKasirActive = currentController == "Kasir";
+						}
+						<li class="nav-item">
+							<a href="@Url.Action("Index", "Kasir")" target="_blank" class="nav-link @(isKasirActive ? "active" : "")">
+								<i class="bi bi-cash-stack"></i>
+								<p>
+									Halaman Kasir
+								</p>
+							</a>
+						</li>
+						@{
+							var isKaryawanActive = currentController == "Karyawan";
+						}
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="Karyawan" class="nav-link @(isKaryawanActive ? "active" : "")">
+								<i class="bi bi-people"></i>
+								<p>
+									Karyawan
+								</p>
+							</a>
+						</li>
+						@{
+							var isPelangganActive = currentController == "Pelanggans";
+						}
+						<li class="nav-item">
+							<a asp-action="Index" asp-controller="Pelanggans" class="nav-link @(isPelangganActive ? "active" : "")">
+								<i class="bi bi-people"></i>
+								<p>
+									Custumer
+								</p>
+							</a>
+						</li>
+						@* @if (User.IsInRole("Owner")) *@
+						@* { *@
+							@{
+							// --- LOGIKA MANAJEMEN PRODUK ---
+							var isManajemenProdukOpen =
+							currentController == "Kategori" ||
+							currentController == "Produk" ||
+							currentController == "Inventori" ||
+							currentController == "LaporanProduk" ||
+							currentController == "LaporanInventori"; // Memuat Laporan Stok In/Out & Opname
+							var manajemenProdukMenuClass = isManajemenProdukOpen ? "menu-open" : "";
+							var manajemenProdukLinkClass = isManajemenProdukOpen ? "active" : "";
+							@* var manajemenProdukMenuClass = "menu-open";
+							var manajemenProdukLinkClass = "active"; *@
+							// --- LOGIKA MANAJEMEN KEUANGAN ---
+							var isManajemenKeuanganOpen =
+							currentController == "Transaksi" ||
+							currentController == "AlurKas" ||
+							currentController == "MetodeBayar" ||
+							currentController == "LaporanKeuangan";
+							var manajemenKeuanganMenuClass = isManajemenKeuanganOpen ? "menu-open" : "";
+							var manajemenKeuanganLinkClass = isManajemenKeuanganOpen ? "active" : "";
+							@* var manajemenKeuanganMenuClass = "menu-open";
+							var manajemenKeuanganLinkClass = "active"; *@
+							// --- LOGIKA PENGATURAN TOKO ---
+							var isPengaturanTokoOpen =
+							currentController == "Role" ||
+							currentController == "Pengaturan";
+							var pengaturanTokoMenuClass = isPengaturanTokoOpen ? "menu-open" : "";
+							var pengaturanTokoLinkClass = isPengaturanTokoOpen ? "active" : "";
+							@* var pengaturanTokoMenuClass = "menu-open";
+							var pengaturanTokoLinkClass = "active"; *@
+							<li class="nav-item @manajemenProdukMenuClass">
+								<a href="#" class="nav-link @manajemenProdukLinkClass">
+									<i class="nav-icon fa-solid fa-box-open"></i>
+									<p>
+										Manajemen Produk
+										@* <i class="right fa-solid fa-angle-left"></i> *@
+										<i class="nav-arrow bi bi-chevron-right"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									@{
+										var isKategoriActive = currentController == "Kategori";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="Kategori" class="nav-link @(isKategoriActive ? "active" : "")">
+											<i class="nav-icon fa-solid fa-list-ul"></i>
+											<p>Kategori</p>
+										</a>
+									</li>
+									@{
+										var isProdukActive = currentController == "Produk";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="Produk" class="nav-link @(isProdukActive ? "active" : "")">
+											<i class="nav-icon fa-solid fa-tag"></i>
+											<p>Produk</p>
+										</a>
+									</li>
+									@{
+										var isInventoriActive = currentController == "Inventori";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="Inventori" class="nav-link @(isInventoriActive ? "active" : "")">
+											<i class="nav-icon fa-solid fa-warehouse"></i>
+											<p>Inventori</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="nav-item @manajemenKeuanganMenuClass">
+								<a href="#" class="nav-link @manajemenKeuanganLinkClass">
+									<i class="nav-icon fa-solid fa-chart-line"></i>
+									<p>
+										Manajemen Keuangan
+										@* <i class="right fa-solid fa-angle-left"></i> *@
+										<i class="nav-arrow bi bi-chevron-right"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									@{
+										var isTransaksiActive = currentController == "Transaksi";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="Transaksi" class="nav-link @(isTransaksiActive ? "active" : "")">
+											<i class="nav-icon fa-solid fa-receipt"></i>
+											<p>Transaksi</p>
+										</a>
+									</li>
+									@{
+										var isAlurKasActive = currentController == "AlurKas";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="AlurKas" class="nav-link @(isAlurKasActive ? "active" : "")">
+											<i class="nav-icon fa-solid fa-money-bill-transfer"></i>
+											<p>Alur Kas</p>
+										</a>
+									</li>
+									@{
+										var isMetodeBayarActive = currentController == "MetodeBayar";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="MetodeBayar" class="nav-link @(isMetodeBayarActive ? "active" : "")">
+											<i class="nav-icon fa-solid fa-credit-card"></i>
+											<p>Metode Pembayaran</p>
+										</a>
+									</li>
+									@{
+										var isLaporanKeuanganActive = currentController == "LaporanKeuangan";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="LaporanKeuangan" class="nav-link @(isLaporanKeuanganActive ? "active" : "")">
+											<i class="nav-icon fa-solid fa-file-invoice-dollar"></i>
+											<p>Laporan Keuangan</p>
+										</a>
+									</li>
+									@{
+										var isKasirReport = currentController == "Report";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="Report" class="nav-link @(isKasirReport ? "active" : "")">
+											<i class="nav-icon fa-solid fa-file-invoice-dollar"></i>
+											<p>Laporan Kasir</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="nav-item @pengaturanTokoMenuClass">
+								<a href="#" class="nav-link @pengaturanTokoLinkClass">
+									<i class="nav-icon fa-solid fa-store"></i>
+									<p>
+										Pengaturan Toko
+										@* <i class="right fa-solid fa-angle-left"></i> *@
+										<i class="nav-arrow bi bi-chevron-right"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									@*@{
+										var isPeranUserActive = currentController == "Role";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="Role" class="nav-link @(isPeranUserActive ? "active" : "")">
+											<i class="nav-icon fa-solid fa-lock-open"></i>
+											<p>Peran User</p>
+										</a>
+									</li>
+									*@
+									@{
+										var isPengaturanActive = currentController == "Pengaturan";
+									}
+									<li class="nav-item">
+										<a asp-action="Index" asp-controller="Pengaturan" class="nav-link @(isPengaturanActive ? "active" : "")">
+											<i class="nav-icon fa-solid fa-wrench"></i>
+											<p>Pengaturan</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+							}
+						@* } *@
+					</ul>
+					<!--end::Sidebar Menu-->
+				</nav>
+			</div>
+			<!--end::Sidebar Wrapper-->
+		</aside>
+		<!--end::Sidebar-->
+		<!--begin::App Main-->
+		<main class="app-main">
+			<!--begin::App Content Header-->
+			<div class="app-content-header">
+				<!--begin::Container-->
+				<div class="container-fluid">
+					<!--begin::Row-->
+					<div class="row">
+						<div class="col-sm-6">
+							<h3 class="mb-0 no-print">Dashboard</h3>
+						</div>
+						@* <div class="col-sm-6">
+							<ol class="breadcrumb float-sm-end">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+							</ol>
+						</div> *@
+					</div>
+					<!--end::Row-->
+				</div>
+				<!--end::Container-->
+			</div>
+			<!--end::App Content Header-->
+			<!--begin::App Content-->
+			<div class="app-content">
+				<!--begin::Container-->
+				<div class="container-fluid">
+					@RenderBody()
+				</div>
+				<!-- /.row (main row) -->
+			</div>
+			<!--end::Container-->
+			<!--end::App Content-->
+		</main>
+		<!--end::App Main-->
+		<!--begin::Footer-->
+		<footer class="app-footer d-flex justify-content-center">
+    <strong>
+        Copyright © @DateTime.Now.Year, POS_System. All Rights Reserved.
+    </strong>
+</footer>
+		<!--end::Footer-->
+	</div>
+	<!--end::App Wrapper-->
+	<!--begin::Script-->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/dist/js/overlayscrollbars.browser.es6.min.js"></script>
+	<script src="~/dist/js/popper.min.js"></script>
+	<script src="~/dist/js/bootstrap.min.js"></script>
+	<script src="~/dist/js/adminlte.js"></script>
+	<script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+	<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+	<script src="~/lib/Chart.js/chart.umd.js"></script>
+	<script src="~/lib/select2/js/select2.min.js"></script>
+	<script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+	<script>
+		const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
+		const Default = {
+		  scrollbarTheme: 'os-theme-light',
+		  scrollbarAutoHide: 'leave',
+		  scrollbarClickScroll: true,
+		};
+		document.addEventListener('DOMContentLoaded', function () {
+		  const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+		  // Disable OverlayScrollbars on mobile devices to prevent touch interference
+		  const isMobile = window.innerWidth <= 992;
+		  if (
+			sidebarWrapper &&
+			OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined &&
+			!isMobile
+		  ) {
+			OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+			  scrollbars: {
+				theme: Default.scrollbarTheme,
+				autoHide: Default.scrollbarAutoHide,
+				clickScroll: Default.scrollbarClickScroll,
+			  },
+			});
+		  }
+		});
+	</script>
+	<!--end::OverlayScrollbars Configure-->
+	<!--end::Script-->
+	@await RenderSectionAsync("Scripts", required: false)
+	@RenderSection("Styles", required: false)
+	<script>
+		function applyTheme(theme) {
+			const body = document.body;
+			// 1. Daftar semua tema yang kamu miliki di CSS
+			const themes = ['theme-light', 'theme-dark', 'theme-green', 'theme-red', 'theme-orange'];
+			// 2. Hapus semua class tema lama agar tidak bentrok
+			themes.forEach(t => body.classList.remove(t));
+			// 3. Tambah class tema yang dipilih (pastikan lowercase)
+			const themeClass = `theme-${theme.toLowerCase()}`;
+			body.classList.add(themeClass);
+			// 4. Sinkronisasi dengan Bootstrap dark mode (AdminLTE 4)
+			const bsMode = (theme.toLowerCase() === 'dark') ? 'dark' : 'light';
+			body.setAttribute('data-bs-theme', bsMode);
+			// 5. Simpan ke LocalStorage agar saat refresh tidak hilang
+			localStorage.setItem("site-theme", theme.toLowerCase());
+		}
+		$(document).ready(function () {
+			// Load tema saat halaman dibuka
+			const savedTheme = localStorage.getItem("site-theme") || "light";
+			applyTheme(savedTheme);
+			$(".theme-option").click(function (e) {
+				e.preventDefault();
+				const selectedTheme = $(this).data("theme"); // mengambil dari data-theme="green" dst.
+				applyTheme(selectedTheme);
+				// Simpan ke server (Opsional)
+				$.post("/Theme/SaveTheme", { theme: selectedTheme });
+			});
+		});
+	</script>
+</body>
+</html>

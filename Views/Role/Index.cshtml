@@ -1,0 +1,109 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+@{
+	Layout = "_AdminLayout"; // Sesuaikan dengan layout Anda
+	ViewData["Title"] = "Role Management";
+}
+@* <h4 class="m-0 font-weight-bold text-primary">Manajemen Role</h4> *@
+<div align="right" class="mb-2">
+	<a asp-action="Create" class="btn btn-success btn-sm">
+		<i class="fa fa-plus"></i> Create New Role
+	</a>
+</div>
+@if (!Model.Any())
+{
+	<div class="alert alert-warning">
+		<i class="fa fa-exclamation-triangle"></i> Belum ada Role yang terdaftar.
+	</div>
+}
+else
+{
+	<table class="table table-bordered table-sm">
+		<thead class="table-header-custom">
+			<tr>
+				<th>ID Role</th>
+				<th class="text-center">Nama Role</th>
+				<th class="text-center">#</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var role in Model)
+			{
+				<tr>
+					<td>@role.Id</td>
+					<td class="text-center">@role.Name</td>
+					<td class="text-center">
+						@* Tombol Edit (Tautan ke halaman Edit, yang perlu Anda buat) *@
+						<a asp-action="Edit" asp-route-id="@role.Id" class="btn btn-info btn-sm">
+							<i class="fa fa-edit"></i> Edit
+						</a>
+						@* Tombol Delete *@
+						<form id="deleteForm_@role.Id" asp-action="Delete" method="post" asp-route-id="@role.Id" style="display:inline;">
+							<button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('@role.Id', '@role.Name')">
+								<i class="fa fa-trash"></i> Delete
+							</button>
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	@* <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
+	<script>
+			function confirmDelete(roleId, roleName) {
+				Swal.fire({
+					title: 'Yakin ingin menghapus?',
+					text: "Role '" + roleName + "' akan dihapus secara permanen!",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#d33',
+					cancelButtonColor: '#3085d6',
+					confirmButtonText: 'Ya, Hapus!',
+					cancelButtonText: 'Batal'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						// Jika user menekan 'Ya, Hapus!', submit form yang sesuai
+						document.getElementById('deleteForm_' + roleId).submit();
+					}
+				});
+			}
+			@if (TempData["SweetAlertSuccess"] != null)
+		{
+								<text>
+								Swal.fire({
+									icon: 'success',
+									title: 'Berhasil',
+									text: '@TempData["SweetAlertSuccess"]',
+									position: "top-end"
+								});
+								</text>
+		}
+				@if (TempData["SweetAlertError"] != null)
+			{
+										<text>
+										Swal.fire({
+											icon: 'success',
+											title: 'Berhasil',
+											text: '@TempData["SweetAlertSuccess"]',
+											position: "top-end"
+										});
+										</text>
+			}
+					 @if (TempData["SweetAlertWarning"] != null)
+				{
+												<text>
+												Swal.fire({
+													icon: 'success',
+													title: 'Berhasil',
+													text: '@TempData["SweetAlertSuccess"]',
+													position: "top-end"
+												});
+												</text>
+				}
+	</script>
+}

@@ -1,0 +1,40 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+    "libraries": [
+        {
+            "library": "font-awesome@6.4.0",
+            "destination": "wwwroot/lib/font-awesome/"
+        },
+        {
+            "library": "sweetalert2@11.23.0",
+            "destination": "wwwroot/lib/sweetalert2/"
+        },
+        {
+            "library": "select2@4.0.13",
+            "destination": "wwwroot/lib/select2/"
+        },
+        {
+            "library": "jqueryui@1.14.1",
+            "destination": "wwwroot/lib/jqueryui/"
+        },
+        {
+            "provider": "unpkg",
+            "library": "@microsoft/signalr@9.0.6",
+            "destination": "wwwroot/lib/microsoft/signalr/"
+        },
+        {
+            "library": "bootstrap-icons@1.13.1",
+            "destination": "wwwroot/bootstrap-icons/"
+        },
+        {
+            "library": "Chart.js@4.5.0",
+            "destination": "wwwroot/lib/Chart.js/"
+        },
+        {
+            "provider": "cdnjs",
+            "library": "bootstrap-icons@1.13.1",
+            "destination": "wwwroot/bootstrap-icons/"
+        }
+    ]
+}

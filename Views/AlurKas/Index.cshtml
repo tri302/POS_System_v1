@@ -1,0 +1,207 @@
+﻿@model POS_System.ViewModels.AlurKasIndexVm
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Alur Kas List";
+}
+<p align="right">
+    <button type="button" id="btnCreate" class="btn btn-sm btn-success">
+        <i class="fa fa-plus-square"></i> Create New
+    </button>
+</p>
+<div id="PartialSignalR">
+    @await Html.PartialAsync("_PartialIndexAlurKas", Model.Summary)
+</div>
+<div id="LoadDataContainer">
+    <table class="table table-striped mt-2">
+        <thead class="table-header-custom">
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Source</th>
+                <th>Amount</th>
+                <th class="text-center">#</th>
+            </tr>
+        </thead>
+        <tbody id="alurKasTableBody">
+            @if (Model.ListKas != null && Model.ListKas.Any())
+            {
+                foreach (var item in Model.ListKas)
+                {
+                    <tr>
+                        <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (item.TypeName == "Masuk")
+                            {
+                                <span class="text-success">
+                                    <i class="fas fa-check-circle"></i> @item.TypeName
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">
+                                    <i class="fas fa-times-circle"></i> @item.TypeName
+                                </span>
+                            }
+                        </td>
+                        <td>@item.SumberAlurKas</td>
+                        <td>@item.Amount.ToString("C0", new System.Globalization.CultureInfo("id-ID"))</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-primary btnEdit" data-id="@item.Id">
+                                <i class="fa fa-edit"></i> Edit
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center text-bg-danger">No records found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@{
+    // Definisikan jumlah tombol yang ingin ditampilkan di kedua sisi (misal: 4 di kiri, 5 di kanan, total 10 tombol)
+    int maxButtons = 10;
+    int pageNumber = Model.PageIndex; // Gunakan PageIndex yang benar
+    int totalPages = Model.TotalPages;
+    // Hitung halaman awal dan akhir yang akan ditampilkan
+    int startPage;
+    int endPage;
+    if (totalPages <= maxButtons)
+    {
+        // Jika total halaman kurang dari batas, tampilkan semua
+        startPage = 1;
+        endPage = totalPages;
+    }
+    else
+    {
+        // Jika total halaman lebih dari batas
+        int maxPagesToShow = maxButtons - 1; // 9 tombol lain + 1 tombol current = 10
+        int sidePages = maxPagesToShow / 2; // Misalnya 4 atau 5
+        if (pageNumber <= sidePages + 1)
+        {
+            // Jika di awal (tampilkan halaman 1 sampai batas)
+            startPage = 1;
+            endPage = maxButtons;
+        }
+        else if (pageNumber + sidePages >= totalPages)
+        {
+            // Jika di akhir (tampilkan batas terakhir)
+            startPage = totalPages - maxPagesToShow;
+            endPage = totalPages;
+        }
+        else
+        {
+            // Jika di tengah (tampilkan 4 ke kiri dan 5 ke kanan)
+            startPage = pageNumber - sidePages;
+            endPage = pageNumber + (maxPagesToShow - sidePages);
+        }
+    }
+}
+<div id="PagingContainer">
+    @* --- Paging Navigation --- *@
+    @if (Model != null && Model.TotalPages > 1)
+    {
+        <nav class="d-flex justify-content-center">
+            <ul class="pagination">
+                @* Tombol Previous *@
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <button class="page-btn page-link" data-page="@(pageNumber - 1)">Previous</button>
+                </li>
+                @* Tombol Angka (Dibatasi) *@
+                @for (var i = startPage; i <= endPage; i++)
+                {
+                    <li class="page-item @(i == pageNumber ? "active" : "")">
+                        <button class="page-btn page-link" data-page="@i">@i</button>
+                    </li>
+                }
+                @* Tombol Next *@
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <button class="page-btn page-link" data-page="@(pageNumber + 1)">Next</button>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
+<div id="ContainerModalCreate"></div>
+<div id="ContainerModalEdit"></div>
+@section Scripts {
+    <script src="~/js/alurkas.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+            $(document).ready(function() {
+                attachPagingListeners();
+            });
+        // Fungsi utama untuk memuat halaman via AJAX
+        function loadPage(pageNumber) {
+            // Tampilkan loading spinner (opsional)
+            $('#LoadDataContainer').html('<div class="text-center"><i class="fa fa-spinner fa-spin fa-3x"></i> Loading...</div>');
+            $('.pagination').hide();
+            $.ajax({
+                url: '@Url.Action("LoadPage", "AlurKas")',
+                type: 'GET',
+                data: {
+                    pageNumber: pageNumber
+                }, // Kirim nomor halaman
+                success: function(html) {
+                        var newTableContent = $(html).find('#LoadDataContainer').html();
+                        $('#LoadDataContainer').html(newTableContent);
+                        var newPagingContent = $(html).find('#PagingContainer').html();
+                        $('#PagingContainer').html(newPagingContent).show();
+                        attachPagingListeners();
+                        // Opsional: Tampilkan kembali pagination jika disembunyikan
+                        $('.pagination').show();
+                },
+                error: function(xhr, status, error) {
+                    // Tampilkan pesan error jika gagal
+                    alert("Error loading page: " + xhr.responseText);
+                    // Hapus spinner/tampilkan pesan error di container
+                    $('#LoadDataContainer').html('<div class="alert alert-danger text-center">Gagal memuat data. Silakan coba lagi.</div>');
+                }
+            });
+        }
+        // Fungsi untuk melampirkan/melampirkan ulang event listener ke tombol pagination
+        function attachPagingListeners() {
+            // Hapus listener sebelumnya sebelum melampirkan yang baru
+            $(document).off("click", ".page-btn").on("click", ".page-btn", function(e) {
+                e.preventDefault();
+                var targetPage = parseInt($(this).data("page"));
+                // Cek apakah tombol disable
+                if ($(this).parent().hasClass("disabled")) {
+                    return; // Jangan lakukan apa-apa jika disabled
+                }
+                loadPage(targetPage);
+            });
+        }
+        // Event Delegation: supaya tetap hidup walaupun tabel diganti via AJAX
+        $(document).off("click", ".btnEdit").on("click", ".btnEdit", function (e) {
+            e.preventDefault();
+            let id = $(this).data("id");
+            $.ajax({
+                url: '/AlurKas/Edit',
+                type: 'GET',
+                data: { id: id },
+                success: function (html) {
+                    $("#ContainerModalEdit").html(html);
+                    $("#ModalEdit").modal("show");
+                },
+                error: function (xhr) {
+                    alert("Gagal membuka form edit: " + xhr.responseText);
+                }
+            });
+        });
+    </script>
+    <script>
+            // Bersihkan backdrop jika modal ditutup menggunakan tombol data-bs-dismiss
+        $(document).on('hidden.bs.modal', '#ModalEdit', function () {
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open').css('overflow', '');
+            $("#ContainerModalEdit").html(""); // Mengosongkan container agar bersih
+        });
+    </script>
+}

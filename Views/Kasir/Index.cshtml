@@ -1,0 +1,202 @@
+﻿@using POS_System.Models
+@model POS_System.ViewModels.KasirIndexVm
+@{
+	Layout = "~/Views/Shared/_KasirLayout.cshtml";
+	ViewData["Title"] = "Halaman Kasir";	
+}
+<style>
+	.product-name {
+		max-width: 110px; /* Batasan lebar agar teks terpotong sekitar 10-12 karakter */
+		white-space: nowrap; /* Menjaga teks tetap dalam satu baris */
+		overflow: hidden; /* Menyembunyikan teks yang meluap */
+		text-overflow: ellipsis; /* Menambahkan titik-titik (...) jika terlalu panjang */
+		display: inline-block; /* Menggunakan inline-block agar max-width bekerja berdampingan dengan element lain */
+		font-weight: 600;
+		margin-bottom: 0rem; /* Diubah menjadi 0 agar sejajar secara vertikal */
+		cursor: default;
+	}
+		.product-name:hover {
+			cursor: help;
+		}
+	/* Tambahkan pembungkus scroll untuk keranjang belanja */
+	#cart-items {
+		max-height: 680px; /* Batasi tinggi maksimal keranjang (silakan sesuaikan nilainya) */
+		overflow-y: auto; /* Munculkan scroll vertikal jika item melebihi max-height */
+		overflow-x: hidden; /* Sembunyikan scroll horizontal */
+		padding-right: 5px; /* Beri sedikit jarak di kanan agar scrollbar tidak menutupi tombol */
+	}
+	/* Elemen penampung struk disembunyikan di layar monitor biasa */
+	#thermal-print-area {
+		display: none;
+	}
+	/* CSS Aturan Cetak (Hanya aktif saat printer dijalankan) */
+		@@media print {
+		/* Sembunyikan TOTAL seluruh elemen halaman kasir asli */
+		body *
+	{
+		visibility: hidden;
+	}
+	/* Tampilkan HANYA area struk beserta seluruh isinya */
+	#thermal-print-area, #thermal-print-area * {
+		visibility: visible;
+	}
+	/* Posisikan area struk di pojok kiri atas kertas printer */
+	#thermal-print-area {
+		display: block !important;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 76mm !important; /* Pas untuk kertas kasir 80mm */
+		margin: 0;
+		padding: 0;
+		font-family: 'Courier New', Courier, monospace;
+		font-size: 12px;
+		color: #000;
+	}
+	.receipt-line {
+		border-top: 1px dashed #000;
+		margin: 5px 0;
+		display: block !important;
+	}
+	}
+</style>
+<!-- Elemen kosong untuk menampung struk sementara -->
+<div id="thermal-print-area"></div>
+<div class="row">
+	<div class="col-md-7">
+		<div class="card mb-3">
+			<div class="card-body">
+				<div class="d-flex align-items-center gap-2">
+					<div class="position-relative flex-grow-1">
+						<i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2 text-muted"></i>
+						<input type="text" asp-for="CariProduk" id="searchInput"
+							   class="form-control ps-5"
+							   placeholder="Cari nama atau SKU produk..." />
+					</div>
+					<div class="position-relative flex-grow-1">
+						<i class="bi bi-upc-scan position-absolute top-50 start-0 translate-middle-y ms-2 text-muted"></i>
+						<input type="text" asp-for="ScanBarcode" id="barcodeInput"
+							   class="form-control ps-5"
+							   placeholder="Scan barcode..." />
+					</div>
+					<button type="button" id="BtnbarcodeInput"
+							class="btn btn-success d-flex align-items-center justify-content-center shadow-sm"
+							style="width: 48px; height: 48px; border-radius: 12px;">
+						<i class="bi bi-upc-scan fs-4"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="card mb-3">
+			<div class="card-body overflow-auto">
+				<div class="d-inline-flex gap-2" id="category-filter-container">
+					<button class="btn btn-outline-primary rounded-pill px-3 active category-filter-btn" data-category-id="">Semua</button>
+					<button class="btn btn-outline-primary rounded-pill px-3 category-filter-btn" data-category-id="1">Makanan Ringan</button>
+					<button class="btn btn-outline-primary rounded-pill px-3 category-filter-btn" data-category-id="3">Minuman</button>
+					<button class="btn btn-outline-primary rounded-pill px-3 category-filter-btn" data-category-id="4">Sembako</button>
+					<button class="btn btn-outline-primary rounded-pill px-3 category-filter-btn" data-category-id="5">Alat Tulis Kantor (ATK)</button>
+					<button class="btn btn-outline-primary rounded-pill px-3 category-filter-btn" data-category-id="6">Produk Kebersihan</button>
+				</div>
+			</div>
+		</div>
+		<div id="productListContainer" class="mb-2">
+			@await Html.PartialAsync("_ProductList", Model)
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div class="card shadow-sm border-0">
+			<div class="card-body">
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<h5 class="card-title fw-bold mb-0">Keranjang</h5>
+					<button class="btn btn-danger btn-sm" id="reset-cart">Reset</button>
+				</div>
+				<div id="cart-items" class="mb-3">
+				</div>
+				<div id="cart-empty-message" class="text-center">
+					<i class="bi bi-cart fs-1 text-muted"></i>
+					<h6 class="mt-2 mb-0">Keranjang Kosong</h6>
+					<p class="text-muted">Pilih produk untuk memulai</p>
+				</div>
+				<div id="cart-summary" class="d-none">
+					<div class="d-flex justify-content-between pt-2 border-top">
+						<strong>Total</strong>
+						<strong id="cart-total">Rp 0</strong>
+					</div>
+					<button class="btn w-100 text-white mt-3"
+							style="background: linear-gradient(to right, #28a745, #20c997); border-radius: 12px;"
+							data-bs-toggle="modal" data-bs-target="#checkoutModal" id="main-checkout-btn">
+						<i class="bi bi-cart-check me-2"></i> Checkout
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@* Modal Checkout *@
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="checkoutModalLabel">Detail Pembayaran</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row g-3 mb-3">
+					<div class="col-md-6">
+						<div class="p-3 text-white rounded shadow" style="background-color: #4a8dfd;">
+							<h6 class="mb-0">Total Belanja</h6>
+							<h3 id="modal-total-belanja" class="fw-bold mb-0">Rp 0</h3>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="p-3 text-white rounded shadow" style="background-color: #ff9800;">
+							<h6 class="mb-0">Kembalian</h6>
+							<h3 id="modal-kembalian" class="fw-bold mb-0">Rp 0</h3>
+						</div>
+					</div>
+				</div>
+				<form id="checkoutForm">
+					@Html.AntiForgeryToken()
+					<div class="mb-3">
+						<label for="customerName" class="form-label">Nama Customer</label>
+						<select asp-for="IdPelanggan" asp-items="ViewBag.PelangganList" id="customerNameSelect" class="form-control">
+						</select>
+						<span asp-validation-for="IdPelanggan" class="text-danger"></span>
+					</div>
+					<div class="mb-3">
+						<label for="nominalBayar" class="form-label">Nominal Bayar</label>
+						<input type="text" class="form-control" id="nominalBayar" placeholder="0">
+					</div>
+					<div class="mb-3 d-flex flex-wrap gap-2">
+						<button type="button" class="btn btn-outline-secondary quick-cash-btn" data-amount="10000">Rp 10.000</button>
+						<button type="button" class="btn btn-outline-secondary quick-cash-btn" data-amount="20000">Rp 20.000</button>
+						<button type="button" class="btn btn-outline-secondary quick-cash-btn" data-amount="50000">Rp 50.000</button>
+						<button type="button" class="btn btn-outline-secondary quick-cash-btn" data-amount="100000">Rp 100.000</button>
+						<button type="button" class="btn btn-outline-secondary quick-cash-btn" data-amount="200000">Rp 200.000</button>
+					</div>
+					<div class="mb-3">
+						<label for="paymentMethod" class="form-label">Pilih metode pembayaran</label>
+						<select asp-for="IdMetodeBayar" asp-items="ViewBag.MetodeBayarList" id="paymentMethodSelect" class="form-control">
+						</select>
+						<span asp-validation-for="IdMetodeBayar" class="text-danger"></span>
+					</div>
+					<div class="d-flex justify-content-between pt-3">
+						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+						<button type="submit" class="btn text-white" id="btn-bayar" style="background-color: #20c997;" disabled>Bayar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+@* Modal Checkout *@
+<iframe id="receiptFrame" style="display:none; width:0; height:0; border:none;"></iframe>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	<script>
+		var searchProductsUrl = '@Url.Action("SearchProducts", "Kasir")';
+	</script>
+	<script src="~/js/kasir.js"></script>
+}

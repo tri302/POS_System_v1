@@ -1,0 +1,49 @@
+﻿@model PengaturanToko
+@* This partial used for both Create and Edit. The form will post to Create or Edit action via AJAX. *@
+<form id="formPengaturanToko" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+    <div class="mb-3">
+        <label asp-for="NamaToko" class="form-label"></label>
+        <input asp-for="NamaToko" class="form-control" />
+        <span asp-validation-for="NamaToko" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AlamatToko" class="form-label"></label>
+        <textarea asp-for="AlamatToko" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="AlamatToko" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NomorTelepon" class="form-label"></label>
+        <input asp-for="NomorTelepon" class="form-control" />
+        <span asp-validation-for="NomorTelepon" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Logo Toko (jpg/png, max 2MB)</label>
+        <input type="file" name="LogoFile" id="LogoFile" class="form-control" accept=".jpg,.jpeg,.png" />
+        @if (!string.IsNullOrEmpty(Model.LogoToko))
+        {
+            <div class="mt-2">
+                <img src="@Model.LogoToko" style="height:60px; object-fit:contain;" />
+                <div class="form-check mt-1">
+                    <input class="form-check-input" type="checkbox" value="true" id="removeLogo" name="removeLogo" />
+                    <label class="form-check-label" for="removeLogo">Hapus logo lama</label>
+                </div>
+            </div>
+        }
+    </div>
+    @* <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="PrintViaBluetooth" name="PrintViaBluetooth" value="true" @(Model.PrintViaBluetooth ? "checked" : "") />
+        <label class="form-check-label" for="PrintViaBluetooth">Print Via Bluetooth</label>
+    </div>
+ *@
+    <div class="text-end">        
+        <button type="submit" class="btn btn-primary btn-sm" id="btnSave">
+            <i class="fa fa-solid fa-save"></i> Create
+        </button>
+        <button type="button" class="btn btn-sm btn-warning btn-close-modal" data-bs-dismiss="modal">Back to List</button>        
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

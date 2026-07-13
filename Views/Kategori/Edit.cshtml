@@ -1,0 +1,99 @@
+﻿@model POS_System.ViewModels.KategoriVm
+@{
+	//Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="modal" tabindex="-1" id="ModalEdit" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog">
+		<form asp-action="Edit" method="post">
+			<input type="hidden" asp-for="IdKategori" />
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">
+						<b>Edit Category</b>
+					</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+									<div class="form-group">
+										<label asp-for="NamaKategori" class="control-label"></label>
+										<input asp-for="NamaKategori" class="form-control" />
+										<span asp-validation-for="NamaKategori" class="text-danger"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-center">
+					<button type="submit" class="btn btn-primary btn-sm">
+						<i class="fa fa-edit"></i> Simpan Perubahan
+					</button>
+					<a asp-action="Index" class="btn btn-sm btn-warning">Back to List</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+	    // Anda harus menambahkan script ini jika belum ada
+	<script>
+		$(document).ready(function () {
+			// Intercept form submission di modal Create
+			$('#ModalEdit form').submit(function (e) {
+				e.preventDefault(); // Mencegah submit form bawaan
+				var form = $(this);
+				var url = form.attr('asp-action') || form.attr('action');
+				$.ajax({
+					url: url,
+					type: 'POST',
+					data: form.serialize(),
+					success: function (response) {
+						if (response.success === true) {
+							// Jika sukses, tampilkan SweetAlert Success dan tutup modal
+							Swal.fire({
+								icon: 'success',
+								title: 'Berhasil',
+								text: response.message,
+								position: "top-end"
+							});
+							$('#ModalCreate').modal('hide');
+							// Refresh data/tabel di Index
+							// Anda mungkin perlu memanggil fungsi refresh tabel di sini
+							// window.location.reload();
+						} else if (response.isWarning === true) {
+							// 🚨 Jika duplikasi (Warning), tampilkan SweetAlert Warning
+							Swal.fire({
+								icon: 'warning',
+								title: 'Peringatan',
+								text: response.message,
+								position: "top-end"
+							});
+						} else {
+							// Jika validasi Model State gagal, response adalah PartialView
+							// Ganti konten modal dengan Partial View yang dikembalikan (sudah berisi pesan validasi)
+							$('#ModalCreate .modal-content').html(response);
+							// Pasang kembali Unobtrusive Validation pada konten baru
+							$.validator.unobtrusive.parse(form);
+						}
+					},
+					error: function (xhr, status, error) {
+						Swal.fire({
+							icon: 'error',
+							title: 'Error!',
+							text: 'Terjadi kesalahan saat memproses data.',
+							position: "top-end"
+						});
+					}
+				});
+			});
+		});
+	</script>
+}
