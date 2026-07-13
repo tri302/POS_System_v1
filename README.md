@@ -130,5 +130,5 @@ Ikuti langkah-langkah teknis berikut untuk mendeploy aplikasi ini pada Internet 
 2. Di dalam Notepad, buka file *hosts* yang terletak di direktori: `C:\Windows\System32\drivers\etc\hosts` *(Ubah filter file di Notepad dari .txt menjadi All Files `*.*` agar file hosts terlihat)*.
 3. Tambahkan baris konfigurasi domain lokal berikut di bagian paling bawah file:
 ```text
-   127.0.0.1    [www.posappsv2.com](https://www.posappsv2.com)
-   127.0.0.1    posappsv2.com
+   127.0.0.1    [www.posapps.local.com](https://www.posapps.local.com)
+   127.0.0.1    posappsv.local.com
